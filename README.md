@@ -1,4 +1,4 @@
-Design choices:
+# Design choices:
 
 ### 1. Backend and frontend both run on the browser using a webassembly approach. I have two big reasons for this choice:
 1. I wanted the THING (better name to describe the project here) to run without any setup time for the user on the web, and webassembly allows that.
