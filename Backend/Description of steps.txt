@@ -1,0 +1,32 @@
+I want to integrate my C++ code seamlessly without having to run it as a server. So, I will have it run on browser natively and start using emscripten. Emscripten allows the user to communicate between C/C++ and JavaScript both ways, as well as take C/C++ and convert it into a WebAssembly that can run in a browser. To make a wasm, you first go to C:\Users\foolf\Desktop\emsdk, and open emcmdprompt.bat. Then, you compile the wasm (and js) file of the c++ code by calling 
+'emcc "..\projects\Qubit project\Backend\backend.cpp" -o "..\projects\Qubit project\Backend\backend.out.js"' in the newly opened terminal.
+ 
+You can add debug info by adding -v, add the output path (including the js output file) with -o (the wasm will follow the naming used by the js file), and do -O2 for an compiler optimized version of your code (usually best for a final version after all the debugging is done). 
+
+Javascript needs a virtual file path that emscripten provides. To add to the file path before you compile your js code, you add it between the file you want to compile to js and the output location of your js file, as so:
+emcc "..\projects\Qubit project\Backend\backend.cpp" --preload-file "..\projects\Qubit project\test.txt@/test.txt" -o "..\projects\Qubit project\Backend\backend.out.js". 
+
+To use embinding on a code, you add -lembind between your c++ input and js output, like so 
+'emcc "..\projects\Qubit project\Backend\backend.cpp" -lembind -o "..\projects\Qubit project\Backend\backend.out.js"' in the newly opened terminal.
+
+To read up on what embinding is, go here: https://emscripten.org/docs/porting/connecting_cpp_and_javascript/embind.html#embind
+Just know that it is necessary for the JS to call the C++ code (which we need because frontend calls backend).
+Adding our preloaded file would make it
+
+emcc "..\projects\Qubit project\Backend\backend.cpp" -lembind --preload-file "..\projects\Qubit project\test.txt@/test.txt" -o "..\projects\Qubit project\Backend\backend.out.js". 
+
+We would like our "module" to initialize in a clear Promise based manner, instead of the default asynchronous but unclear behavior using onRuntimeInitialized. In other words, we want to be able load our "module", and then use .then() or await to start running everything else. Our module is made of two things, a running instance of our .wasm file in the web browser, and emscriptens runtime framework that provides memory, filesystem support, and our exported bindings. We can make thisPromise based initialization with a emscripten compile time setting called MODULARIZE. It is important to note that the our bound c++ functions do not become asynchronous because of this, it only makes the initialization/loading step awaitable. Any actual function calls are synchronous unless you do other work to make them asynchronous (which I will likely not do). 
+Compiler settings can be set using -s, and the MODULARIZE setting is specifically -sMODULARIZE. So our code would become
+
+emcc "..\projects\Qubit project\Backend\backend.cpp" -lembind -sMODULARIZE -o "..\projects\Qubit project\Backend\backend.out.js". 
+
+Or if we still wanted to preload a file, we would write
+
+emcc "..\projects\Qubit project\Backend\backend.cpp" -lembind -sMODULARIZE --preload-file "..\projects\Qubit project\test.txt@/test.txt" -o "..\projects\Qubit project\Backend\backend.out.js". 
+
+We would also like the exported module to be in ES6 format in order to have a clean import ... from formating. To make our compiled js an ES6 export instead of the default UMD export, we set it directly by setting EXPORT_ES6=1. Additionally, if your output file has the extension .mjs, ES6 is enabled implicitly. Side note, exporting in ES6 will enable MODULARIZE by default if you didn't set it already, as stated here in the documentation: "MODULARIZE must be enabled for ES6 exports and is implicitly enabled if not already set".
+So, we can write our code as
+
+emcc "..\projects\Qubit project\Backend\backend.cpp" -lembind -sMODULARIZE -sEXPORT_ES6=1 -o "..\projects\Qubit project\Backend\backend.out.js". '
+
+We could choose to remove the modularize call, since -sEXPORT_ES6=1 would just set it automatically even if -sMODULARIZE wasn't there, but I will leave it there for maximum clarity. 
