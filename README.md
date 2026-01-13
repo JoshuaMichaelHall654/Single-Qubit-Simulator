@@ -1,3 +1,5 @@
+# What is this (replace this header with the name later)?
+
 # Design choices:
 
 ## 1. Backend and frontend both run on the browser using a webassembly approach. I have two big reasons for this choice:
