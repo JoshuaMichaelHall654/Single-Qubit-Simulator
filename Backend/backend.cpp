@@ -2,51 +2,33 @@
 #include <sys/stat.h>
 // include the enscripten library in order to use Embind. emcc will be able to
 // find it, even though vscode can not, so don't mind the squiggles.
-#include <emscripten/bind.h>
-
+// #include <emscripten/bind.h>
 #include <array>
+#include <complex>
 #include <filesystem>
 #include <iostream>
 #include <limits>
 #include <string>
 
+// Make global probability variables that hold the probability of the state
+// being in 0 and 1 after collapse from z basis measurement. Have them default
+// to negative 1 to signal something is wrong, as they can never be negative.
+double probZero = -1;
+double probOne = -1;
+// Make a global normalization factor squared. If its negative 1, there is an
+// issue.
+double sqrNormalization = -1;
 // Functions must be "prototyped" in C++ before main, or main will not recognize
 // them.
 int testJSFunctionality();
-
-// Function to check that a file exists in the path. Used because I dont know
-// how else to navigate the virtual file system.
-static void check_file(const char* path) {
-  struct stat st;
-  int rc = stat(path, &st);
-  if (rc == 0) {
-    printf("FOUND %s (size=%lld)\n", path, (long long)st.st_size);
-  } else {
-    printf("MISSING %s (errno=%d)\n", path, errno);
-  }
-}
-
+int checkNormalization(std::complex<double> alpha, std::complex<double> beta);
+int normalizeState(std::complex<double> alpha, std::complex<double> beta);
 int main() {
-  int num = testJSFunctionality();
-  /* How to use virtual files provided by emscripten below
-  std::cout << "cwd = " << std::filesystem::current_path() << std::endl;
-  std::cout.flush();
-  FILE* file = fopen("/test.txt", "rb");
-  if (!file) {
-    printf("cannot open file\n");
-    return 1;
+  if (checkNormalization(std::complex<double>(1, 2),
+                         std::complex<double>(2, 3)) == 0) {
+    normalizeState(std::complex<double>(1, 2), std::complex<double>(2, 3));
   }
-  while (!feof(file)) {
-    int c = fgetc(file);
-    if (c != EOF) {
-      std::cout.put(static_cast<char>(c));
-    }
-  }
-  fclose(file);
-  // So emscription doesnt have a fit from repeated cout. Needs to be endl or
-  // '\n' for transcompilation to js to work with the couts.
-  std::cout << std::endl;
-  */
+  std::cout << probZero << " and " << probOne << std::endl;
   return 0;
 }
 
@@ -62,11 +44,73 @@ int main() {
 //
 // Design note (for this project): keep the JS-facing surface small and expose
 // "essential" operations/data, while leaving the heavy QM math in C++.
-EMSCRIPTEN_BINDINGS(my_module) {
+/*EMSCRIPTEN_BINDINGS(my_module) {
   // Embind the function. First comes the name of the function as js will see
   // it, and second comes the reference to the actual function in your c++ code.
   emscripten::function("testJS", &testJSFunctionality);
-}
+}*/
 
 // The full function that exists for testing js integration
 int testJSFunctionality() { return 2 + 3; }
+
+// Every state must be normalized in order to properly measure it.
+// This method checks if the state is normalized. We return
+// 1 if that is true, 0 if false, -1 for an error.
+// Currently, alpha must be the amplitude of state |0>
+// and beta must be the amplitude of state |1>. This can be changed
+// be removing or redoing the probZero and probOne declarations below.
+int checkNormalization(std::complex<double> alpha, std::complex<double> beta) {
+  // The state is normalized if |a|^2 and |b|^2 both add to 1.
+  // We can know that |a|^2 = aa*, and you can calculate that faster than
+  // sqrt(b+ci)^2.
+  // Get the complex conjugate of a, which is just a with the imaginary value
+  // *-1.
+  std::complex<double> alphaConjugate(alpha.real(), -1 * alpha.imag());
+  // aa* is always real and non negative, so you should ignore any imaginary
+  // parts as those are likely floating point errors. Note, this does not mean
+  // you should not compute aa* fully, as you will get the wrong answer if
+  // you ignore the complex part in the multiplication.
+  double alphaMagSq = (alpha * alphaConjugate).real();
+  // Do the same thing for b
+  std::complex<double> betaConjugate(beta.real(), -1 * beta.imag());
+  double betaMagSq = (beta * betaConjugate).real();
+  // Now, check if they both add to one. First, save it as our normalization
+  // squared value to use it later. N^2 = |a|^2 + |b|^2
+  sqrNormalization = alphaMagSq + betaMagSq;
+  // Always save them in prob zero and one to avoid needing to recalculate them.
+  // The only difference is whether or not they need divided later on.
+  probZero = alphaMagSq;
+  probOne = betaMagSq;
+  // Finally, check if it equals 1 with epsillon comparison to avoid floating
+  // point errors causing a false negative
+  if (sqrNormalization - 1 < 0.0001) {
+    return 1;
+  }
+  // Otherwise return 0
+  return 0;
+}
+
+// Normalize the state using the values of probZero, probOne, and
+// sqrNormalization (the squared normalization factor). The normalized
+// amplitudes (i.e alpha/N) and the normalized probabilities (|alpha|^2/N^2) are
+// NOT the same! TODO check for unnecessary calculations and fix
+// sqrNormalization is zero error
+int normalizeState(std::complex<double> alpha, std::complex<double> beta) {
+  // First, check if sqrNormalization is zero. If it is, figure out a way to
+  // deal with this later TODO
+  if (sqrNormalization == 0) {
+    return -1;
+  }
+  // Next, divide each unnormalized probability to get their true probability
+  probOne = probOne / sqrNormalization;
+  probZero = probZero / sqrNormalization;
+  // Next, calculate the sqrt of the squared normalization factor to get the
+  // normalize amplitude factor.
+  double normAmpFactor = std::sqrt(sqrNormalization);
+  // Normalize alpha and beta
+  alpha = alpha / normAmpFactor;
+  beta = beta / normAmpFactor;
+  std::cout << alpha << " normalized and normalized " << beta << std::endl;
+  // Return zero to end the function
+  return 0;
+}
