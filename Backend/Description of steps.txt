@@ -15,18 +15,28 @@ Adding our preloaded file would make it
 
 emcc "..\projects\Qubit project\Backend\backend.cpp" -lembind --preload-file "..\projects\Qubit project\test.txt@/test.txt" -o "..\projects\Qubit project\Backend\backend.out.js". 
 
-We would like our "module" to initialize in a clear Promise based manner, instead of the default asynchronous but unclear behavior using onRuntimeInitialized. In other words, we want to be able load our "module", and then use .then() or await to start running everything else. Our module is made of two things, a running instance of our .wasm file in the web browser, and emscriptens runtime framework that provides memory, filesystem support, and our exported bindings. We can make thisPromise based initialization with a emscripten compile time setting called MODULARIZE. It is important to note that the our bound c++ functions do not become asynchronous because of this, it only makes the initialization/loading step awaitable. Any actual function calls are synchronous unless you do other work to make them asynchronous (which I will likely not do). 
-Compiler settings can be set using -s, and the MODULARIZE setting is specifically -sMODULARIZE. So our code would become
+We would like our "module" to initialize in a clear Promise based manner, instead of the default asynchronous but unclear behavior using onRuntimeInitialized. In other words, we want to be able load our "module", and then use .then() or await to start running everything else. Our module is made of two things, a running instance of our .wasm file in the web browser, and emscriptens runtime framework that provides memory, filesystem support, and our exported bindings. We can make this Promise based initialization with a emscripten compile time setting called MODULARIZE. It is important to note that the our bound c++ functions do not become asynchronous because of this, it only makes the initialization/loading step awaitable. Any actual function calls are synchronous unless you do other work to make them asynchronous (which I will likely not do). 
+Compiler settings can be set using -s, and the MODULARIZE setting is specifically -sMODULARIZE=1 (1 for on). So our code would become
 
-emcc "..\projects\Qubit project\Backend\backend.cpp" -lembind -sMODULARIZE -o "..\projects\Qubit project\Backend\backend.out.js". 
+emcc "..\projects\Qubit project\Backend\backend.cpp" -lembind -sMODULARIZE=1 -o "..\projects\Qubit project\Backend\backend.out.js". 
 
 Or if we still wanted to preload a file, we would write
 
-emcc "..\projects\Qubit project\Backend\backend.cpp" -lembind -sMODULARIZE --preload-file "..\projects\Qubit project\test.txt@/test.txt" -o "..\projects\Qubit project\Backend\backend.out.js". 
+emcc "..\projects\Qubit project\Backend\backend.cpp" -lembind -sMODULARIZE=1 --preload-file "..\projects\Qubit project\test.txt@/test.txt" -o "..\projects\Qubit project\Backend\backend.out.js". 
 
-We would also like the exported module to be in ES6 format in order to have a clean import ... from formating. To make our compiled js an ES6 export instead of the default UMD export, we set it directly by setting EXPORT_ES6=1. Additionally, if your output file has the extension .mjs, ES6 is enabled implicitly. Side note, exporting in ES6 will enable MODULARIZE by default if you didn't set it already, as stated here in the documentation: "MODULARIZE must be enabled for ES6 exports and is implicitly enabled if not already set".
+We would also like the exported module to be in ES6 format in order to have a clean import ... from formatting. To make our compiled js an ES6 export instead of the default UMD export, we set it directly by setting EXPORT_ES6=1. Additionally, if your output file has the extension .mjs, ES6 is enabled implicitly. Side note, exporting in ES6 will enable MODULARIZE by default if you didn't set it already, as stated here in the documentation: "MODULARIZE must be enabled for ES6 exports and is implicitly enabled if not already set".
 So, we can write our code as
 
-emcc "..\projects\Qubit project\Backend\backend.cpp" -lembind -sMODULARIZE -sEXPORT_ES6=1 -o "..\projects\Qubit project\Backend\backend.out.js". '
+emcc "..\projects\Qubit project\Backend\backend.cpp" -lembind -sMODULARIZE=1 -sEXPORT_ES6=1 -o "..\projects\Qubit project\Backend\backend.out.js". '
 
 We could choose to remove the modularize call, since -sEXPORT_ES6=1 would just set it automatically even if -sMODULARIZE wasn't there, but I will leave it there for maximum clarity. 
+
+We may also want to rename the Emscripten module factory function (default name: Module). The compile setting EXPORT_NAME changes that factory/global export name. This isn’t very relevant for us right now because with an ES6 default export we can import the factory under any local name we want.
+It becomes more relevant in less structured environments (e.g., loading via a plain <script> tag, or having multiple Emscripten-generated builds sharing a global scope where Module would collide).
+For clarity (and occasional debugging), we can still set a descriptive name.
+
+emcc "..\projects\Qubit project\Backend\backend.cpp" -lembind -sMODULARIZE=1 -sEXPORT_ES6=1 -sEXPORT_NAME=bigBreakModule -o "..\projects\Qubit project\Backend\backend.out.js".
+
+
+Some extra notes:
+On name mangling of C++: The documentation mentions C++ coders using emscripten should wrap their code in extern C to avoid "name mangling". This is not relevant to us, because we are using embind and naming the function directly, i.e.emscripten::function("testJS", &testJSFunctionality); (the name within "" is the direct naming).
