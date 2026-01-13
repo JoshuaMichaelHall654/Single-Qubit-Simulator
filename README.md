@@ -19,6 +19,6 @@ integrating C++ and Javascript through webassembly. Additionally, it was rather 
 ```bash
 emcc "..\projects\Qubit project\Backend\backend.cpp" -lembind -sMODULARIZE=1 -sEXPORT_ES6=1 -sEXPORT_NAME=bigBreakModule -o "..\projects\Qubit project\Frontend\qubit-frontend\src\compiledBackend\backend.out.js"
 
-If you would like to do this compilation yourself, you will need to install emscripten as the documentation describes here: https://emscripten.org/docs/getting_started/downloads.html. The compilation was done on a windows device, hence the \ instead of /.
+If you would like to do this compilation yourself, you will need to install emscripten as the documentation describes here: https://emscripten.org/docs/getting_started/downloads.html. The compilation was done on a windows device, hence the \ instead of /. ```
 
 ## You can compile the react code using:
