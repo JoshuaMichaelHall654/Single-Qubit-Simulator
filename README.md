@@ -11,9 +11,9 @@ These operators include quantum gate operators as well as the Pauli spin* and ro
 N/A
 ### Planned:
    - Hadamard Gate (H)
+   - Identity Gate (I) (for mathematical consistency)
    - Pauli Gates/Spin Matricies ((\(\sigma _{x},\sigma _{y},\sigma _{z}\))
    - Rotation Gates (Pauli Rotation Matricies) (\(R_{i}(\theta )\))
-   - Identity Gate (I) (for consistency)
 
 # Why doesn't this include multi-qubit states and gates?
 Time constraints
@@ -29,10 +29,10 @@ Time constraints
 
 In the future, I may switch over to using a server over webassembly, mostly for speed reasons, but for now, webassembly will have to do.
 
-## 2. I used emscripten (https://emscripten.org/index.html) to create the webassembly. 
+## 2. Emscripten (https://emscripten.org/index.html) to create the webassembly. 
 
 I did this mostly because emscripten was the first thing I could find that mentioned integrating C++ and Javascript through webassembly. Additionally, it was rather easy to use thanks to robust documentation.
-
+Could mention some other benefits from its use here.
 # How to compile.
 
 ## The terminal command used to compile the C++ code to the .js and .wasm files was:
