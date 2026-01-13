@@ -10,11 +10,17 @@ These operators include quantum gate operators as well as the Pauli spin* and ro
 ### Implemented:
 N/A
 ### Planned:
+   - Normalization Enforcement
+   - Normalizing for the user (make sure this makes sense)
    - Hadamard Gate (H)
    - Identity Gate (I) (for mathematical consistency)
+   - Measurement (calculating probabilities)
    - Pauli Gates/Spin Matricies ((\(\sigma _{x},\sigma _{y},\sigma _{z}\))
    - Rotation Gates (Pauli Rotation Matricies) (\(R_{i}(\theta )\))
-
+   - Phase Gates S (90 degrees rotation around Z) and T (45 degrees rotation around Z)
+   - Bloch Sphere Representation. Either:
+        - Simple coordinates in text (X,Y,Z)
+        - Or if time: actual 3D rendering
 # Why doesn't this include multi-qubit states and gates?
 Time constraints
 
