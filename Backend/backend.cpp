@@ -10,25 +10,13 @@
 #include <limits>
 #include <string>
 
-// Make global probability variables that hold the probability of the state
-// being in 0 and 1 after collapse from z basis measurement. Have them default
-// to negative 1 to signal something is wrong, as they can never be negative.
-double probZero = -1;
-double probOne = -1;
-// Make a global normalization factor squared. If its negative 1, there is an
-// issue.
-double sqrNormalization = -1;
 // Functions must be "prototyped" in C++ before main, or main will not recognize
 // them.
 int testJSFunctionality();
-int checkNormalization(std::complex<double> alpha, std::complex<double> beta);
 int normalizeState(std::complex<double> alpha, std::complex<double> beta);
 int main() {
-  if (checkNormalization(std::complex<double>(1, 2),
-                         std::complex<double>(2, 3)) == 0) {
-    normalizeState(std::complex<double>(1, 2), std::complex<double>(2, 3));
-  }
-  std::cout << probZero << " and " << probOne << std::endl;
+  normalizeState(std::complex<double>(1, 2), std::complex<double>(2, 3));
+
   return 0;
 }
 
@@ -52,43 +40,6 @@ int main() {
 
 // The full function that exists for testing js integration
 int testJSFunctionality() { return 2 + 3; }
-
-// Every state must be normalized in order to properly measure it.
-// This method checks if the state is normalized. We return
-// 1 if that is true, 0 if false, -1 for an error.
-// Currently, alpha must be the amplitude of state |0>
-// and beta must be the amplitude of state |1>. This can be changed
-// be removing or redoing the probZero and probOne declarations below.
-int checkNormalization(std::complex<double> alpha, std::complex<double> beta) {
-  // The state is normalized if |a|^2 and |b|^2 both add to 1.
-  // We can know that |a|^2 = aa*, and you can calculate that faster than
-  // sqrt(b+ci)^2.
-  // Get the complex conjugate of a, which is just a with the imaginary value
-  // *-1.
-  std::complex<double> alphaConjugate(alpha.real(), -1 * alpha.imag());
-  // aa* is always real and non negative, so you should ignore any imaginary
-  // parts as those are likely floating point errors. Note, this does not mean
-  // you should not compute aa* fully, as you will get the wrong answer if
-  // you ignore the complex part in the multiplication.
-  double alphaMagSq = (alpha * alphaConjugate).real();
-  // Do the same thing for b
-  std::complex<double> betaConjugate(beta.real(), -1 * beta.imag());
-  double betaMagSq = (beta * betaConjugate).real();
-  // Now, check if they both add to one. First, save it as our normalization
-  // squared value to use it later. N^2 = |a|^2 + |b|^2
-  sqrNormalization = alphaMagSq + betaMagSq;
-  // Always save them in prob zero and one to avoid needing to recalculate them.
-  // The only difference is whether or not they need divided later on.
-  probZero = alphaMagSq;
-  probOne = betaMagSq;
-  // Finally, check if it equals 1 with epsillon comparison to avoid floating
-  // point errors causing a false negative
-  if (sqrNormalization - 1 < 0.0001) {
-    return 1;
-  }
-  // Otherwise return 0
-  return 0;
-}
 
 // Normalize the state using the values of probZero, probOne, and
 // sqrNormalization (the squared normalization factor). The normalized

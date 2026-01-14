@@ -1,9 +1,13 @@
 import { useState, useRef } from "react";
 import "./App.css";
 import { Button, Container, Form, Row } from "react-bootstrap";
+import { complex, multiply, abs, evaluate, parse } from "mathjs";
+import { checkNormalization, validateInput } from "./compute";
+
 // Import the module from the .js file. The .js file then calls the compiled .wasm file
 // for the actual calculations.
 import backendModule from "./compiledBackend/backend.out";
+
 /* On reference (uncontrolled) vs state (controlled) text:
  * State variables are common for user input text in react. While it is true that state variables for user text
  * makes each keystroke a rerender, this is a very inexpensive rerender. Remember that React rerenders
@@ -26,15 +30,47 @@ import backendModule from "./compiledBackend/backend.out";
 /* TLDR: Prefer controlled (state) inputs when the UI needs to react as the user types.
  * Use uncontrolled inputs/refs when you only need the value at specific times (submit/blur) or for imperative actions. */
 
-// Instantiate the module using our import. Must be done outside of the actual function to
-// use await
+// Create a backendModule instance from our backendModule module/package.
+// Must be done outside of a function to use await
 const backend = await backendModule();
 
+// Create a global sqrNormalization value (N^2)
+let sqrNormalization = -1.0;
+
+// Make global probability variables that hold the probability of the state
+// being in 0 and 1 after collapse from z basis measurement. Have them default
+// to negative 1 to signal something is wrong, as they can never be negative.
+let probZero = -1.0;
+let probOne = -1.0;
+
 function App() {
-  const [num, setNum] = useState(0);
-  const [email, setEmail] = useState({});
+  // The "raw" text of the inputs. Since the users can type anything,
+  // we have to make sure the values are safe before working with them.
+  const [rawAlpha, setRawAlpha] = useState("");
+  const [rawBeta, setRawBeta] = useState("");
+
+  // Validate input returns an error message when the input is invalid.
+  // If its empty, the input is valid, and so nothing is displayed
+  // TODO, make this memoized, add bolding to the error if possible
+  const THRESHOLD_MS = 0.01;
+
+  const t0 = performance.now();
+  const validationErrorAlpha = validateInput(rawAlpha) ?? "";
+  const dt = performance.now() - t0;
+
+  if (dt > THRESHOLD_MS) {
+    console.log(`validateInput took ${dt.toFixed(3)} ms`);
+  }
+  const validationErrorBeta = validateInput(rawBeta) ?? "";
+
+  // Should be false:
+  const test = complex(0.6001, 0);
+  const test1 = complex(0.7999, 0);
+  /*console.log(
+    checkNormalization(test, test1, sqrNormalization, probZero, probOne)
+  );*/
   // Run .testJS and you will see that it does work!
-  console.log(backend.testJS());
+  //console.log(backend.testJS());
   return (
     <>
       {/**Place everything inside a container with a row for responsive design */}
@@ -70,20 +106,40 @@ function App() {
               className="mb-3"
               controlId="this is for accessibility, i.e. screen readers"
             >
-              <Form.Label>This is the label for the form</Form.Label>
+              <Form.Label>Input the amplitude for |0⟩ here"</Form.Label>
               <Form.Control
                 type="email"
-                placeholder="This is the underlying, slightly transparent text in the background of the form"
+                placeholder="Put alpha here!"
                 //Form control is the text field. So, it contains what the user writes! You can set
                 //a reference to the object (that contains the text) using ref or set it reactively using onChange.
                 //See an above comment on reference vs state text above.
                 onChange={(eventObject) => {
                   // Get the text located in the target event object only if it has a value. Otherwise,
                   // its set to an empty string
-                  setEmail(eventObject.target?.value);
+                  setRawAlpha(eventObject.target?.value);
                 }}
               />
-              <Form.Text>This is the actual text under the form</Form.Text>
+              {/*Display the validation error if there is one.*/}
+              <Form.Text>{validationErrorAlpha}</Form.Text>
+            </Form.Group>
+            <Form.Group
+              className="mb-3"
+              controlId="this is for accessibility, i.e. screen readers1"
+            >
+              <Form.Label>Input the amplitude for state |1⟩ here"</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Put beta here!"
+                //Form control is the text field. So, it contains what the user writes! You can set
+                //a reference to the object (that contains the text) using ref or set it reactively using onChange.
+                //See an above comment on reference vs state text above.
+                onChange={(eventObject) => {
+                  // Get the text located in the target event object only if it has a value. Otherwise,
+                  // its set to an empty string
+                  setRawBeta(eventObject.target?.value);
+                }}
+              />
+              <Form.Text>{validationErrorBeta}</Form.Text>
             </Form.Group>
             <Button
               onClick={() => {
