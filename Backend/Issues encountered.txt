@@ -1,4 +1,4 @@
 1/13/2026:
 Normalization confusion
 How to store and work with complex numbers
-How to store variables we need (normalization, alpha, beta, prob one and two)
+How to store variables we need (normalization, alpha, beta, prob one and two).
