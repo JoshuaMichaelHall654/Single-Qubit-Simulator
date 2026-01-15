@@ -1,8 +1,8 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./App.css";
-import { Button, Container, Form, Row } from "react-bootstrap";
+import { Button, Container, Form, Row, Col, Dropdown } from "react-bootstrap";
 import { complex, multiply, abs, evaluate, parse } from "mathjs";
-import { checkNormalization, validateInput } from "./compute";
+import { checkNormalizationHelper, validateInput } from "./compute";
 
 // Import the module from the .js file. The .js file then calls the compiled .wasm file
 // for the actual calculations.
@@ -94,26 +94,72 @@ function App() {
   const [rawAlpha, setRawAlpha] = useState("");
   const [rawBeta, setRawBeta] = useState("");
 
+  // True for add false for subtract
+  const [addOrSubt, setAddOrSubt] = useState(true);
+
+  // Make a constant for if its normalized or not
+  const [normalized, setNormalized] = useState("");
+
+  const handleChangeToSum = (event) => {
+    // event.target.value returns a string. in this case "true" or "false".
+    // Since we want addOrSubt to be booleans, we can just evaluate if the .value
+    // is the string true. If it is, addOrSubt becomes true as intented.
+    // If not (because its "false"), it becomes false.
+    setAddOrSubt(event.target.value === "true");
+  };
+
   // Validate input returns an error message when the input is invalid.
   // If its empty, the input is valid, and so nothing is displayed
-  // Add bolding to the error if possible
-  const THRESHOLD_MS = 0.1;
-
-  const t0 = performance.now();
   const validationErrorAlpha = validateInput(rawAlpha) ?? "";
-  const dt = performance.now() - t0;
-
-  if (dt > THRESHOLD_MS) {
-    console.log(`validateInput took ${dt.toFixed(3)} ms`);
-  }
   const validationErrorBeta = validateInput(rawBeta) ?? "";
 
-  // Should be false:
-  const test = complex(0.6001, 0);
-  const test1 = complex(0.7999, 0);
-  /*console.log(
-    checkNormalization(test, test1, sqrNormalization, probZero, probOne)
-  );*/
+  const delayMs = 300;
+  // Debounce aka wait a certain amount of time before taking the user input and checking their normalization.
+  useEffect(() => {
+    // Reset normalized to empty everytime the user types.
+    setNormalized("");
+    const id = setTimeout(() => {
+      // In here is what we want to happen after typing stops.
+      // If both inputs are validated (aka have error number 0) AND both
+      // inputs have values, call check normalization
+      const inputValidated =
+        validationErrorAlpha.errorNumber === 0 &&
+        validationErrorBeta.errorNumber === 0;
+      if (inputValidated && rawAlpha !== "" && rawBeta !== "") {
+        // First, evaluate the raw values. We can do it now because
+        // this code will hopefully run way less than rawAlpha and Beta
+        // will change (which evaluating on every change to values
+        // would be very expensive).
+        console.time("yo whatup");
+        let evalAlpha = evaluate(rawAlpha);
+        let evalBeta = evaluate(rawBeta);
+
+        // If the user is subtracting by beta, multiply beta by negative one
+        if (addOrSubt === false) {
+          evalBeta = evalBeta * -1;
+        }
+        const result = checkNormalizationHelper(evalAlpha, evalBeta);
+        console.timeEnd("yo whatup");
+
+        // Save prob zero, one and sqrNormalization
+        probZero = result.alphaProb;
+        probOne = result.betaProb;
+        sqrNormalization = result.sqrNorm;
+
+        // Finally, check if it equals 1 with epsillon comparison to avoid floating
+        // point errors causing a false negative. Using 10^-9 as epsilon for now.
+        if (abs(sqrNormalization - 1) < 0.00000000001) {
+          setNormalized("normalized");
+        }
+        // Otherwise its false
+        else {
+          setNormalized("not normalized");
+        }
+      }
+    }, delayMs);
+    return () => clearTimeout(id);
+  }, [rawAlpha, rawBeta, addOrSubt]);
+
   // Run .testJS and you will see that it does work!
   //console.log(backend.testJS());
   return (
@@ -145,56 +191,81 @@ function App() {
           >
             Test
           </Button>
-          {/**The overall form component*/}
-          <Form>
-            {/**The component its contained within */}
-            <Form.Group
-              className="mb-3"
-              controlId="this is for accessibility, i.e. screen readers"
-            >
-              <Form.Label>Input the amplitude for |0⟩ here"</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Put alpha here!"
-                //Form control is the text field. So, it contains what the user writes! You can set
-                //a reference to the object (that contains the text) using ref or set it reactively using onChange.
-                //See an above comment on reference vs state text above.
-                onChange={(eventObject) => {
-                  // Get the text located in the target event object only if it has a value. Otherwise,
-                  // its set to an empty string
-                  setRawAlpha(eventObject.target?.value);
+        </Row>
+        {/**The overall form component*/}
+        <Form>
+          {/*Rows should go inside forms. In react bootstrap, rows have their own spacing
+           system different from column gap of flex. TODO figure this out tommorow*/}
+          <Row className="g-5 justify-content-center">
+            {/*Alpha text input*/}
+            <Col xs="auto">
+              {/**The individual component grouping of each form */}
+              <Form.Group controlId="I have no idea what goes here">
+                <Form.Label>Input the amplitude for |0⟩ here</Form.Label>
+                <Form.Control
+                  placeholder="Put alpha here!"
+                  //Form control is the text field. So, it contains what the user writes! You can set
+                  //a reference to the object (that contains the text) using ref or set it reactively using onChange.
+                  //See an above comment on reference vs state text above.
+                  onChange={(eventObject) => {
+                    // Get the text located in the target event object only if it has a value. Otherwise,
+                    // its set to an empty string
+                    setRawAlpha(eventObject.target?.value);
+                  }}
+                />
+                {/*Display the validation error if there is one.*/}
+                <Form.Text>{renderInputError(validationErrorAlpha)}</Form.Text>
+              </Form.Group>
+            </Col>
+            {/*+ or - selector*/}
+            <Col xs="auto">
+              {/*TODO, confirm this role has proper accessibility. */}
+              <Form.Group controlId="formGridState">
+                <Form.Label>Choose plus or minus</Form.Label>
+                <Form.Select value={addOrSubt} onChange={handleChangeToSum}>
+                  <option value={true}>+</option>
+                  <option value={false}>-</option>
+                </Form.Select>
+              </Form.Group>
+            </Col>
+            {/*Beta text input*/}
+            <Col xs="auto">
+              <Form.Group controlId="formGridStae">
+                <Form.Label>Input the amplitude for state |1⟩ here</Form.Label>
+                <Form.Control
+                  placeholder="Put beta here!"
+                  //Form control is the text field. So, it contains what the user writes! You can set
+                  //a reference to the object (that contains the text) using ref or set it reactively using onChange.
+                  //See an above comment on reference vs state text above.
+                  onChange={(eventObject) => {
+                    // Get the text located in the target event object only if it has a value. Otherwise,
+                    // its set to an empty string
+                    setRawBeta(eventObject.target?.value);
+                  }}
+                />
+                <Form.Text>{renderInputError(validationErrorBeta)}</Form.Text>
+              </Form.Group>
+            </Col>
+          </Row>
+        </Form>
+        <Row>
+          {/*If normalized not calculated (empty), display nothing. Otherwise, display
+        whether the state is normalized or not. */}
+          <>
+            {normalized === "" ? null : <Col> Your state is {normalized}.</Col>}
+          </>
+          {/*If its not normalized (and only then), display a normalize for me button */}
+          {normalized === "not normalized" ? (
+            <Col>
+              <Button
+                onClick={() => {
+                  console.log("test");
                 }}
-              />
-              {/*Display the validation error if there is one.*/}
-              <Form.Text>{renderInputError(validationErrorAlpha)}</Form.Text>
-            </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="this is for accessibility, i.e. screen readers1"
-            >
-              <Form.Label>Input the amplitude for state |1⟩ here"</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Put beta here!"
-                //Form control is the text field. So, it contains what the user writes! You can set
-                //a reference to the object (that contains the text) using ref or set it reactively using onChange.
-                //See an above comment on reference vs state text above.
-                onChange={(eventObject) => {
-                  // Get the text located in the target event object only if it has a value. Otherwise,
-                  // its set to an empty string
-                  setRawBeta(eventObject.target?.value);
-                }}
-              />
-              <Form.Text>{renderInputError(validationErrorBeta)}</Form.Text>
-            </Form.Group>
-            <Button
-              onClick={() => {
-                console.log(email);
-              }}
-            >
-              Submit
-            </Button>
-          </Form>
+              >
+                Normalize for me.
+              </Button>
+            </Col>
+          ) : null}
         </Row>
       </Container>
     </>
