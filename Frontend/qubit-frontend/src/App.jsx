@@ -43,6 +43,51 @@ let sqrNormalization = -1.0;
 let probZero = -1.0;
 let probOne = -1.0;
 
+// Have a function that returns jsx to the return
+function renderInputError(err) {
+  // If there is no error, return nothing
+  if (!err) {
+    return null;
+  }
+  switch (err.errorNumber) {
+    case 1:
+      // Return the jsx, which has regular text not in quotes (not a string), and javascript
+      // functions wrapped in braces. Make sure to include {" "} to prevent react from collapsing the space
+      // between the colon and the errors name.
+      return (
+        <>
+          Illegal expression detected. Not all mathematics is supported by the
+          program at this time. Please remove: <strong>{err.name}</strong>.
+        </>
+      );
+    case 2:
+      return (
+        <>
+          A disallowed symbol has been detected. Single Qubit Simualtator does
+          not support variables. Please remove or rewrite:{" "}
+          <strong>{err.name}</strong>.
+        </>
+      );
+    case 3:
+      return (
+        <>
+          Function <strong>{err.name}</strong> is not allowed.
+        </>
+      );
+    case 4:
+      return (
+        <>
+          Function <strong>{err.name}</strong> has too many or too few
+          arguments.
+        </>
+      );
+    case 5:
+      return <> Unfinished Expression detected </>;
+    default:
+      return;
+  }
+}
+
 function App() {
   // The "raw" text of the inputs. Since the users can type anything,
   // we have to make sure the values are safe before working with them.
@@ -51,8 +96,8 @@ function App() {
 
   // Validate input returns an error message when the input is invalid.
   // If its empty, the input is valid, and so nothing is displayed
-  // TODO, make this memoized, add bolding to the error if possible
-  const THRESHOLD_MS = 0.01;
+  // Add bolding to the error if possible
+  const THRESHOLD_MS = 0.1;
 
   const t0 = performance.now();
   const validationErrorAlpha = validateInput(rawAlpha) ?? "";
@@ -75,6 +120,7 @@ function App() {
     <>
       {/**Place everything inside a container with a row for responsive design */}
       <Container>
+        {/*TODO add different sizes for different screens, somewhere */}
         <Row>
           <div>
             <p>Hello</p>
@@ -120,7 +166,7 @@ function App() {
                 }}
               />
               {/*Display the validation error if there is one.*/}
-              <Form.Text>{validationErrorAlpha}</Form.Text>
+              <Form.Text>{renderInputError(validationErrorAlpha)}</Form.Text>
             </Form.Group>
             <Form.Group
               className="mb-3"
@@ -139,7 +185,7 @@ function App() {
                   setRawBeta(eventObject.target?.value);
                 }}
               />
-              <Form.Text>{validationErrorBeta}</Form.Text>
+              <Form.Text>{renderInputError(validationErrorBeta)}</Form.Text>
             </Form.Group>
             <Button
               onClick={() => {

@@ -1,1 +1,7 @@
-Text validation using math.parse. Math.parse takes any expression and makes it into a detailed tree, where each node represents a node type and the value. For example, it breaks up the expression (3 * 4) into a tree that looks something like: 3 (constant), * (expression), 4 (constant). Using math.parse allows me to include certain values while excluding others, all without having to write my own parsing logic.
+Text validation using math.parse: Math.parse takes any expression and makes it into a detailed tree, where each node represents a node type and the value. For example, it breaks up the expression (3 * 4) into a tree that looks something like: 3 (constant), * (expression), 4 (constant). Using math.parse allows me to include certain values while excluding others, all without having to write my own parsing logic.
+
+
+Challenges faced: It was hard to figure out the node structure of the tree and how to deal with functions (i.e. cos) being symbols and functions when I wanted to remove all "symbols" (i.e. x, y). Resolved by using a list of acceptable values and carefully checking if a symbol was a function symbol by checking that the parent was a function node and that the path was a function (fn).
+
+I originally had the validate input function return the exact error type and the text that was a problem as one full string to the app. So I could give feedback to the user on why their input wasn't accepted. However, both pieces of information being one string meant I couldn't do any styling on only or the other. To fix this, I 
+It didn't affect performance because
