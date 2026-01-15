@@ -8,10 +8,9 @@ These operators include quantum gate operators as well as the Pauli spin* and ro
 *Note that just because they are called "Pauli spin", that does not mean they can only be used on systems with spin. They can be used on any two level quantum system.
 ## Feature Status:
 ### Implemented:
-N/A
+- Reactive normalization check - user can not apply gates or measure without their state being normalized
 ### Planned:
 #### UI/UX and standard QM 
-- Reactive normalization check - user can not apply gates or measure without their state being normalized
   - "Normalize For Me" button - allow the user to let the simulator normalize for them. Don't want to auto normalize just in case the user made a typo
 - "Reset to Starting State" button - if the user applied too many gates, they can start over from the beginning
 - "Undo Last Transformation" button - undo only the last thing applied. Can only be done once for scope creep reasons
