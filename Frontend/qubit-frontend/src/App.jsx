@@ -1,7 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import "./App.css";
-import { Button, Container, Form, Row, Col, Dropdown } from "react-bootstrap";
-import { complex, multiply, abs, evaluate, parse } from "mathjs";
+import "katex/dist/katex.min.css";
+import { InlineMath } from "react-katex";
+import { Button, Container, Form, Row, Col, InputGroup } from "react-bootstrap";
+import { abs, evaluate } from "mathjs";
 import { checkNormalizationHelper, validateInput } from "./compute";
 
 // Import the module from the .js file. The .js file then calls the compiled .wasm file
@@ -115,50 +117,55 @@ function App() {
 
   const delayMs = 300;
   // Debounce aka wait a certain amount of time before taking the user input and checking their normalization.
-  useEffect(() => {
-    // Reset normalized to empty everytime the user types.
-    setNormalized("");
-    const id = setTimeout(() => {
-      // In here is what we want to happen after typing stops.
-      // If both inputs are validated (aka have error number 0) AND both
-      // inputs have values, call check normalization
-      const inputValidated =
-        validationErrorAlpha.errorNumber === 0 &&
-        validationErrorBeta.errorNumber === 0;
-      if (inputValidated && rawAlpha !== "" && rawBeta !== "") {
-        // First, evaluate the raw values. We can do it now because
-        // this code will hopefully run way less than rawAlpha and Beta
-        // will change (which evaluating on every change to values
-        // would be very expensive).
-        console.time("yo whatup");
-        let evalAlpha = evaluate(rawAlpha);
-        let evalBeta = evaluate(rawBeta);
+  useEffect(
+    () => {
+      // Reset normalized to empty everytime the user types.
+      setNormalized("");
+      const id = setTimeout(() => {
+        // In here is what we want to happen after typing stops.
+        // If both inputs are validated (aka have error number 0) AND both
+        // inputs have values, call check normalization
+        const inputValidated =
+          validationErrorAlpha.errorNumber === 0 &&
+          validationErrorBeta.errorNumber === 0;
+        if (inputValidated && rawAlpha !== "" && rawBeta !== "") {
+          // First, evaluate the raw values. We can do it now because
+          // this code will hopefully run way less than rawAlpha and Beta
+          // will change (which evaluating on every change to values
+          // would be very expensive).
+          console.time("yo whatup");
+          let evalAlpha = evaluate(rawAlpha);
+          let evalBeta = evaluate(rawBeta);
 
-        // If the user is subtracting by beta, multiply beta by negative one
-        if (addOrSubt === false) {
-          evalBeta = evalBeta * -1;
-        }
-        const result = checkNormalizationHelper(evalAlpha, evalBeta);
-        console.timeEnd("yo whatup");
+          // If the user is subtracting by beta, multiply beta by negative one
+          if (addOrSubt === false) {
+            evalBeta = evalBeta * -1;
+          }
+          const result = checkNormalizationHelper(evalAlpha, evalBeta);
+          console.timeEnd("yo whatup");
 
-        // Save prob zero, one and sqrNormalization
-        probZero = result.alphaProb;
-        probOne = result.betaProb;
-        sqrNormalization = result.sqrNorm;
+          // Save prob zero, one and sqrNormalization
+          probZero = result.alphaProb;
+          probOne = result.betaProb;
+          sqrNormalization = result.sqrNorm;
 
-        // Finally, check if it equals 1 with epsillon comparison to avoid floating
-        // point errors causing a false negative. Using 10^-9 as epsilon for now.
-        if (abs(sqrNormalization - 1) < 0.00000000001) {
-          setNormalized("normalized");
+          // Finally, check if it equals 1 with epsillon comparison to avoid floating
+          // point errors causing a false negative. Using 10^-9 as epsilon for now.
+          if (abs(sqrNormalization - 1) < 0.00000000001) {
+            setNormalized("normalized");
+          }
+          // Otherwise its false
+          else {
+            setNormalized("not normalized");
+          }
         }
-        // Otherwise its false
-        else {
-          setNormalized("not normalized");
-        }
-      }
-    }, delayMs);
-    return () => clearTimeout(id);
-  }, [rawAlpha, rawBeta, addOrSubt]);
+      }, delayMs);
+      return () => clearTimeout(id);
+    },
+    // TODO, pretty sure this is a useEffect anti pattern because while rawAlpha and beta are outside values,
+    // they are not external to the program. useEffect is more for getting synced with apis.
+    [rawAlpha, rawBeta, addOrSubt]
+  );
 
   // Run .testJS and you will see that it does work!
   //console.log(backend.testJS());
@@ -201,18 +208,29 @@ function App() {
             <Col xs="auto">
               {/**The individual component grouping of each form */}
               <Form.Group controlId="I have no idea what goes here">
-                <Form.Label>Input the amplitude for |0⟩ here</Form.Label>
-                <Form.Control
-                  placeholder="Put alpha here!"
-                  //Form control is the text field. So, it contains what the user writes! You can set
-                  //a reference to the object (that contains the text) using ref or set it reactively using onChange.
-                  //See an above comment on reference vs state text above.
-                  onChange={(eventObject) => {
-                    // Get the text located in the target event object only if it has a value. Otherwise,
-                    // its set to an empty string
-                    setRawAlpha(eventObject.target?.value);
-                  }}
-                />
+                <Form.Label>
+                  Input the amplitude for <InlineMath math={"|0\\rangle"} />{" "}
+                  here
+                </Form.Label>
+
+                {/**Include input group to have |0⟩ be right next to the textbox */}
+                <InputGroup>
+                  <Form.Control
+                    placeholder="Put alpha here!"
+                    //Form control is the text field. So, it contains what the user writes! You can set
+                    //a reference to the object (that contains the text) using ref or set it reactively using onChange.
+                    //See an above comment on reference vs state text above.
+                    onChange={(eventObject) => {
+                      // Get the text located in the target event object only if it has a value. Otherwise,
+                      // its set to an empty string
+                      setRawAlpha(eventObject.target?.value);
+                    }}
+                  />
+                  <InputGroup.Text>
+                    <InlineMath math={"|0\\rangle"} />
+                  </InputGroup.Text>
+                </InputGroup>
+
                 {/*Display the validation error if there is one.*/}
                 <Form.Text>{renderInputError(validationErrorAlpha)}</Form.Text>
               </Form.Group>
@@ -231,25 +249,35 @@ function App() {
             {/*Beta text input*/}
             <Col xs="auto">
               <Form.Group controlId="formGridStae">
-                <Form.Label>Input the amplitude for state |1⟩ here</Form.Label>
-                <Form.Control
-                  placeholder="Put beta here!"
-                  //Form control is the text field. So, it contains what the user writes! You can set
-                  //a reference to the object (that contains the text) using ref or set it reactively using onChange.
-                  //See an above comment on reference vs state text above.
-                  onChange={(eventObject) => {
-                    // Get the text located in the target event object only if it has a value. Otherwise,
-                    // its set to an empty string
-                    setRawBeta(eventObject.target?.value);
-                  }}
-                />
+                <Form.Label>
+                  Input the amplitude for state{" "}
+                  <InlineMath math={"|1\\rangle"} /> here
+                </Form.Label>
+
+                <InputGroup>
+                  <Form.Control
+                    placeholder="Put beta here!"
+                    //Form control is the text field. So, it contains what the user writes! You can set
+                    //a reference to the object (that contains the text) using ref or set it reactively using onChange.
+                    //See an above comment on reference vs state text above.
+                    onChange={(eventObject) => {
+                      // Get the text located in the target event object only if it has a value. Otherwise,
+                      // its set to an empty string
+                      setRawBeta(eventObject.target?.value);
+                    }}
+                  />
+                  <InputGroup.Text>
+                    <InlineMath math={"|1\\rangle"} />
+                  </InputGroup.Text>
+                </InputGroup>
+
                 <Form.Text>{renderInputError(validationErrorBeta)}</Form.Text>
               </Form.Group>
             </Col>
           </Row>
         </Form>
         <Row>
-          {/*If normalized not calculated (empty), display nothing. Otherwise, display
+          {/*If "normalized" not calculated (empty), display nothing. Otherwise, display
         whether the state is normalized or not. */}
           <>
             {normalized === "" ? null : <Col> Your state is {normalized}.</Col>}
