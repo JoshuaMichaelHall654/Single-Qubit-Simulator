@@ -5,30 +5,21 @@ import backendModule from "../../compiledBackend/backend.out";
 import { InputErrorText } from "./InputErrorText";
 import { validateAmplitudeInput } from "./validateAmplitudeInput";
 import { checkNormalizationHelper } from "../checkNormalization";
+import { formatComplex } from "./formatComplex";
 
 // import of standard react values
 import { useState, useEffect, useRef } from "react";
 // library imports
 import { InlineMath } from "react-katex";
-import {
-  Button,
-  Container,
-  Form,
-  Row,
-  Col,
-  InputGroup,
-  Card,
-} from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-
-import { abs, evaluate, equal, complex, multiply, round } from "mathjs";
+import { Button, Container, Form, Row, Col, InputGroup } from "react-bootstrap";
+import { abs, evaluate, equal, complex, multiply } from "mathjs";
 
 console.time("time to await backend");
 const backend = await backendModule();
 console.timeEnd("time to await backend");
 
 export function StateInputCard({
-  //Probably should be ...props and then call props. later, but im too lazy
+  // Probably should be ...props and then call props. later, but idk
   addOrSubt,
   setAddOrSubt,
   normalized,
@@ -57,12 +48,8 @@ export function StateInputCard({
   // Validate input returns an error message when the input is invalid.
   // If its empty, the input is valid, and so nothing is displayed.
   // Validate amplitude input expects a string, not a math object.
-  const validationErrorAlpha = validateAmplitudeInput(rawAlpha) || {
-    errorNumber: 0,
-  };
-  const validationErrorBeta = validateAmplitudeInput(rawBeta) || {
-    errorNumber: 0,
-  };
+  const validationErrorAlpha = validateAmplitudeInput(rawAlpha);
+  const validationErrorBeta = validateAmplitudeInput(rawBeta);
 
   const delayMs = 300;
   // Debounce aka wait a certain amount of time before taking the user input and checking their normalization.
@@ -74,11 +61,12 @@ export function StateInputCard({
       setZeroError(false);
       const id = setTimeout(() => {
         // In here is what we want to happen after typing stops.
-        // If both inputs are validated (aka have error number 0) AND both
+
+        // If both inputs are validated (aka are both null) AND both
         // inputs have values, call check normalization
-        const inputValidated =
-          validationErrorAlpha.errorNumber === 0 &&
-          validationErrorBeta.errorNumber === 0;
+        const alphaValidated = validationErrorAlpha == null;
+        const betaValidated = validationErrorBeta == null;
+        const inputValidated = alphaValidated && betaValidated;
         if (inputValidated && rawAlpha !== "" && rawBeta !== "") {
           // First, evaluate the raw values. We can do it now because
           // this code will hopefully run way less than rawAlpha and Beta
@@ -171,14 +159,13 @@ export function StateInputCard({
             is shorter than the other two forms labels (insert amplitude blah blah bal), it 
             "worked". This is because xs="auto" sets (EXPLAIN HERE). Find an actual way to control the selector
             and buttons length that isnt hack  */}
-            <Col xs={12} xl={5}>
+            <Col xs={12} xxl={5}>
               {/**The individual component grouping of each form */}
               <Form.Group controlId="ampZero">
                 <Form.Label>
                   Input the amplitude for state{" "}
                   <InlineMath math={"|0\\rangle"} /> here
                 </Form.Label>
-
                 {/**Include input group to have |0⟩ be right next to the textbox */}
                 <InputGroup>
                   <Form.Control
@@ -197,9 +184,10 @@ export function StateInputCard({
                     <InlineMath math={"|0\\rangle"} />
                   </InputGroup.Text>
                 </InputGroup>
-
                 {/*Display the validation error if there is one.*/}
-                <Form.Text>{InputErrorText(validationErrorAlpha)}</Form.Text>
+                <Form.Text>
+                  <InputErrorText err={validationErrorAlpha} />
+                </Form.Text>
               </Form.Group>
             </Col>
 
@@ -208,7 +196,7 @@ export function StateInputCard({
             (which it is not by default) so we can horizontally center the Form.Group
             below. And justify content center centers the select box to the center of the 
             screen (to emphasize that it is different from the other two selections).*/}
-            <Col xs={12} xl={2} className="d-flex justify-content-center">
+            <Col xs={12} xxl={2} className="d-flex justify-content-center">
               {/*TODO, confirm this role has proper accessibility. */}
               <Form.Group controlId="plusOrMinus">
                 <Form.Label>Choose + or -</Form.Label>
@@ -232,7 +220,7 @@ export function StateInputCard({
             at the xs break point. lg = 4 means it takes up 12/3 = 4 of the screen columns at the 
             lg breakpoint. Not setting between xs and lg means that xs, sm, and md will use 12,
             and not setting beyond lg means that lg, xl, and xxl will use 4.  */}
-            <Col xs={12} xl={5}>
+            <Col xs={12} xxl={5}>
               <Form.Group controlId="ampOne">
                 <Form.Label>
                   Input the amplitude for state{" "}
@@ -257,32 +245,39 @@ export function StateInputCard({
                   </InputGroup.Text>
                 </InputGroup>
 
-                <Form.Text>{InputErrorText(validationErrorBeta)}</Form.Text>
+                <Form.Text>
+                  <InputErrorText err={validationErrorBeta} />
+                </Form.Text>
               </Form.Group>
             </Col>
           </Row>
         </Form>
 
         {/*Give it some space from the above row with pt */}
-        <Row className="pt-3">
-          {/*This solution to rendering an error with zero might be a bit hack, idk. */}
-          <>
-            {zeroError === false ? null : (
-              <Col>
-                <> Both alpha and beta can not be zero at the same time.</>
-              </Col>
+        <Row className="">
+          <Col xs={12}>
+            {zeroError ? (
+              <>Both alpha and beta cannot be zero at the same time.</>
+            ) : (
+              // placeholder reserves height. Replace with null and move col back inside
+              // js if you dont like how it looks
+              <span>&nbsp;</span>
             )}
-          </>
-          {/*If "normalized" not calculated (empty), display nothing. Otherwise, display
-        whether the state is normalized or not. */}
-          <>
-            {normalized === "" ? null : <Col> Your state is {normalized}.</Col>}
-          </>
+          </Col>
+
+          <Col xs={12}>
+            {normalized !== "" ? (
+              <>Your state is {normalized}.</>
+            ) : (
+              <span>&nbsp;</span>
+            )}
+          </Col>
         </Row>
+
         <Row className="pt-3">
           {/*If its not normalized (and only then), display a normalize for me button */}
-          {normalized === "not normalized" ? (
-            <Col>
+          <Col xs={12}>
+            {normalized === "not normalized" ? (
               <Button
                 variant="outline-primary"
                 onClick={() => {
@@ -304,30 +299,33 @@ export function StateInputCard({
                   console.time("time to change user text");
 
                   // Update raw alpha and beta. Remember that raw alpha and beta
-                  // are strings, not things like complex or other expressions
+                  // are strings, not things like complex or other expressions. Use
+                  // formatComplex helper function
                   setRawAlpha(
-                    retrunedStuff.alphaStruct.im == 0
-                      ? "" + retrunedStuff.alphaStruct.re
-                      : retrunedStuff.alphaStruct.re +
-                          " + " +
-                          retrunedStuff.alphaStruct.im +
-                          "i",
+                    formatComplex(
+                      retrunedStuff.alphaStruct.re,
+                      retrunedStuff.alphaStruct.im,
+                    ),
                   );
 
                   setRawBeta(
-                    retrunedStuff.betaStruct.im == 0
-                      ? "" + retrunedStuff.betaStruct.re
-                      : retrunedStuff.betaStruct.re +
-                          " + " +
-                          retrunedStuff.betaStruct.im +
-                          "i",
+                    formatComplex(
+                      retrunedStuff.betaStruct.re,
+                      retrunedStuff.betaStruct.im,
+                    ),
                   );
 
-                  // Update eval alpha and beta. This will be our "math values"
-                  evalAlpha.current = evaluate(rawAlpha);
-                  evalBeta.current = evaluate(rawBeta);
-                  evalAlpha.current = complex(evalAlpha.current);
-                  evalBeta.current = complex(evalBeta.current);
+                  // Update eval alpha and beta. Must be done with the returnedStuff, not
+                  // rawAlpha and beta because async guarantees they are not yet updated
+                  // by the time the below runs
+                  evalAlpha.current = complex(
+                    retrunedStuff.alphaStruct.re,
+                    retrunedStuff.alphaStruct.im,
+                  );
+                  evalBeta.current = complex(
+                    retrunedStuff.betaStruct.re,
+                    retrunedStuff.betaStruct.im,
+                  );
 
                   setNormalized("normalized");
                   console.timeEnd("time to change user text");
@@ -335,8 +333,10 @@ export function StateInputCard({
               >
                 Normalize for me.
               </Button>
-            </Col>
-          ) : null}
+            ) : (
+              <span>&nbsp;</span>
+            )}
+          </Col>
         </Row>
       </Container>
     </>

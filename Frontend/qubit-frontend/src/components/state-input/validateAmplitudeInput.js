@@ -67,6 +67,11 @@ export function validateAmplitudeInput(input) {
   const STOP = Symbol("STOP_TRAVERSAL");
   let validationError = createError(0, "");
 
+  // If the value is empty, return no error which is null
+  if (input.trim() === "") {
+    return null;
+  }
+
   // Idea for validation: parse expression, traverse it for illegal values, if no illegal values, evaluate it,
   // then finally normalize it once user hasnt typed for ~100ms.
   // Parse gives info on when expression is incomplete by throwing a syntax error, allowing you to
@@ -78,7 +83,6 @@ export function validateAmplitudeInput(input) {
       node.traverse(function (node, path, parent) {
         // If there is a validation error already in place, return early
         if (validationError.errorNumber !== 0) {
-          console.log("test");
           // throw an error to stop the function completely
           throw STOP;
         }
@@ -144,7 +148,11 @@ export function validateAmplitudeInput(input) {
       });
     } catch (e) {
       // Catch and stop completely if stop was thrown. All other errors go to the second catch
-      if (e !== STOP) throw e;
+      if (e !== STOP) {
+        throw e;
+      } else {
+        return validationError;
+      }
     }
   } catch (e) {
     // If the traversal throws an error, the user likely hasn't finished typing their expression yet.
@@ -152,6 +160,8 @@ export function validateAmplitudeInput(input) {
     // Remove unfinished expression detected if it feels bad in the UX
     // set error number to 5 and make add an empty name that will go unusued (but is not an empty string)
     validationError = createError(5, "deliberately not empty");
+    return validationError;
   }
-  return validationError;
+  // return null for no error
+  return null;
 }

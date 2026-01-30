@@ -1,9 +1,10 @@
-// Have a function that returns jsx to the return
-export function InputErrorText(err) {
+// A jsx component for rendering errors
+export function InputErrorText({ err }) {
   // If there is no error, return nothing
   if (!err) {
     return null;
   }
+
   switch (err.errorNumber) {
     case 1:
       // Return the jsx, which has regular text not in quotes (not a string), and javascript
@@ -37,9 +38,8 @@ export function InputErrorText(err) {
         </>
       );
     case 5:
-      console.log(err.name);
       return <> Unfinished Expression detected </>;
     default:
-      return;
+      return null;
   }
 }
