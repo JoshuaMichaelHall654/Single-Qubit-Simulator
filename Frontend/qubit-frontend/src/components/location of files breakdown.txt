@@ -1,0 +1,7 @@
+Normalization helper - NOT state input card only. The state input card does contain the normalize button, and is going to check if things are normalized. However, the other card may call check normalization, say if normalize for me hasn't been checked. This is subject to change, but for now, imagine that the whole app may want to use this.
+
+Render input error - stateinput card ONLY! This is because only the state input card will display what exactly the error in the alpha and beta text boxes are, they are where the inputs that are being checked for errors are, so next to each other makes sense.
+
+Validate input - state input card ONLY! This is because only the state input card has the specific inputs that need to be validated. 
+
+Both render input error and validate input might be fine as is, but it also might be better to name them something like "validate alpha and beta input" and "render alpha and beta calculation errors". I dont think there will be other places to input values, but just something to think about.

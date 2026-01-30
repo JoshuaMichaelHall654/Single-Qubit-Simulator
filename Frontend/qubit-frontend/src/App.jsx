@@ -1,19 +1,16 @@
-import { useState, useRef, useEffect } from "react";
+// On device
 import "./App.css";
 import "katex/dist/katex.min.css";
-import {
-  Button,
-  Container,
-  Form,
-  Row,
-  Col,
-  InputGroup,
-  Card,
-} from "react-bootstrap";
-import { StateInputCard } from "./features/state/components/StateInputCard";
+import { StateInputCard } from "./components/state-input/StateInputCard";
 // Import the module from the .js file. The .js file then calls the compiled .wasm file
 // for the actual calculations.
 import backendModule from "./compiledBackend/backend.out";
+
+// Std react
+import { useState, useRef, useEffect } from "react";
+
+// Boostrap
+import { Container, Row, Col, Card, ProgressBar } from "react-bootstrap";
 
 /* On reference (uncontrolled) vs state (controlled) text:
  * State variables are common for user input text in react. While it is true that state variables for user text

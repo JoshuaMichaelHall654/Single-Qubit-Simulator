@@ -1,6 +1,14 @@
-import { useState, useEffect, useRef } from "react";
-import "../../../App.css";
+// Imports of on device files
+import "../../App.css";
 import "katex/dist/katex.min.css";
+import backendModule from "../../compiledBackend/backend.out";
+import { InputErrorText } from "./InputErrorText";
+import { validateAmplitudeInput } from "./validateAmplitudeInput";
+import { checkNormalizationHelper } from "../checkNormalization";
+
+// import of standard react values
+import { useState, useEffect, useRef } from "react";
+// library imports
 import { InlineMath } from "react-katex";
 import {
   Button,
@@ -12,58 +20,10 @@ import {
   Card,
 } from "react-bootstrap";
 import { abs, evaluate, equal, complex, multiply, round } from "mathjs";
-import { checkNormalizationHelper, validateInput } from "../../../compute";
-import backendModule from "../../../compiledBackend/backend.out";
+
 console.time("time to await backend");
 const backend = await backendModule();
 console.timeEnd("time to await backend");
-
-// Have a function that returns jsx to the return
-function renderInputError(err) {
-  // If there is no error, return nothing
-  if (!err) {
-    return null;
-  }
-
-  switch (err.errorNumber) {
-    case 1:
-      // Return the jsx, which has regular text not in quotes (not a string), and javascript
-      // functions wrapped in braces. Make sure to include {" "} to prevent react from collapsing the space
-      // between the colon and the errors name.
-      return (
-        <>
-          Illegal expression detected. Not all mathematics is supported by the
-          program at this time. Please remove: <strong>{err.name}</strong>.
-        </>
-      );
-    case 2:
-      return (
-        <>
-          A disallowed symbol has been detected. Single Qubit Simulator does not
-          support variables. Please remove or rewrite:{" "}
-          <strong>{err.name}</strong>.
-        </>
-      );
-    case 3:
-      return (
-        <>
-          Function <strong>{err.name}</strong> is not allowed.
-        </>
-      );
-    case 4:
-      return (
-        <>
-          Function <strong>{err.name}</strong> has too many or too few
-          arguments.
-        </>
-      );
-    case 5:
-      console.log(err.name);
-      return <> Unfinished Expression detected </>;
-    default:
-      return;
-  }
-}
 
 export function StateInputCard({
   //Probably should be ...props and then call props. later, but im too lazy
@@ -82,16 +42,23 @@ export function StateInputCard({
   // we have to make sure the values are safe before working with them.
   const [rawAlpha, setRawAlpha] = useState("");
   const [rawBeta, setRawBeta] = useState("");
+
   // If zero error is true, that means both alpha and beta are zero, and
   // an error should be displayed
   const [zeroError, setZeroError] = useState(false);
+
   // Define evalAlpha and beta globally
   const evalAlpha = useRef(0.0);
   const evalBeta = useRef(0.0);
+
   // Validate input returns an error message when the input is invalid.
   // If its empty, the input is valid, and so nothing is displayed
-  const validationErrorAlpha = validateInput(rawAlpha) || { errorNumber: 0 };
-  const validationErrorBeta = validateInput(rawBeta) || { errorNumber: 0 };
+  const validationErrorAlpha = validateAmplitudeInput(rawAlpha) || {
+    errorNumber: 0,
+  };
+  const validationErrorBeta = validateAmplitudeInput(rawBeta) || {
+    errorNumber: 0,
+  };
 
   // Make a state variable to hold the text in the alpha and beta text boxes.
   // This way, we can change the text when the user clicks "normalize for me"
@@ -123,7 +90,6 @@ export function StateInputCard({
           // Complex will convert them to complex values whether they are real or complex.
           evalAlpha.current = complex(evalAlpha.current);
           evalBeta.current = complex(evalBeta.current);
-          console.log(evalAlpha.current.re + " " + evalAlpha.current.im);
 
           // If the user is subtracting by beta, multiply beta by negative one
           if (addOrSubt === false) {
@@ -137,12 +103,12 @@ export function StateInputCard({
             return;
           }
 
-          console.time("yo whatup");
+          console.time("checkNorm");
           const result = checkNormalizationHelper(
             evalAlpha.current,
             evalBeta.current,
           );
-          console.timeEnd("yo whatup");
+          console.timeEnd("checkNorm");
 
           // Save prob zero, one and sqrNormalization
           setProbZero(result.alphaProb);
@@ -234,7 +200,7 @@ export function StateInputCard({
                 </InputGroup>
 
                 {/*Display the validation error if there is one.*/}
-                <Form.Text>{renderInputError(validationErrorAlpha)}</Form.Text>
+                <Form.Text>{InputErrorText(validationErrorAlpha)}</Form.Text>
               </Form.Group>
             </Col>
 
@@ -295,7 +261,7 @@ export function StateInputCard({
                   </InputGroup.Text>
                 </InputGroup>
 
-                <Form.Text>{renderInputError(validationErrorBeta)}</Form.Text>
+                <Form.Text>{InputErrorText(validationErrorBeta)}</Form.Text>
               </Form.Group>
             </Col>
           </Row>
@@ -326,9 +292,6 @@ export function StateInputCard({
                 onClick={() => {
                   // Call normalize for me and recieve the changed values
                   console.time("backend call");
-                  console.log(
-                    evalAlpha.current.re + " " + evalAlpha.current.im,
-                  );
                   const retrunedStuff = backend.normalizeState(
                     probZero,
                     probOne,
@@ -349,7 +312,7 @@ export function StateInputCard({
                       ? round(retrunedStuff.alphaStruct.re, 4)
                       : round(retrunedStuff.alphaStruct.re, 4) +
                           " + " +
-                          round(retrunedStuff.alphaStruct.re, 4),
+                          round(retrunedStuff.alphaStruct.im, 4),
                   );
 
                   setBetaText(
@@ -357,7 +320,7 @@ export function StateInputCard({
                       ? round(retrunedStuff.betaStruct.re, 4)
                       : round(retrunedStuff.betaStruct.re, 4) +
                           " + " +
-                          round(retrunedStuff.betaStruct.re, 4),
+                          round(retrunedStuff.betaStruct.im, 4),
                   );
                   // Update raw alpha and beta. Remember that raw alpha and beta
                   // are strings, not things like complex or other expressions
