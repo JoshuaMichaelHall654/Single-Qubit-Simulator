@@ -19,6 +19,8 @@ import {
   InputGroup,
   Card,
 } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 import { abs, evaluate, equal, complex, multiply, round } from "mathjs";
 
 console.time("time to await backend");
@@ -42,28 +44,27 @@ export function StateInputCard({
   // we have to make sure the values are safe before working with them.
   const [rawAlpha, setRawAlpha] = useState("");
   const [rawBeta, setRawBeta] = useState("");
+  // Make a boolean to determine if the user wants rounding
+  const [roundedOn, setRoundEnabled] = useState(false);
 
   // If zero error is true, that means both alpha and beta are zero, and
   // an error should be displayed
   const [zeroError, setZeroError] = useState(false);
 
-  // Define evalAlpha and beta globally
+  // Define the evaluated versions of alpha and beta. Changes to the normalized values
+  // when normalize for me is ran.
   const evalAlpha = useRef(0.0);
   const evalBeta = useRef(0.0);
 
   // Validate input returns an error message when the input is invalid.
-  // If its empty, the input is valid, and so nothing is displayed
+  // If its empty, the input is valid, and so nothing is displayed.
+  // Validate amplitude input expects a string, not a math object.
   const validationErrorAlpha = validateAmplitudeInput(rawAlpha) || {
     errorNumber: 0,
   };
   const validationErrorBeta = validateAmplitudeInput(rawBeta) || {
     errorNumber: 0,
   };
-
-  // Make a state variable to hold the text in the alpha and beta text boxes.
-  // This way, we can change the text when the user clicks "normalize for me"
-  const [alphaText, setAlphaText] = useState("");
-  const [betaText, setBetaText] = useState("");
 
   const delayMs = 300;
   // Debounce aka wait a certain amount of time before taking the user input and checking their normalization.
@@ -87,6 +88,7 @@ export function StateInputCard({
           // would be very expensive).
           evalAlpha.current = evaluate(rawAlpha);
           evalBeta.current = evaluate(rawBeta);
+
           // Complex will convert them to complex values whether they are real or complex.
           evalAlpha.current = complex(evalAlpha.current);
           evalBeta.current = complex(evalBeta.current);
@@ -186,12 +188,11 @@ export function StateInputCard({
                     //Form control is the text field. So, it contains what the user writes! You can set
                     //a reference to the object (that contains the text) using ref or set it reactively using onChange.
                     //See an above comment on reference vs state text above.
-                    value={alphaText}
+                    value={roundedOn === true ? round(rawAlpha, 4) : rawAlpha}
                     onChange={(eventObject) => {
                       // Get the text located in the target event object only if it has a value. Otherwise,
                       // its set to an empty string
                       setRawAlpha(eventObject.target?.value);
-                      setAlphaText(eventObject.target?.value);
                     }}
                   />
                   <InputGroup.Text>
@@ -246,14 +247,11 @@ export function StateInputCard({
                     //Form control is the text field. So, it contains what the user writes! You can set
                     //a reference to the object (that contains the text) using ref or set it reactively using onChange.
                     //See an above comment on reference vs state text above.
-                    value={betaText}
+                    value={roundedOn === true ? round(rawBeta, 4) : rawBeta}
                     onChange={(eventObject) => {
                       // Get the text located in the target event object only if it has a value. Otherwise,
                       // its set to an empty string
-                      // TODO These being different sometimes and the same other times SUCKS SHIT!
-                      // Fix it ME (if you can, I know you are on a time crunch)
                       setRawBeta(eventObject.target?.value);
-                      setBetaText(eventObject.target?.value);
                     }}
                   />
                   <InputGroup.Text>
@@ -306,36 +304,33 @@ export function StateInputCard({
                   );
                   console.timeEnd("backend call");
                   console.time("time to change user text");
-                  // Update the text in the textboxes, rounded to 4 decimal places
-                  setAlphaText(
-                    retrunedStuff.alphaStruct.im == 0
-                      ? round(retrunedStuff.alphaStruct.re, 4)
-                      : round(retrunedStuff.alphaStruct.re, 4) +
-                          " + " +
-                          round(retrunedStuff.alphaStruct.im, 4),
-                  );
 
-                  setBetaText(
-                    retrunedStuff.betaStruct.im == 0
-                      ? round(retrunedStuff.betaStruct.re, 4)
-                      : round(retrunedStuff.betaStruct.re, 4) +
-                          " + " +
-                          round(retrunedStuff.betaStruct.im, 4),
-                  );
                   // Update raw alpha and beta. Remember that raw alpha and beta
                   // are strings, not things like complex or other expressions
                   setRawAlpha(
-                    "" +
-                      retrunedStuff.alphaStruct.re +
-                      " + " +
-                      retrunedStuff.alphaStruct.im,
+                    retrunedStuff.alphaStruct.im == 0
+                      ? "" + retrunedStuff.alphaStruct.re
+                      : retrunedStuff.alphaStruct.re +
+                          " + " +
+                          retrunedStuff.alphaStruct.im +
+                          "i",
                   );
+
                   setRawBeta(
-                    "" +
-                      retrunedStuff.betaStruct.re +
-                      " + " +
-                      retrunedStuff.betaStruct.im,
+                    retrunedStuff.betaStruct.im == 0
+                      ? "" + retrunedStuff.betaStruct.re
+                      : retrunedStuff.betaStruct.re +
+                          " + " +
+                          retrunedStuff.betaStruct.im +
+                          "i",
                   );
+
+                  // Update eval alpha and beta. This will be our "math values"
+                  evalAlpha.current = evaluate(rawAlpha);
+                  evalBeta.current = evaluate(rawBeta);
+                  evalAlpha.current = complex(evalAlpha.current);
+                  evalBeta.current = complex(evalBeta.current);
+
                   setNormalized("normalized");
                   console.timeEnd("time to change user text");
                 }}
@@ -344,6 +339,22 @@ export function StateInputCard({
               </Button>
             </Col>
           ) : null}
+
+          {/**A check box to round the users input to 4 digits. If either text
+           * box is empty or both are zero, disable the
+           * text box */}
+          <div className="d-flex justify-content-center align-items-center py-3">
+            {}
+            <Form>
+              <Form.Check
+                type="checkbox"
+                id="my-checkbox"
+                label={"Round?"}
+                disabled={zeroError || rawAlpha === "" || rawBeta === ""}
+                onChange={(e) => setRoundEnabled(e.target.checked)}
+              />
+            </Form>
+          </div>
         </Row>
       </Container>
     </>
