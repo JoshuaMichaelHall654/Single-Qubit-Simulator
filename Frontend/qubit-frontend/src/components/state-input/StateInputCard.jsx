@@ -44,8 +44,6 @@ export function StateInputCard({
   // we have to make sure the values are safe before working with them.
   const [rawAlpha, setRawAlpha] = useState("");
   const [rawBeta, setRawBeta] = useState("");
-  // Make a boolean to determine if the user wants rounding
-  const [roundedOn, setRoundEnabled] = useState(false);
 
   // If zero error is true, that means both alpha and beta are zero, and
   // an error should be displayed
@@ -188,7 +186,7 @@ export function StateInputCard({
                     //Form control is the text field. So, it contains what the user writes! You can set
                     //a reference to the object (that contains the text) using ref or set it reactively using onChange.
                     //See an above comment on reference vs state text above.
-                    value={roundedOn === true ? round(rawAlpha, 4) : rawAlpha}
+                    value={rawAlpha}
                     onChange={(eventObject) => {
                       // Get the text located in the target event object only if it has a value. Otherwise,
                       // its set to an empty string
@@ -247,7 +245,7 @@ export function StateInputCard({
                     //Form control is the text field. So, it contains what the user writes! You can set
                     //a reference to the object (that contains the text) using ref or set it reactively using onChange.
                     //See an above comment on reference vs state text above.
-                    value={roundedOn === true ? round(rawBeta, 4) : rawBeta}
+                    value={rawBeta}
                     onChange={(eventObject) => {
                       // Get the text located in the target event object only if it has a value. Otherwise,
                       // its set to an empty string
@@ -339,22 +337,6 @@ export function StateInputCard({
               </Button>
             </Col>
           ) : null}
-
-          {/**A check box to round the users input to 4 digits. If either text
-           * box is empty or both are zero, disable the
-           * text box */}
-          <div className="d-flex justify-content-center align-items-center py-3">
-            {}
-            <Form>
-              <Form.Check
-                type="checkbox"
-                id="my-checkbox"
-                label={"Round?"}
-                disabled={zeroError || rawAlpha === "" || rawBeta === ""}
-                onChange={(e) => setRoundEnabled(e.target.checked)}
-              />
-            </Form>
-          </div>
         </Row>
       </Container>
     </>
