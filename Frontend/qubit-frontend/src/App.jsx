@@ -2,6 +2,8 @@
 import "./App.css";
 import "katex/dist/katex.min.css";
 import { StateInputCard } from "./components/state-input/StateInputCard";
+import { StateMeasurementCard } from "./components/measurement/StateMeasurementCard";
+
 // Import the module from the .js file. The .js file then calls the compiled .wasm file
 // for the actual calculations.
 import backendModule from "./compiledBackend/backend.out";
@@ -84,7 +86,9 @@ function App() {
           </Col>
           {/*Col to create a right hand side */}
           <Col xs={12} sm={5}>
-            <Card></Card>
+            <Card>
+              <StateMeasurementCard />
+            </Card>
           </Col>
         </Row>
       </Container>

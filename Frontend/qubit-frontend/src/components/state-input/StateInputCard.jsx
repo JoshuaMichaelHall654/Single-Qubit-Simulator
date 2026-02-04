@@ -148,7 +148,7 @@ export function StateInputCard({
           <div>
             <strong>Coming up next!: </strong>
           </div>
-          <div>Simple (Hadamard) Gate, undo and restart, and measurement!</div>
+          <div>Undo and restart!</div>
         </Col>
       </Row>
       {/**Place everything inside a container with a row for responsive design */}
