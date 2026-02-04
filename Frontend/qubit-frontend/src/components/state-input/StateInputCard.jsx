@@ -23,8 +23,8 @@ export function StateInputCard({
   // Probably should be ...props and then call props. later, but idk
   addOrSubt,
   setAddOrSubt,
-  normalized,
-  setNormalized,
+  normalizedStatus,
+  setNormalizedStatus,
   setSqrNormalization,
   probZero,
   probOne,
@@ -36,6 +36,9 @@ export function StateInputCard({
   // we have to make sure the values are safe before working with them.
   const [rawAlpha, setRawAlpha] = useState("");
   const [rawBeta, setRawBeta] = useState("");
+
+  // Create a value to hold the error of the normalization if there is one
+  const [normalizationError, setNormalizationError] = useState("");
 
   // If zero error is true, that means both alpha and beta are zero, and
   // an error should be displayed
@@ -56,8 +59,8 @@ export function StateInputCard({
   // Debounce aka wait a certain amount of time before taking the user input and checking their normalization.
   useEffect(
     () => {
-      // Reset normalized to empty everytime the user types.
-      setNormalized("");
+      // Reset normalizedStatus to idle everytime the user types
+      setNormalizedStatus("idle");
       // Reset the zero error everytime the user types
       setZeroError(false);
       const id = setTimeout(() => {
@@ -73,9 +76,14 @@ export function StateInputCard({
           // this code will hopefully run way less than rawAlpha and Beta
           // will change (which evaluating on every change to values
           // would be very expensive).
-          evalAlpha.current = evaluate(rawAlpha);
-          evalBeta.current = evaluate(rawBeta);
-
+          try {
+            evalAlpha.current = evaluate(rawAlpha);
+            evalBeta.current = evaluate(rawBeta);
+          } catch (e) {
+            setNormalizedStatus("error");
+            setNormalizationError(e.toString());
+            return;
+          }
           // Complex will convert them to complex values whether they are real or complex.
           evalAlpha.current = complex(evalAlpha.current);
           evalBeta.current = complex(evalBeta.current);
@@ -107,11 +115,11 @@ export function StateInputCard({
           // Finally, check if it equals 1 with epsillon comparison to avoid floating
           // point errors causing a false negative. Using 10^-9 as epsilon for now.
           if (abs(result.sqrNorm - 1) < 0.00000000001) {
-            setNormalized("normalized");
+            setNormalizedStatus("normalized");
           }
           // Otherwise its false
           else {
-            setNormalized("not normalized");
+            setNormalizedStatus("not normalized");
           }
         }
       }, delayMs);
@@ -267,9 +275,21 @@ export function StateInputCard({
           </Col>
 
           <Col xs={12}>
-            {normalized !== "" ? (
-              <>Your state is {normalized}.</>
+            {/*Check if the normalization text should appear. */}
+            {normalizedStatus !== "idle" ? (
+              // If it should, check if there is an error.
+              normalizedStatus === "error" ? (
+                <>
+                  Unfortunately, an error occured while normalizing. Please
+                  ensure your input is valid and try again. The error
+                  encountered is: {normalizationError}.
+                </>
+              ) : (
+                // If there isnt one, tell the user if their values are normalized or not
+                <>Your state is {normalizedStatus}.</>
+              )
             ) : (
+              // If the normalization text shouldnt appear, save space for it.
               <span>&nbsp;</span>
             )}
           </Col>
@@ -278,13 +298,13 @@ export function StateInputCard({
         <Row className="pt-3">
           {/*If its not normalized (and only then), display a normalize for me button */}
           <Col xs={12}>
-            {normalized === "not normalized" ? (
+            {normalizedStatus === "not normalized" ? (
               <Button
                 variant="outline-primary"
                 onClick={() => {
                   // Call normalize for me and recieve the changed values
                   console.time("backend call");
-                  const retrunedStuff = backend.normalizeState(
+                  const normalizedStateResult = backend.normalizeState(
                     probZero,
                     probOne,
                     sqrNormalization,
@@ -299,20 +319,64 @@ export function StateInputCard({
                   console.timeEnd("backend call");
                   console.time("time to change user text");
 
+                  // Check that the returned values are actually good. Dont update our
+                  // values if normalizedStateResult is garbage/unusuable for whatever reason.
+                  // First, make sure normalizedStateResult is not null
+                  if (normalizedStateResult === null) {
+                    setNormalizedStatus("error");
+                    setNormalizationError("Normalization returned null result");
+                    return;
+                  }
+                  // Make sure that alpha struct and beta struct exist
+                  else if (
+                    normalizedStateResult.alphaStruct === null ||
+                    normalizedStateResult.betaStruct === null
+                  ) {
+                    setNormalizedStatus("error");
+                    setNormalizationError(
+                      "Normalization returned null alpha or beta",
+                    );
+                    return;
+                  }
+                  // Use for easier reading
+                  const alResult = normalizedStateResult.alphaStruct;
+                  const beResult = normalizedStateResult.betaStruct;
+                  // Make sure that alpha and beta struct have valid real and imaginary numbers that are not finite.
+                  if (
+                    !Number.isFinite(alResult.re) ||
+                    !Number.isFinite(alResult.im)
+                  ) {
+                    setNormalizedStatus("error");
+                    setNormalizationError(
+                      "Normalization returned real or imaginary values for alpha that are not allowed (NaN or Infinity)",
+                    );
+                    return;
+                  }
+                  if (
+                    !Number.isFinite(beResult.re) ||
+                    !Number.isFinite(beResult.im)
+                  ) {
+                    setNormalizedStatus("error");
+                    setNormalizationError(
+                      "Normalization returned real or imaginary values for beta that are not allowed (NaN or Infinity)",
+                    );
+                    return;
+                  }
+
                   // Update raw alpha and beta. Remember that raw alpha and beta
                   // are strings, not things like complex or other expressions. Use
                   // formatComplex helper function
                   setRawAlpha(
                     formatComplex(
-                      retrunedStuff.alphaStruct.re,
-                      retrunedStuff.alphaStruct.im,
+                      normalizedStateResult.alphaStruct.re,
+                      normalizedStateResult.alphaStruct.im,
                     ),
                   );
 
                   setRawBeta(
                     formatComplex(
-                      retrunedStuff.betaStruct.re,
-                      retrunedStuff.betaStruct.im,
+                      normalizedStateResult.betaStruct.re,
+                      normalizedStateResult.betaStruct.im,
                     ),
                   );
 
@@ -320,15 +384,15 @@ export function StateInputCard({
                   // rawAlpha and beta because async guarantees they are not yet updated
                   // by the time the below runs
                   evalAlpha.current = complex(
-                    retrunedStuff.alphaStruct.re,
-                    retrunedStuff.alphaStruct.im,
+                    normalizedStateResult.alphaStruct.re,
+                    normalizedStateResult.alphaStruct.im,
                   );
                   evalBeta.current = complex(
-                    retrunedStuff.betaStruct.re,
-                    retrunedStuff.betaStruct.im,
+                    normalizedStateResult.betaStruct.re,
+                    normalizedStateResult.betaStruct.im,
                   );
 
-                  setNormalized("normalized");
+                  setNormalizedStatus("normalized");
                   console.timeEnd("time to change user text");
                 }}
               >

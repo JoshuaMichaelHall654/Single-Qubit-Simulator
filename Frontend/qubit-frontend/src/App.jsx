@@ -39,8 +39,8 @@ import { Container, Row, Col, Card, ProgressBar } from "react-bootstrap";
 const backend = await backendModule();
 
 function App() {
-  // Make a constant for if its normalized or not
-  const [normalized, setNormalized] = useState("");
+  // Make a state variable for the status of normalization
+  const [normalizedStatus, setNormalizedStatus] = useState("Idle");
 
   // Create a global sqrNormalization value (N^2)
   const [sqrNormalization, setSqrNormalization] = useState(-1.0);
@@ -71,8 +71,8 @@ function App() {
               <StateInputCard
                 addOrSubt={addOrSubt}
                 setAddOrSubt={setAddOrSubt}
-                normalized={normalized}
-                setNormalized={setNormalized}
+                normalizedStatus={normalizedStatus}
+                setNormalizedStatus={setNormalizedStatus}
                 setSqrNormalization={setSqrNormalization}
                 probOne={probOne}
                 probZero={probZero}

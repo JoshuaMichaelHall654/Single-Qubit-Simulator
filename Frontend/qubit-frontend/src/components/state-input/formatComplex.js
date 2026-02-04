@@ -1,6 +1,11 @@
-// A helper function to format complex values as strings
+// A helper function to format complex values as strings.
+// Expects finite numbers.
 export function formatComplex(real, imag) {
-  // If the imaginary values exist, just return real, no need to care about positive or negative
+  if (!Number.isFinite(real) || !Number.isFinite(imag)) {
+    return "Error in formatting. NaN or infinity";
+  }
+
+  // If the imaginary values dont exist, just return real, no need to care about positive or negative
   if (imag === 0) {
     return "" + real;
   }

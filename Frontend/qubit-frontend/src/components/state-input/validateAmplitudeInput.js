@@ -24,8 +24,10 @@ let allowedFunctions = [
   "asinh",
   "acosh",
   "atanh",
+  "nthRoot",
   "exp",
   "log",
+  "pow",
   "abs",
   "arg",
   "conj",
@@ -33,6 +35,9 @@ let allowedFunctions = [
   "im",
   "complex",
 ];
+
+// Create a list of functions that are allowed both 1 or 2 arguments
+let oneOrTwoArgs = ["pow", "log", "complex", "nthRoot"];
 
 // The list of allowed symbols. If a symbol is not a function child or one of these, its disallowed.
 let allowedSymbols = [
@@ -124,10 +129,13 @@ export function validateAmplitudeInput(input) {
         else if (node.type === "FunctionNode") {
           const numArgs = Array.isArray(node.args) ? node.args.length : 0;
 
-          // The number of args is 1 for all functions besides complex, which can be 1 or 2.
-          const correctNumArgs =
-            (node.name === "complex" && (numArgs === 1 || numArgs === 2)) ||
-            (node.name !== "complex" && numArgs === 1);
+          // The number of args is 1 for all functions not on the oneOrTwoArgs list. Those can be 1 or 2.
+          let correctNumArgs = false;
+          if (oneOrTwoArgs.includes(node.name)) {
+            correctNumArgs = numArgs === 1 || numArgs === 2;
+          } else {
+            correctNumArgs = numArgs === 1;
+          }
 
           // Check that its on the list of allowed variables
           if (!allowedFunctions.includes(node.name)) {
