@@ -261,9 +261,15 @@ export function StateInputCard({
             </Col>
           </Row>
         </Form>
-
+        <Row className="pt-3">
+          <Col>
+            <div>Try these out:</div>
+            <div>alpha = 1, beta = 1.</div>
+            <div>alpha = 1 + 2i, beta = 2 + 3i.</div>
+          </Col>
+        </Row>
         {/*Give it some space from the above row with pt */}
-        <Row className="">
+        <Row className="pt-3">
           <Col xs={12}>
             {zeroError ? (
               <>Both alpha and beta cannot be zero at the same time.</>
@@ -365,7 +371,7 @@ export function StateInputCard({
 
                   // Update raw alpha and beta. Remember that raw alpha and beta
                   // are strings, not things like complex or other expressions. Use
-                  // formatComplex helper function
+                  // formatComplex helper function.
                   setRawAlpha(
                     formatComplex(
                       normalizedStateResult.alphaStruct.re,
@@ -373,6 +379,14 @@ export function StateInputCard({
                     ),
                   );
 
+                  // If the user is subtracting by beta, make sure that the
+                  // negative value of beta is removed (to prevent --, which would be wrong)
+                  if (addOrSubt === false) {
+                    // multiply both values by negative 1, essnetially distributing
+                    // a second negative one to cancel out the first distributed one.
+                    normalizedStateResult.betaStruct.re *= -1;
+                    normalizedStateResult.betaStruct.im *= -1;
+                  }
                   setRawBeta(
                     formatComplex(
                       normalizedStateResult.betaStruct.re,
