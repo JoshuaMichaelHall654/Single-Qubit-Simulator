@@ -25,7 +25,7 @@ export function checkNormalizationHelper(alpha, beta) {
   // * -1. Use math.conj instead of doing it by hand because math.conj
   // works with non complex numbers fine (doing complex (re, im * -1) will fail on non complex values)
   const alphaConjugate = conj(alpha);
-
+  console.log(alphaConjugate);
   // aa* is always real and non negative, so you should ignore any imaginary
   // parts in your final answer, as those are likely floating point errors.
   // Note, this does not mean you should not compute aa* fully, as you will
@@ -35,6 +35,7 @@ export function checkNormalizationHelper(alpha, beta) {
   // non complex numbers do not have a .re, but re() always returns
   // a sensible number
   const alphaMagSq = re(multiply(alpha, alphaConjugate));
+  console.log(alphaMagSq);
 
   // Do the same thing for beta
   const betaConjugate = conj(beta);

@@ -107,13 +107,13 @@ export function StateInputCard({
           );
           console.timeEnd("checkNorm");
 
-          // Save prob zero, one and sqrNormalization
+          // Save prob zero, one and the sqrNormalization
           setProbZero(result.alphaProb);
           setProbOne(result.betaProb);
           setSqrNormalization(result.sqrNorm);
 
           // Finally, check if it equals 1 with epsillon comparison to avoid floating
-          // point errors causing a false negative. Using 10^-9 as epsilon for now.
+          // point errors causing a false negative. Using 10^-11 as epsilon for now.
           if (abs(result.sqrNorm - 1) < 0.00000000001) {
             setNormalizedStatus("normalized");
           }

@@ -1,4 +1,3 @@
-import { format } from "mathjs";
 import { formatComplex } from "../formatComplex";
 import { expect, test } from "vitest";
 
