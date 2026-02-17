@@ -14,6 +14,7 @@ import { useState, useEffect, useRef } from "react";
 import { InlineMath } from "react-katex";
 import { Button, Container, Form, Row, Col, InputGroup } from "react-bootstrap";
 import { abs, evaluate, equal, complex, multiply } from "mathjs";
+import { ArrowCounterclockwise } from "react-bootstrap-icons";
 
 console.time("time to await backend");
 const backend = await backendModule();
@@ -55,6 +56,11 @@ export function StateInputCard({
   const validationErrorAlpha = validateAmplitudeInput(rawAlpha);
   const validationErrorBeta = validateAmplitudeInput(rawBeta);
 
+  // Make a reference to the very first alpha and beta inputed for restart
+  const firstAlpha = useRef("");
+  const firstBeta = useRef("");
+
+  // Make a variable to track if the text boxxes have been typed in yet (TODO)
   const delayMs = 300;
   // Debounce aka wait a certain amount of time before taking the user input and checking their normalization.
   useEffect(
@@ -266,6 +272,7 @@ export function StateInputCard({
             <div>Try these out:</div>
             <div>alpha = 1, beta = 1.</div>
             <div>alpha = 1 + 2i, beta = 2 + 3i.</div>
+            <div>alpha = sin(2i^3), beta = 3^i * 4</div>
           </Col>
         </Row>
         {/*Give it some space from the above row with pt */}
