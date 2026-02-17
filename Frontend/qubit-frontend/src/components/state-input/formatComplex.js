@@ -11,7 +11,6 @@ export function formatComplex(real, imag) {
   // If the imaginary value exists but real is exactly zero, do not include it, and instead format it
   // as a singular expression (i.e. "-x" instead of "y - x")
   else if (real === 0) {
-    console.log("test");
     return (imag > 0 ? "" : "-") + Math.abs(imag) + "i";
   }
 

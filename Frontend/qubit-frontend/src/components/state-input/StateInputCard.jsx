@@ -14,7 +14,7 @@ import { useState, useEffect, useRef } from "react";
 import { InlineMath } from "react-katex";
 import { Button, Container, Form, Row, Col, InputGroup } from "react-bootstrap";
 import { abs, evaluate, equal, complex, multiply } from "mathjs";
-import { ArrowCounterclockwise } from "react-bootstrap-icons";
+import { ArrowCounterclockwise, Arrow90degLeft } from "react-bootstrap-icons";
 
 console.time("time to await backend");
 const backend = await backendModule();
@@ -56,11 +56,19 @@ export function StateInputCard({
   const validationErrorAlpha = validateAmplitudeInput(rawAlpha);
   const validationErrorBeta = validateAmplitudeInput(rawBeta);
 
-  // Make a reference to the very first alpha and beta inputed for restart
+  // hold state variables of alpha and beta before the last transformation. Set at last
+  // transformation.
+  const [lastAlpha, setLastAlpha] = useState("null");
+  const [lastBeta, setLastBeta] = useState("null");
+
+  // Make a reference to the very first alpha and beta inputed for restart. Set at very first transformation,
+  // and then never again.
   const firstAlpha = useRef("");
   const firstBeta = useRef("");
 
-  // Make a variable to track if the text boxxes have been typed in yet (TODO)
+  // Make a variable to track if one transformation have occured.
+  const [hasTransformed, setHasTransformed] = useState(false);
+
   const delayMs = 300;
   // Debounce aka wait a certain amount of time before taking the user input and checking their normalization.
   useEffect(
@@ -136,6 +144,40 @@ export function StateInputCard({
     [rawAlpha, rawBeta, addOrSubt],
   );
 
+  // A function that saves previous states upon a transform (normalization, gate, etc)
+  function saveEarlierState() {
+    // If hasTransformed is false, set it to true and set first alpha and beta
+    // once.
+    if (hasTransformed === false) {
+      // Set it to the raw text, so that undo and restart can place the text
+      // in directly
+      firstAlpha.current = rawAlpha;
+      firstBeta.current = rawBeta;
+      setHasTransformed(true);
+    }
+    // Always set last alpha and beta to the last alpha and beta
+    setLastAlpha(rawAlpha);
+    setLastBeta(rawBeta);
+  }
+
+  // When clicking undo, set raw alpha and beta (which are the values
+  // of the alpha and beta text input) to their last saved value
+  function undoLast() {
+    setRawAlpha(lastAlpha);
+    setRawBeta(lastBeta);
+    // Reset lastAlpha and lastBeta to null to disable undo transform
+    setLastAlpha("null");
+    setLastBeta("null");
+  }
+
+  function restart() {
+    // Make sure to use .current because firstAlpha and Beta are just references
+    setRawAlpha(firstAlpha.current);
+    setRawBeta(firstBeta.current);
+    // Reset hasTransformed to false as the user has functionally "started over"
+    setHasTransformed(false);
+  }
+
   return (
     <>
       <Row className="">
@@ -154,7 +196,7 @@ export function StateInputCard({
           <div>
             <strong>Coming up next!: </strong>
           </div>
-          <div>Undo and restart!</div>
+          <div>Testing for undo and restart!</div>
         </Col>
       </Row>
       {/**Place everything inside a container with a row for responsive design */}
@@ -267,6 +309,31 @@ export function StateInputCard({
             </Col>
           </Row>
         </Form>
+        {/**Make the undo button */}
+        <Row className="pt-3 g-0">
+          <Col>
+            {/** If last alpha and beta have both not been changed, set undo to disabled */}
+            <Button
+              variant="outline-primary"
+              disabled={lastAlpha === "null" && lastBeta === "null"}
+              onClick={() => undoLast()}
+            >
+              {/** Place the undo icon inside of it and give it a label of undo */}
+              <Arrow90degLeft /> Undo Transform
+            </Button>
+          </Col>
+          <Col>
+            {/**If hasTransformed is false, disable restart */}
+            <Button
+              variant="outline-primary"
+              disabled={!hasTransformed}
+              onClick={() => restart()}
+            >
+              {/** Place the undo icon inside of it and give it a label of undo */}
+              <ArrowCounterclockwise /> Restart
+            </Button>
+          </Col>
+        </Row>
         <Row className="pt-3">
           <Col>
             <div>Try these out:</div>
@@ -315,7 +382,9 @@ export function StateInputCard({
               <Button
                 variant="outline-primary"
                 onClick={() => {
-                  // Call normalize for me and recieve the changed values
+                  // Call saveEarlierState
+                  saveEarlierState();
+                  // do the normalize for me and recieve the changed values
                   console.time("backend call");
                   const normalizedStateResult = backend.normalizeState(
                     probZero,
