@@ -4,6 +4,7 @@ export function formatComplex(real, imag) {
   if (!Number.isFinite(real) || !Number.isFinite(imag)) {
     return "Error in formatting. NaN or infinity";
   }
+
   // If the imaginary values dont exist, just return real, no need to care about positive or negative
   if (imag === 0) {
     return "" + real;

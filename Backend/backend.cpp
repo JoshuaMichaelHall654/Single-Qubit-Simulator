@@ -70,6 +70,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
   emscripten::value_object<complexReplacement>("complexReplacement")
       .field("re", &complexReplacement::re)
       .field("im", &complexReplacement::im);
+
   // Now embind our norm class using value_object, not class. This means
   // we cant do new NormClass in JS, but we can stll access values like
   // result.probZero and result.alphaStruct.re
@@ -103,28 +104,34 @@ NormClass normalizeState(double probZero, double probOne,
   if (std::abs(sqrNormalization) <= 0.000000001) {
     return NormClass(0.0, 0.0, 0.0, {0.0, 0.0}, {0.0, 0.0});
   }
+
   // Make new alpha and beta from the struct complexReplacement to std::complex.
-  //
   std::complex<double> alpha(alphaStruct.re, alphaStruct.im);
   std::complex<double> beta(betaStruct.re, betaStruct.im);
+
   // Next, divide each unnormalized probability to get their true probability
   probOne = probOne / sqrNormalization;
   probZero = probZero / sqrNormalization;
+
   // Next, calculate the sqrt of the squared normalization factor to get the
   // normalize amplitude factor.
   double normAmpFactor = std::sqrt(sqrNormalization);
+
   // Normalize alpha and beta
   alpha = alpha / normAmpFactor;
   beta = beta / normAmpFactor;
   std::cout << alpha << " normalized and normalized " << beta << std::endl;
+
   // Now convert them back to structs. Remember, .real() is for complex from
   // std, but our complex struct has the member re (represent the same ideas,
   // just renamed for clarity)
   complexReplacement newAlphaStruct = {alpha.real(), alpha.imag()};
   complexReplacement newBetaStruct = {beta.real(), beta.imag()};
+
   // add our values to reeturn
   NormClass normalizedValues = NormClass(probZero, probOne, normAmpFactor,
                                          newAlphaStruct, newBetaStruct);
+
   // Return zero to end the function
   return normalizedValues;
 }

@@ -69,6 +69,7 @@ export function validateAmplitudeInput(input) {
     errorNumber: errorNumber,
     name: name,
   });
+
   const STOP = Symbol("STOP_TRAVERSAL");
   let validationError = createError(0, "");
 
@@ -84,6 +85,7 @@ export function validateAmplitudeInput(input) {
   try {
     try {
       const node = parse(input);
+
       // Traverse the tree to find any illegal expressions.
       node.traverse(function (node, path, parent) {
         // If there is a validation error already in place, return early
@@ -91,7 +93,8 @@ export function validateAmplitudeInput(input) {
           // throw an error to stop the function completely
           throw STOP;
         }
-        // If the node type that is not allowed included, give the user an
+
+        // If a node type that is not allowed is included, give the user an
         // error message about it being not included
         if (!allowedNodes.includes(node.type)) {
           // Set error number to 1 (illegal node type) and make name the node name
@@ -105,7 +108,6 @@ export function validateAmplitudeInput(input) {
           // node (found by checking the path) its allowed.
           // All of that being true means this specific symbol is an identifier to
           // a function that is allowed and working. Check if the parent exists before checking its type.
-
           if (parent && parent.type === "FunctionNode" && path === "fn") {
             // Go to the next node with return
             return;
@@ -152,7 +154,7 @@ export function validateAmplitudeInput(input) {
           }
         }
 
-        //Otherwise do nothing, all other nodes are fine.
+        // Otherwise do nothing, all other nodes are fine.
       });
     } catch (e) {
       // Catch and stop completely if stop was thrown. All other errors go to the second catch
@@ -164,12 +166,13 @@ export function validateAmplitudeInput(input) {
     }
   } catch (e) {
     // If the traversal throws an error, the user likely hasn't finished typing their expression yet.
-    //console.log(e);
+    // console.log(e);
     // Remove unfinished expression detected if it feels bad in the UX
     // set error number to 5 and make add an empty name that will go unusued (but is not an empty string)
     validationError = createError(5, "deliberately not empty");
     return validationError;
   }
+
   // return null for no error
   return null;
 }
