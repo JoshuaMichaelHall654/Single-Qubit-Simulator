@@ -6,6 +6,7 @@ import { InputErrorText } from "./InputErrorText";
 import { validateAmplitudeInput } from "./validateAmplitudeInput";
 import { checkNormalizationHelper } from "../checkNormalization";
 import { normalizeForMe } from "./normalizeForMe";
+import { DoublyLinkedList } from "./undoRedoStack";
 
 // import of standard react values
 import { useState, useEffect, useRef } from "react";
@@ -14,7 +15,11 @@ import { useState, useEffect, useRef } from "react";
 import { InlineMath } from "react-katex";
 import { Button, Container, Form, Row, Col, InputGroup } from "react-bootstrap";
 import { abs, evaluate, equal, complex, multiply } from "mathjs";
-import { ArrowCounterclockwise, Arrow90degLeft } from "react-bootstrap-icons";
+import {
+  ArrowCounterclockwise,
+  Arrow90degLeft,
+  Arrow90degRight,
+} from "react-bootstrap-icons";
 
 console.time("time to await backend");
 const backend = await backendModule();
@@ -56,11 +61,6 @@ export function StateInputCard({
   const validationErrorAlpha = validateAmplitudeInput(rawAlpha);
   const validationErrorBeta = validateAmplitudeInput(rawBeta);
 
-  // hold state variables of alpha and beta before the last transformation. Set at last
-  // transformation.
-  const [lastAlpha, setLastAlpha] = useState("null");
-  const [lastBeta, setLastBeta] = useState("null");
-
   // Make a reference to the very first alpha and beta inputed for restart. Set at very first transformation,
   // and then never again.
   const firstAlpha = useRef("");
@@ -68,6 +68,10 @@ export function StateInputCard({
 
   // Make a variable to track if one transformation have occured.
   const [hasTransformed, setHasTransformed] = useState(false);
+
+  // Make our stack for undo and redo. Technically not needed
+  // until the first transform occurs, but that is fine.
+  const undoAndRedoStack = new DoublyLinkedList();
 
   const delayMs = 300;
   // Debounce aka wait a certain amount of time before taking the user input and checking their normalization.
@@ -155,19 +159,9 @@ export function StateInputCard({
       firstBeta.current = rawBeta;
       setHasTransformed(true);
     }
-    // Always set last alpha and beta to the last alpha and beta
-    setLastAlpha(rawAlpha);
-    setLastBeta(rawBeta);
-  }
-
-  // When clicking undo, set raw alpha and beta (which are the values
-  // of the alpha and beta text input) to their last saved value
-  function undoLast() {
-    setRawAlpha(lastAlpha);
-    setRawBeta(lastBeta);
-    // Reset lastAlpha and lastBeta to null to disable undo transform
-    setLastAlpha("null");
-    setLastBeta("null");
+    console.log("hi!");
+    // Add our node using our current rawAlpha and rawBeta
+    undoAndRedoStack.push(rawAlpha, rawBeta);
   }
 
   function restart() {
@@ -176,6 +170,26 @@ export function StateInputCard({
     setRawBeta(firstBeta.current);
     // Reset hasTransformed to false as the user has functionally "started over"
     setHasTransformed(false);
+  }
+
+  function undo() {
+    // Call undo on the stack and save the result
+    const result = undoAndRedoStack.undo();
+    console.log(result);
+    // Result stores the current node. This node contains
+    // the alpha and the beta values that we can use to set undo with.
+    setRawAlpha(result.alpha);
+    setRawBeta(result.beta);
+  }
+
+  function redo() {
+    // Call redo on the stack and save the result
+    const result = undoAndRedoStack.redo();
+
+    // Result stores the current node. This node contains
+    // the alpha and the beta values that we can use to set undo with.
+    setRawAlpha(result.alpha);
+    setRawBeta(result.beta);
   }
 
   return (
@@ -309,17 +323,28 @@ export function StateInputCard({
             </Col>
           </Row>
         </Form>
-        {/**Make the undo button */}
+        {/**TODO, undo and redo */}
         <Row className="pt-3 g-0">
           <Col>
-            {/** If last alpha and beta have both not been changed, set undo to disabled */}
+            {/***/}
             <Button
               variant="outline-primary"
-              disabled={lastAlpha === "null" && lastBeta === "null"}
-              onClick={() => undoLast()}
+              disabled={false}
+              onClick={() => undo()}
             >
               {/** Place the undo icon inside of it and give it a label of undo */}
               <Arrow90degLeft /> Undo Transform
+            </Button>
+          </Col>
+          <Col>
+            {/***/}
+            <Button
+              variant="outline-primary"
+              disabled={false}
+              onClick={() => redo()}
+            >
+              {/** Place the redo icon inside of it and give it a label of undo */}
+              <Arrow90degRight /> Redo Transform
             </Button>
           </Col>
           <Col>
@@ -385,8 +410,9 @@ export function StateInputCard({
                   // call save earlier state to show that a transformation has been called
                   // Call saveEarlierState
                   saveEarlierState();
-                  // call normalize for me.
-                  normalizeForMe(
+
+                  // call normalize for me and get its result
+                  const result = normalizeForMe(
                     probZero,
                     probOne,
                     sqrNormalization,
@@ -396,6 +422,19 @@ export function StateInputCard({
                     evalBeta,
                     setNormalizedStatus,
                     addOrSubt,
+                  );
+
+                  // Update raw alpha and beta.
+                  setRawAlpha(result.formattedAlpha);
+
+                  setRawBeta(result.formattedBeta);
+
+                  // Add the new alpha and beta from normalizing to the stack.
+                  // Use the results instead of raw alpha and beta because raw alpha
+                  // and beta have not been updated yet.
+                  undoAndRedoStack.push(
+                    result.formattedAlpha,
+                    result.formattedBeta,
                   );
                 }}
               >

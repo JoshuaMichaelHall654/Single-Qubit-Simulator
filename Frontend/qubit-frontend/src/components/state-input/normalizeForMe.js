@@ -31,8 +31,6 @@ export function normalizeForMe(
   );
   console.timeEnd("backend call");
 
-  console.time("time to change user text");
-
   // Check that the returned values are actually usable. Dont update our
   // values if normalizedStateResult is garbage/unusuable for whatever reason.
   // First, make sure normalizedStateResult is not null
@@ -70,14 +68,10 @@ export function normalizeForMe(
     return;
   }
 
-  // Update raw alpha and beta. Remember that raw alpha and beta
-  // are strings, not things like complex or other expressions. Use
-  // formatComplex helper function.
-  setRawAlpha(
-    formatComplex(
-      normalizedStateResult.alphaStruct.re,
-      normalizedStateResult.alphaStruct.im,
-    ),
+  // Get the formatted values for alpha and beta
+  const formattedAlpha = formatComplex(
+    normalizedStateResult.alphaStruct.re,
+    normalizedStateResult.alphaStruct.im,
   );
 
   // If the user is subtracting by beta, make sure that the
@@ -88,11 +82,9 @@ export function normalizeForMe(
     normalizedStateResult.betaStruct.re *= -1;
     normalizedStateResult.betaStruct.im *= -1;
   }
-  setRawBeta(
-    formatComplex(
-      normalizedStateResult.betaStruct.re,
-      normalizedStateResult.betaStruct.im,
-    ),
+  const formattedBeta = formatComplex(
+    normalizedStateResult.betaStruct.re,
+    normalizedStateResult.betaStruct.im,
   );
 
   // Update eval alpha and beta. Must be done with the returnedStuff, not
@@ -108,5 +100,7 @@ export function normalizeForMe(
   );
 
   setNormalizedStatus("normalized");
-  console.timeEnd("time to change user text");
+
+  // Return an object containing the new values we need
+  return { formattedAlpha, formattedBeta };
 }
