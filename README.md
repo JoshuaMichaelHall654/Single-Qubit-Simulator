@@ -20,7 +20,8 @@ These operators include quantum gate operators as well as the Pauli spin\* and r
 #### Current Phase: Being tested or refactored
 - "Normalize For Me" button - allow the user to let the simulator normalize for them. Don't want to auto normalize just in case the user made a typo
 - "Reset to Starting State" button - if the user applied too many gates, they can start over from the beginning
-- "Undo Last Transformation" button - undo only the last thing applied. Can only be done once for scope creep reasons
+- "Undo Last Transformation" button - Undo the last transformation. May have some limits, but for now uses a stack to allow for many undo's.
+- "Redo Last Transformation" button - Redo the transformation you undid. Should allow for erasing of failures that are not saved. 
 
 ### Planned:
 
