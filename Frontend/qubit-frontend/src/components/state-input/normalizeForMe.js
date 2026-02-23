@@ -1,17 +1,17 @@
 import backendModule from "../../compiledBackend/backend.out";
-import { formatComplex } from "./formatComplex";
-import { complex } from "mathjs";
-
 const backend = await backendModule();
 
+// Does all the calculation, but doesn't update any of the values (
+// rawAlpha and beta must be updated in state input card for
+// synchronisity reasons. Eval alpha and beta can be updated
+// anywhere, but since rawAlpha and beta are updated in stateInput,
+// I have them change in state input as well.)
 export function normalizeForMe(
   probZero,
   probOne,
   sqrNormalization,
-  setRawAlpha,
-  setRawBeta,
-  evalAlpha,
-  evalBeta,
+  alphaCurrentVal,
+  betaCurrentVal,
   setNormalizedStatus,
   addOrSubt,
 ) {
@@ -26,8 +26,8 @@ export function normalizeForMe(
     // (re and im). In math.js, complex values get their
     // real and imaginary values through .re and .im properties as well,
     // so the naming was deliberate.
-    { re: evalAlpha.current.re, im: evalAlpha.current.im },
-    { re: evalBeta.current.re, im: evalBeta.current.im },
+    { re: alphaCurrentVal.re, im: alphaCurrentVal.im },
+    { re: betaCurrentVal.re, im: betaCurrentVal.im },
   );
   console.timeEnd("backend call");
 
@@ -68,12 +68,6 @@ export function normalizeForMe(
     return;
   }
 
-  // Get the formatted values for alpha and beta
-  const formattedAlpha = formatComplex(
-    normalizedStateResult.alphaStruct.re,
-    normalizedStateResult.alphaStruct.im,
-  );
-
   // If the user is subtracting by beta, make sure that the
   // negative value of beta is removed (to prevent --, which would be wrong)
   if (addOrSubt === false) {
@@ -82,25 +76,9 @@ export function normalizeForMe(
     normalizedStateResult.betaStruct.re *= -1;
     normalizedStateResult.betaStruct.im *= -1;
   }
-  const formattedBeta = formatComplex(
-    normalizedStateResult.betaStruct.re,
-    normalizedStateResult.betaStruct.im,
-  );
-
-  // Update eval alpha and beta. Must be done with the returnedStuff, not
-  // rawAlpha and beta because async guarantees they are not yet updated
-  // by the time the below runs
-  evalAlpha.current = complex(
-    normalizedStateResult.alphaStruct.re,
-    normalizedStateResult.alphaStruct.im,
-  );
-  evalBeta.current = complex(
-    normalizedStateResult.betaStruct.re,
-    normalizedStateResult.betaStruct.im,
-  );
 
   setNormalizedStatus("normalized");
 
   // Return an object containing the new values we need
-  return { formattedAlpha, formattedBeta };
+  return normalizedStateResult;
 }

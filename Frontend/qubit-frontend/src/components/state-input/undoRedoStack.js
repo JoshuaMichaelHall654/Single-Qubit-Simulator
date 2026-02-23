@@ -34,7 +34,6 @@ export class DoublyLinkedList {
     if (this.top === null) {
       this.top = newNode;
       this.current = newNode;
-      console.log("hello!");
     }
 
     // Otherwise, there is already a top of the stack, and
@@ -51,8 +50,6 @@ export class DoublyLinkedList {
       // this into push directly means we do not need to specifically
       // watch for the scenario when the user overrights several
       // layers of the stack using undo: it will simply work naturally.
-      console.log(newNode);
-      console.log(this.current);
       this.current.next = newNode;
 
       // Next, make our new node's previous value point
@@ -120,7 +117,94 @@ export class DoublyLinkedList {
   }
 
   // get the current value, which may or may not be the top value
+  // but do not delete it.
   poll() {
     return this.current;
   }
+
+  // Determine if redo is allowed. Redo is allowed when current and top
+  // are not equal (i.e. there are values between current and top
+  // to actually "redo")
+  redoAllowed() {
+    // If current and top are not equal, redo is allowed
+    if (this.top !== this.current) {
+      return true;
+    }
+
+    // Otherwise, redo is not allowed
+    return false;
+  }
+
+  // Determine if undo is allowed. The stack
+  // is a list of inputs that is only stored
+  // once a transformation has occured. So
+  // the stack does store the users first input,
+  // but only after a transform occurs.
+  undoAllowed() {
+    // If current is null, there is no previous value, so return false
+    if (this.current === null) {
+      return false;
+    }
+    if (this.current.prev === null) {
+      return false;
+    }
+    // Otherwise, a current and previous value exist, so we return true
+    return true;
+  }
+
+  // get if the stack is empty
+  isEmpty() {
+    // If both top and current point to nothing, the stack is empty
+    if (this.top === null && this.current === null) {
+      return true;
+    }
+    // Top should not point to nothing while current does and visa versa, but
+    // check for them just in case
+    else if (this.top == null) {
+      console.log("top empty when current not. How?");
+    } else if (this.current == null) {
+      console.log("current empty when top not. How?");
+    }
+    return false;
+  }
+
+  // empty all values from the stack
+  clear() {
+    // Set current equal to nothing
+    this.current = null;
+    // Set top equal to current so there is nothing
+    // else pointing to the values in the stack,
+    // and they will be garbage collected.
+    this.top = null;
+  }
+
+  // For seeing the whole stack. Remove or call less when you finish testing
+  toArray() {
+    const out = [];
+    let i = 0;
+
+    // walk from the bottom (oldest) to the top (newest)
+    // find the bottom
+    let node = this.current;
+    if (node === null) return out;
+
+    while (node.prev !== null) node = node.prev;
+
+    // now walk forward
+    while (node !== null) {
+      out.push({
+        i,
+        alpha: node.alpha,
+        beta: node.beta,
+        isCurrent: node === this.current,
+        isTop: node === this.top,
+      });
+      node = node.next;
+      i += 1;
+    }
+
+    return out;
+  }
+
+  // TODO, do you need to know the size of the stack?
 }

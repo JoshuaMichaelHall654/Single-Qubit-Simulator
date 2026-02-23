@@ -7,6 +7,7 @@ import { validateAmplitudeInput } from "./validateAmplitudeInput";
 import { checkNormalizationHelper } from "../checkNormalization";
 import { normalizeForMe } from "./normalizeForMe";
 import { DoublyLinkedList } from "./undoRedoStack";
+import { formatComplex } from "./formatComplex";
 
 // import of standard react values
 import { useState, useEffect, useRef } from "react";
@@ -24,6 +25,10 @@ import {
 console.time("time to await backend");
 const backend = await backendModule();
 console.timeEnd("time to await backend");
+
+// Make our stack for undo and redo. Technically not needed
+// until the first transform occurs, but that is fine.
+const undoAndRedoStack = new DoublyLinkedList();
 
 export function StateInputCard({
   // Probably should be ...props and then call props. later, but idk
@@ -66,12 +71,19 @@ export function StateInputCard({
   const firstAlpha = useRef("");
   const firstBeta = useRef("");
 
+  // Make states for undo and redo so react can rerender them properly
+  const [canUndo, setCanUndo] = useState(false);
+  const [canRedo, setCanRedo] = useState(false);
+
+  // Make the stack a reference variable to prevent react from rerendering it everytime.
+  const stackRef = useRef(null);
+  if (stackRef.current === null) {
+    stackRef.current = new DoublyLinkedList();
+  }
+  const undoAndRedoStack = stackRef.current;
+
   // Make a variable to track if one transformation have occured.
   const [hasTransformed, setHasTransformed] = useState(false);
-
-  // Make our stack for undo and redo. Technically not needed
-  // until the first transform occurs, but that is fine.
-  const undoAndRedoStack = new DoublyLinkedList();
 
   const delayMs = 300;
   // Debounce aka wait a certain amount of time before taking the user input and checking their normalization.
@@ -158,28 +170,33 @@ export function StateInputCard({
       firstAlpha.current = rawAlpha;
       firstBeta.current = rawBeta;
       setHasTransformed(true);
+      // Add our node using our current rawAlpha and rawBeta, but only the very first time.
+      undoAndRedoStack.push(rawAlpha, rawBeta);
+      updateUndoAndRedoVisibility();
     }
-    console.log("hi!");
-    // Add our node using our current rawAlpha and rawBeta
-    undoAndRedoStack.push(rawAlpha, rawBeta);
   }
 
   function restart() {
     // Make sure to use .current because firstAlpha and Beta are just references
     setRawAlpha(firstAlpha.current);
     setRawBeta(firstBeta.current);
+
     // Reset hasTransformed to false as the user has functionally "started over"
     setHasTransformed(false);
+
+    // The stack should now be empty completely
+    undoAndRedoStack.clear();
+    updateUndoAndRedoVisibility();
   }
 
   function undo() {
     // Call undo on the stack and save the result
     const result = undoAndRedoStack.undo();
-    console.log(result);
     // Result stores the current node. This node contains
     // the alpha and the beta values that we can use to set undo with.
     setRawAlpha(result.alpha);
     setRawBeta(result.beta);
+    updateUndoAndRedoVisibility();
   }
 
   function redo() {
@@ -190,6 +207,24 @@ export function StateInputCard({
     // the alpha and the beta values that we can use to set undo with.
     setRawAlpha(result.alpha);
     setRawBeta(result.beta);
+    updateUndoAndRedoVisibility();
+  }
+
+  // A function to update undo and redo's visibilty. Since
+  // undo and redo's visibility change frequently, call
+  // this everytime they need to be updated (the stack
+  // is reference variable, so when it updates,
+  // it needs to have a state variable associated
+  // with it that updates for proper rerenders)
+  function updateUndoAndRedoVisibility() {
+    // Undo is allowed when the stack is not empty (there are values to be undone)
+    setCanUndo(undoAndRedoStack.undoAllowed());
+
+    // Redo is allowed when the Redo is allowed when redoAllowed returns true (this is
+    // when the current node and the top node do not match, which is how the stack allowes for redoing)
+    setCanRedo(undoAndRedoStack.redoAllowed());
+    const rows = undoAndRedoStack.toArray();
+    console.table(rows);
   }
 
   return (
@@ -323,13 +358,14 @@ export function StateInputCard({
             </Col>
           </Row>
         </Form>
-        {/**TODO, undo and redo */}
+        {/**Undo*/}
         <Row className="pt-3 g-0">
           <Col>
-            {/***/}
+            {/** Undo
+             */}
             <Button
               variant="outline-primary"
-              disabled={false}
+              disabled={!canUndo}
               onClick={() => undo()}
             >
               {/** Place the undo icon inside of it and give it a label of undo */}
@@ -337,16 +373,17 @@ export function StateInputCard({
             </Button>
           </Col>
           <Col>
-            {/***/}
+            {/** */}
             <Button
               variant="outline-primary"
-              disabled={false}
+              disabled={!canRedo}
               onClick={() => redo()}
             >
               {/** Place the redo icon inside of it and give it a label of undo */}
               <Arrow90degRight /> Redo Transform
             </Button>
           </Col>
+          {/** Reset the user to before any transformations */}
           <Col>
             {/**If hasTransformed is false, disable restart */}
             <Button
@@ -364,7 +401,7 @@ export function StateInputCard({
             <div>Try these out:</div>
             <div>alpha = 1, beta = 1.</div>
             <div>alpha = 1 + 2i, beta = 2 + 3i.</div>
-            <div>alpha = sin(2i^3), beta = 3^i * 4</div>
+            <div>alpha = sin(2i^3), beta = 3^i * 4.</div>
           </Col>
         </Row>
         {/*Give it some space from the above row with pt */}
@@ -412,30 +449,51 @@ export function StateInputCard({
                   saveEarlierState();
 
                   // call normalize for me and get its result
-                  const result = normalizeForMe(
+                  const normalizedStateResult = normalizeForMe(
                     probZero,
                     probOne,
                     sqrNormalization,
-                    setRawAlpha,
-                    setRawBeta,
-                    evalAlpha,
-                    evalBeta,
+                    evalAlpha.current,
+                    evalBeta.current,
                     setNormalizedStatus,
                     addOrSubt,
                   );
+                  // TODO: make all this logic on function if you ever need to update
+                  // all of these at once again (i.e. some other function changes the users
+                  // input like normalize for me does)
+                  // Update eval alpha and beta. Must be done with the normalizedStateResult, not
+                  // rawAlpha and beta because async guarantees they are not yet updated
+                  // by the time the below runs
+                  evalAlpha.current = complex(
+                    normalizedStateResult.alphaStruct.re,
+                    normalizedStateResult.alphaStruct.im,
+                  );
+                  evalBeta.current = complex(
+                    normalizedStateResult.betaStruct.re,
+                    normalizedStateResult.betaStruct.im,
+                  );
 
-                  // Update raw alpha and beta.
-                  setRawAlpha(result.formattedAlpha);
+                  // Get the string formatted versions of alpha and beta
+                  const formattedAlpha = formatComplex(
+                    normalizedStateResult.alphaStruct.re,
+                    normalizedStateResult.alphaStruct.im,
+                  );
 
-                  setRawBeta(result.formattedBeta);
+                  const formattedBeta = formatComplex(
+                    normalizedStateResult.betaStruct.re,
+                    normalizedStateResult.betaStruct.im,
+                  );
+
+                  // Update raw alpha and beta using those strings
+                  setRawAlpha(formattedAlpha);
+                  setRawBeta(formattedBeta);
 
                   // Add the new alpha and beta from normalizing to the stack.
                   // Use the results instead of raw alpha and beta because raw alpha
-                  // and beta have not been updated yet.
-                  undoAndRedoStack.push(
-                    result.formattedAlpha,
-                    result.formattedBeta,
-                  );
+                  // and beta may have not been updated yet.
+                  undoAndRedoStack.push(formattedAlpha, formattedBeta);
+                  // With our stack changed, make sure to change visibility
+                  updateUndoAndRedoVisibility();
                 }}
               >
                 Normalize for me.
