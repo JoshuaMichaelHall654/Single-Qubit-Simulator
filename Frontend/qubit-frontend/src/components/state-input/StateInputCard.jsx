@@ -4,7 +4,7 @@ import "katex/dist/katex.min.css";
 import backendModule from "../../compiledBackend/backend.out";
 import { InputErrorText } from "./InputErrorText";
 import { validateAmplitudeInput } from "./validateAmplitudeInput";
-import { checkNormalizationHelper } from "../checkNormalization";
+import { checkNormalization } from "../checkNormalization";
 import { normalizeForMe } from "./normalizeForMe";
 import { DoublyLinkedList } from "./undoRedoStack";
 import { formatComplex } from "./formatComplex";
@@ -15,7 +15,7 @@ import { useState, useEffect, useRef } from "react";
 // library imports
 import { InlineMath } from "react-katex";
 import { Button, Container, Form, Row, Col, InputGroup } from "react-bootstrap";
-import { abs, evaluate, equal, complex, multiply } from "mathjs";
+import { complex } from "mathjs";
 import {
   ArrowCounterclockwise,
   Arrow90degLeft,
@@ -36,10 +36,10 @@ export function StateInputCard({
   setAddOrSubt,
   normalizedStatus,
   setNormalizedStatus,
+  sqrNormalization,
   setSqrNormalization,
   probZero,
   probOne,
-  sqrNormalization,
   setProbZero,
   setProbOne,
 }) {
@@ -93,67 +93,56 @@ export function StateInputCard({
       setNormalizedStatus("idle");
       // Reset the zero error everytime the user types
       setZeroError(false);
-      const id = setTimeout(() => {
-        // In here is what we want to happen after typing stops.
 
-        // If both inputs are validated (aka are both null) AND both
-        // inputs have values, call check normalization
-        const alphaValidated = validationErrorAlpha == null;
-        const betaValidated = validationErrorBeta == null;
-        const inputValidated = alphaValidated && betaValidated;
-        if (inputValidated && rawAlpha !== "" && rawBeta !== "") {
-          // First, evaluate the raw values. We can do it now because
-          // this code will hopefully run way less than rawAlpha and Beta
-          // will change (which evaluating on every change to values
-          // would be very expensive).
-          try {
-            evalAlpha.current = evaluate(rawAlpha);
-            evalBeta.current = evaluate(rawBeta);
-          } catch (e) {
-            setNormalizedStatus("error");
-            setNormalizationError(e.toString());
-            return;
-          }
-          // Complex will convert them to complex values whether they are real or complex.
-          evalAlpha.current = complex(evalAlpha.current);
-          evalBeta.current = complex(evalBeta.current);
+      // If both inputs are validated (aka are both null) AND both
+      // inputs have values, call check normalization
+      const alphaValidated = validationErrorAlpha == null;
+      const betaValidated = validationErrorBeta == null;
+      const inputValidated = alphaValidated && betaValidated;
 
-          // If the user is subtracting by beta, multiply beta by negative one
-          if (addOrSubt === false) {
-            evalBeta.current = multiply(evalBeta.current, -1);
-          }
-
-          // If alpha and beta both evaluate to zero, use render input to throw an
-          // error and return to end early
-          if (equal(evalAlpha.current, 0) && equal(evalBeta.current, 0)) {
-            setZeroError(true);
-            return;
-          }
-
-          console.time("checkNorm");
-          const result = checkNormalizationHelper(
-            evalAlpha.current,
-            evalBeta.current,
+      if (inputValidated && rawAlpha !== "" && rawBeta !== "") {
+        // Use setTimeout to call our code after we debounce
+        const id = setTimeout(() => {
+          const result = checkNormalization(
+            rawAlpha,
+            rawBeta,
+            validationErrorAlpha,
+            validationErrorBeta,
+            addOrSubt,
           );
-          console.timeEnd("checkNorm");
 
-          // Save prob zero, one and the sqrNormalization
+          if (
+            result.resultOfCheck === "normalized" ||
+            result.resultOfCheck === "not normalized"
+          ) {
+            setNormalizedStatus(result.resultOfCheck);
+          }
+          // We obtained an error if resultOfCheck is not "normalized" or "not normalized"
+          else {
+            // If it was a zero error, update zero error for logging
+            if (result.resultOfCheck == "zero error") {
+              setZeroError(true);
+              return;
+            }
+            // Otherwise, it was a different error, so label it otherwise
+            else {
+              setNormalizedStatus("error");
+              setNormalizationError(result.resultOfCheck);
+              return;
+            }
+          }
+
+          // Update the other values obtained from checking normalization
+          evalAlpha.current = result.alphaNum;
+          evalBeta.current = result.betaNum;
+          setSqrNormalization(result.sqrNorm);
           setProbZero(result.alphaProb);
           setProbOne(result.betaProb);
-          setSqrNormalization(result.sqrNorm);
+        }, delayMs);
 
-          // Finally, check if it equals 1 with epsillon comparison to avoid floating
-          // point errors causing a false negative. Using 10^-11 as epsilon for now.
-          if (abs(result.sqrNorm - 1) < 0.00000000001) {
-            setNormalizedStatus("normalized");
-          }
-          // Otherwise its false
-          else {
-            setNormalizedStatus("not normalized");
-          }
-        }
-      }, delayMs);
-      return () => clearTimeout(id);
+        // Clear the timeout
+        return () => clearTimeout(id);
+      }
     },
     // TODO, pretty sure this is a useEffect anti pattern because while rawAlpha and beta are outside values,
     // they are not external to the program. useEffect is more for getting synced with apis.
@@ -458,7 +447,7 @@ export function StateInputCard({
                     setNormalizedStatus,
                     addOrSubt,
                   );
-                  // TODO: make all this logic on function if you ever need to update
+                  // TODO: make all this logic oen function if you ever need to update
                   // all of these at once again (i.e. some other function changes the users
                   // input like normalize for me does)
                   // Update eval alpha and beta. Must be done with the normalizedStateResult, not

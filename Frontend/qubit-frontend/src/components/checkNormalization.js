@@ -1,4 +1,4 @@
-import { multiply, parse, conj, re } from "mathjs";
+import { multiply, conj, re, evaluate, complex, equal, abs } from "mathjs";
 import {} from "../App";
 
 // For normalization check to be reactive, it should be on the frontend.
@@ -45,4 +45,95 @@ export function checkNormalizationHelper(alpha, beta) {
 
   // Return our values. App.jsx will check for normalization since its trivial
   return createResults(sqrNormalization, alphaMagSq, betaMagSq);
+}
+
+// A function that checks the normalization and updates
+// values related to normalization and probabilities
+export function checkNormalization(
+  rawAlpha,
+  rawBeta,
+  validationErrorAlpha,
+  validationErrorBeta,
+  addOrSubt,
+) {
+  // In here is what we want to happen after typing stops.
+
+  const checkResult = (
+    resultOfCheck,
+    alphaNum,
+    betaNum,
+    sqrNorm,
+    alphaProb,
+    betaProb,
+  ) => ({
+    resultOfCheck: resultOfCheck,
+    alphaNum: alphaNum,
+    betaNum: betaNum,
+    sqrNorm: sqrNorm,
+    alphaProb: alphaProb,
+    betaProb: betaProb,
+  });
+
+  // Create alphaNum and betaNum, which serve as proxies for
+  // evalAlpha and evalBeta. not references, but
+  // standard doubles here. Will be returned to the evalAlpha and
+  // evalBeta in the stateinput card.
+  let alphaNum = 0.0;
+  let betaNum = 0.0;
+
+  // First, evaluate the raw values. We can do it now because
+  // this code will hopefully run way less than rawAlpha and Beta
+  // will change (which evaluating on every change to values
+  // would be very expensive).
+  try {
+    alphaNum = evaluate(rawAlpha);
+    betaNum = evaluate(rawBeta);
+  } catch (e) {
+    // If we recieve an error from evaluate, return early
+    // with our normalization error message
+    return checkResult(e.toString(), null, null, null, null, null);
+  }
+  // Complex will convert them to complex values whether they are real or complex.
+  alphaNum = complex(alphaNum);
+  betaNum = complex(betaNum);
+
+  // If the user is subtracting by beta, multiply beta by negative one
+  if (addOrSubt === false) {
+    betaNum = multiply(betaNum, -1);
+  }
+
+  // If alpha and beta both evaluate to zero, use render input to throw an
+  // error and return to end early
+  if (equal(alphaNum, 0) && equal(betaNum, 0)) {
+    return checkResult("zero error", null, null, null, null, null);
+  }
+
+  console.time("checkNorm");
+  const result = checkNormalizationHelper(alphaNum, betaNum);
+  console.timeEnd("checkNorm");
+
+  // Finally, check if it equals 1 with epsillon comparison to avoid floating
+  // point errors causing a false negative. Using 10^-11 as epsilon for now.
+  if (abs(result.sqrNorm - 1) < 0.00000000001) {
+    return checkResult(
+      "normalized",
+      alphaNum,
+      betaNum,
+      result.sqrNorm,
+      result.alphaProb,
+      result.betaProb,
+    );
+  }
+
+  // Otherwise its false
+  else {
+    return checkResult(
+      "not normalized",
+      alphaNum,
+      betaNum,
+      result.sqrNorm,
+      result.alphaProb,
+      result.betaProb,
+    );
+  }
 }
