@@ -159,10 +159,10 @@ export function StateInputCard({
       firstAlpha.current = rawAlpha;
       firstBeta.current = rawBeta;
       setHasTransformed(true);
-      // Add our node using our current rawAlpha and rawBeta, but only the very first time.
-      undoAndRedoStack.push(rawAlpha, rawBeta);
-      updateUndoAndRedoVisibility();
     }
+    // Add our node using our current rawAlpha and rawBeta.
+    undoAndRedoStack.push(rawAlpha, rawBeta);
+    updateUndoAndRedoVisibility();
   }
 
   function restart() {
@@ -209,7 +209,7 @@ export function StateInputCard({
     // Undo is allowed when the stack is not empty (there are values to be undone)
     setCanUndo(undoAndRedoStack.undoAllowed());
 
-    // Redo is allowed when the Redo is allowed when redoAllowed returns true (this is
+    // Redo is allowed when redoAllowed returns true (this is
     // when the current node and the top node do not match, which is how the stack allowes for redoing)
     setCanRedo(undoAndRedoStack.redoAllowed());
     const rows = undoAndRedoStack.toArray();

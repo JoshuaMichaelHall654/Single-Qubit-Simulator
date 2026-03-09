@@ -39,22 +39,33 @@ export class DoublyLinkedList {
     // Otherwise, there is already a top of the stack, and
     // we need to push this node to the top of the stack.
     else {
-      // First, make the current node's next pointer point to the new node.
-
       // We specifically use current instead of top in order to have code
       // that is consistent. When the user has undone something
       // and then types something new, we would like to push that
       // new value into the stack as usual above their last value.
-      // Functionally, this means deleting everything between
-      // current and top, which is what we want to do. Writing
+      // Functionally, this means deleting everything from
+      // current to top, including current. Writing
       // this into push directly means we do not need to specifically
       // watch for the scenario when the user overrights several
       // layers of the stack using undo: it will simply work naturally.
-      this.current.next = newNode;
 
-      // Next, make our new node's previous value point
-      // to our "current" node
-      newNode.prev = this.current;
+      // If the user hasn't undone something,
+      // add the node normally.
+      if (this.current === this.top) {
+        newNode.prev = this.current;
+        this.current.next = newNode;
+      }
+      // Otherwise, the user undid something and that values needs erased.
+      // make our new node's previous value point
+      // to our "current" node's previous value, and visa versa.
+      else {
+        newNode.prev = this.current.prev;
+        // If previous is null, don't update the previous next value
+        // since it doesn't exist
+        if (this.current.prev != null) {
+          this.current.prev.next = newNode;
+        }
+      }
 
       // Make newNode our new current
       this.current = newNode;
