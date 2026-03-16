@@ -187,7 +187,7 @@ test("results are unnormalized for user_test_3 subtracted (sin(2i^3), 3^i * 4, +
 // ================================================================
 
 /**
- * Helper function tests — normalized inputs
+ * Helper function tests: normalized inputs
  */
 test("helper correctly returns norm and prob for integers (0, 1)", () => {
   const result = checkNormalizationHelper(0, 1);
