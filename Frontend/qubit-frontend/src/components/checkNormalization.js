@@ -25,6 +25,7 @@ export function checkNormalizationHelper(alpha, beta) {
   // * -1. Use math.conj instead of doing it by hand because math.conj
   // works with non complex numbers fine (doing complex (re, im * -1) will fail on non complex values)
   const alphaConjugate = conj(alpha);
+
   // aa* is always real and non negative, so you should ignore any imaginary
   // parts in your final answer, as those are likely floating point errors.
   // Note, this does not mean you should not compute aa* fully, as you will
@@ -39,23 +40,17 @@ export function checkNormalizationHelper(alpha, beta) {
   const betaConjugate = conj(beta);
   const betaMagSq = re(multiply(beta, betaConjugate));
 
-  // Now, check if they both add to one. First, save it as our normalization
-  // squared value to use it later. N^2 = |a|^2 + |b|^2
+  // Save our normalization
+  // squared value to use later. N^2 = |a|^2 + |b|^2
   const sqrNormalization = alphaMagSq + betaMagSq;
 
-  // Return our values. App.jsx will check for normalization since its trivial
+  // Return our values to the other function
   return createResults(sqrNormalization, alphaMagSq, betaMagSq);
 }
 
 // A function that checks the normalization and updates
 // values related to normalization and probabilities
-export function checkNormalization(
-  rawAlpha,
-  rawBeta,
-  validationErrorAlpha,
-  validationErrorBeta,
-  addOrSubt,
-) {
+export function checkNormalization(rawAlpha, rawBeta, addOrSubt) {
   // In here is what we want to happen after typing stops.
 
   const checkResult = (
