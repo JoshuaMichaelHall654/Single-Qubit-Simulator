@@ -135,3 +135,5 @@ NormClass normalizeState(double probZero, double probOne,
   // Return zero to end the function
   return normalizedValues;
 }
+
+int hadamardGate() {}

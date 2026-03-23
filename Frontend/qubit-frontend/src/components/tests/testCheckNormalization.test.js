@@ -59,6 +59,8 @@ test("results are unnormalized for two integers (1, 1, +/-)", () => {
   const resultPlus = checkNormalization("1", "1", true);
   // Make sure checkNormalization returns not normalized
   expect(resultPlus.resultOfCheck).toBe("not normalized");
+  // Testing + vs - is just for sanity. Normalziation is
+  // not affected by the sign of alpha/beta
   const resultMinus = checkNormalization("1", "1", false);
   expect(resultMinus.resultOfCheck).toBe("not normalized");
 });
