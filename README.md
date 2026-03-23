@@ -16,6 +16,7 @@ These operators include quantum gate operators as well as the Pauli spin\* and r
 - Reactive normalization check - user can not apply gates or measure without their state being normalized
 
 ### In Progress:
+- Hadamard Gate
 #### Current Phase: In development
 #### Current Phase: Being tested or refactored
 - "Normalize For Me" button - allow the user to let the simulator normalize for them. Don't want to auto normalize just in case the user made a typo
