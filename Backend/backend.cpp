@@ -49,7 +49,22 @@ NormClass normalizeState(double probZero, double probOne,
                          complexReplacement alphaStruct,
                          complexReplacement betaStruct);
 
-int main() { return 0; }
+std::array<int, 2> matrixVectorMultiplication(
+    std::array<std::array<int, 2>, 2> matrix, std::array<int, 2> vector);
+
+int main() {
+  // Every std::array needs an extra set of braces
+  // because std::array is a wrapper
+  std::array<std::array<int, 2>, 2> testM = {{{1, 1}, {1, -1}}};
+  std::array<int, 2> testV = {{1, 0}};
+  // just repuropse testV
+  testV = matrixVectorMultiplication(testM, testV);
+  for (const auto& element : testV) {
+    std::cout << element << " ";
+  }
+  std::cout << std::endl;
+  return 0;
+}
 
 // Register Embind bindings for this translation unit.
 // EMSCRIPTEN_BINDINGS(...) is a macro (not a namespace member), so it is not
@@ -135,5 +150,29 @@ NormClass normalizeState(double probZero, double probOne,
   // Return zero to end the function
   return normalizedValues;
 }
-
-int hadamardGate() {}
+// Takes in a 2x2 matrix and a (math) vector and multiplies them together,
+// giving the output vector. Use std::array instead of generic arrays.
+// Its best practice in C++ as they are handled better and have the
+// same performance. Vectors would be slightly wasteful here,
+// since the size is not dynamic
+std::array<int, 2> matrixVectorMultiplication(
+    std::array<std::array<int, 2>, 2> matrix, std::array<int, 2> vector) {
+  // (a b) (x) = (a(x) + b(y))
+  // (c d) (y)    (c(x) + d(y))
+  // Get those variables and multiply it out.
+  // Declaring all of these variables is technically inefficent,
+  // as they are only used once. However,
+  // it makes the code much more readable, so I
+  // am going to leave it unless it causes significant overhead.
+  // (also -01 build will optimize it away iiuc)
+  int a = matrix[0][0];
+  int b = matrix[0][1];
+  int c = matrix[1][0];
+  int d = matrix[1][1];
+  int x = vector[0];
+  int y = vector[1];
+  // Every std::array needs an extra set of braces
+  // because std::array is a wrapper
+  std::array<int, 2> resultVector = {{(a * x + b * y), (c * x + d * y)}};
+  return resultVector;
+}

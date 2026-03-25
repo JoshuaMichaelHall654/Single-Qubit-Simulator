@@ -41,5 +41,10 @@ WHEN YOU WANT TO ADD A NEW FUNCTION FOR THE JS TO SEE, MAKE SURE TO ADD IT TO EM
 You must also embind irregular data structures, like c++'s complex or any objects you make.
 Make sure to declare objects with using in order to have automatic memory management. 
 
+To test the c++ code WITHOUT emscripten (so you don't forget), just run:
+g++ -o backend backend.cpp
+in the vscode terminal. Make sure the terminal is in the backend folder so it can see backend.cpp.
+Don't forget to actually run backend.exe to see any output you are testing for!
+
 Some extra notes:
 On name mangling of C++: The documentation mentions C++ coders using emscripten should wrap their code in extern C to avoid "name mangling". This is not relevant to us, because we are using embind and naming the function directly, i.e.emscripten::function("testJS", &testJSFunctionality); (the name within "" is the direct naming).
