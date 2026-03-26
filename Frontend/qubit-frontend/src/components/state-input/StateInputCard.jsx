@@ -8,7 +8,6 @@ import { checkNormalization } from "../checkNormalization";
 import { normalizeForMe } from "./normalizeForMe";
 import { DoublyLinkedList } from "./undoRedoStack";
 import { formatComplex } from "./formatComplex";
-
 // import of standard react values
 import { useState, useEffect, useRef } from "react";
 
@@ -47,7 +46,6 @@ export function StateInputCard({
   // we have to make sure the values are safe before working with them.
   const [rawAlpha, setRawAlpha] = useState("");
   const [rawBeta, setRawBeta] = useState("");
-
   // Create a value to hold the error of the normalization if there is one
   const [normalizationError, setNormalizationError] = useState("");
 
@@ -461,6 +459,21 @@ export function StateInputCard({
                     normalizedStateResult.betaStruct.re,
                     normalizedStateResult.betaStruct.im,
                   );
+
+                  // Test hadamard gate
+                  console.time("calculate hadamard");
+                  const resultOfThing = backend.hadamardGate(
+                    // Make sure to pass it as a structure using
+                    // what we defined as our members in the c++ backend
+                    // (re and im). In math.js, complex values get their
+                    // real and imaginary values through .re and .im properties as well,
+                    // so the naming was deliberate.
+                    { re: evalAlpha.current.re, im: evalAlpha.current.im },
+                    { re: evalBeta.current.re, im: evalBeta.current.im },
+                  );
+                  console.timeEnd("calculate hadamard");
+                  console.log(resultOfThing);
+                  console.log("hello");
 
                   // Get the string formatted versions of alpha and beta
                   const formattedAlpha = formatComplex(
