@@ -12,6 +12,9 @@
 #include <limits>
 #include <string>
 
+// A struct that makes sending
+// complex numbers back and forth
+// between c++ and javascript easier.
 struct complexReplacement {
   double re;
   double im;
@@ -41,6 +44,21 @@ class NormClass {
   NormClass() = default;
 };
 
+class AlphaAndBetaClass {
+ public:
+  complexReplacement alpha;
+  complexReplacement beta;
+
+  // Make the constructor
+  AlphaAndBetaClass(complexReplacement a, complexReplacement b) {
+    alpha = a;
+    beta = b;
+  }
+
+  // Make a default constructor for enscripten
+  AlphaAndBetaClass() = default;
+};
+
 // Functions must be "prototyped" in C++ before main, or main will not recognize
 // them.
 int testJSFunctionality();
@@ -52,19 +70,9 @@ NormClass normalizeState(double probZero, double probOne,
 std::array<int, 2> matrixVectorMultiplication(
     std::array<std::array<int, 2>, 2> matrix, std::array<int, 2> vector);
 
-int main() {
-  // Every std::array needs an extra set of braces
-  // because std::array is a wrapper
-  std::array<std::array<int, 2>, 2> testM = {{{1, 1}, {1, -1}}};
-  std::array<int, 2> testV = {{1, 0}};
-  // just repuropse testV
-  testV = matrixVectorMultiplication(testM, testV);
-  for (const auto& element : testV) {
-    std::cout << element << " ";
-  }
-  std::cout << std::endl;
-  return 0;
-}
+AlphaAndBetaClass hadamardGate(complexReplacement alphaStruct,
+                               complexReplacement betaStruct);
+int main() { return 0; }
 
 // Register Embind bindings for this translation unit.
 // EMSCRIPTEN_BINDINGS(...) is a macro (not a namespace member), so it is not
@@ -95,10 +103,17 @@ EMSCRIPTEN_BINDINGS(my_module) {
       .field("normAmpFactor", &NormClass::normAmpFactor)
       .field("alphaStruct", &NormClass::alphaStruct)
       .field("betaStruct", &NormClass::betaStruct);
-  // Embind the function last, because it depends on data above.
+  // Embind our alpha and beta class to return those
+  // (could return them through norm, but thats a waste of time)
+  emscripten::value_object<AlphaAndBetaClass>("AlphaAndBetaClass")
+      .field("alpha", &AlphaAndBetaClass::alpha)
+      .field("beta", &AlphaAndBetaClass::beta);
+
+  // Embind the functions last, because it depends on data above.
   // First comes the name of the function as js will see
   // it, and second comes the reference to the actual function in your c++ code.
   emscripten::function("normalizeState", &normalizeState);
+  emscripten::function("hadamardGate", &hadamardGate);
 }
 
 // The full function that exists for testing js integration
@@ -150,13 +165,15 @@ NormClass normalizeState(double probZero, double probOne,
   // Return zero to end the function
   return normalizedValues;
 }
-// Takes in a 2x2 matrix and a (math) vector and multiplies them together,
-// giving the output vector. Use std::array instead of generic arrays.
+
+// Takes in a 2x2 matrix and a (mathematical) vector and multiplies them
+// together, giving the output vector. Use std::array instead of generic arrays.
 // Its best practice in C++ as they are handled better and have the
 // same performance. Vectors would be slightly wasteful here,
 // since the size is not dynamic
-std::array<int, 2> matrixVectorMultiplication(
-    std::array<std::array<int, 2>, 2> matrix, std::array<int, 2> vector) {
+std::array<std::complex<double>, 2> matrixVectorMultiplication(
+    std::array<std::array<std::complex<double>, 2>, 2> matrix,
+    std::array<std::complex<double>, 2> vector) {
   // (a b) (x) = (a(x) + b(y))
   // (c d) (y)    (c(x) + d(y))
   // Get those variables and multiply it out.
@@ -165,14 +182,74 @@ std::array<int, 2> matrixVectorMultiplication(
   // it makes the code much more readable, so I
   // am going to leave it unless it causes significant overhead.
   // (also -01 build will optimize it away iiuc)
-  int a = matrix[0][0];
-  int b = matrix[0][1];
-  int c = matrix[1][0];
-  int d = matrix[1][1];
-  int x = vector[0];
-  int y = vector[1];
+  std::complex<double> a = matrix[0][0];
+  std::complex<double> b = matrix[0][1];
+  std::complex<double> c = matrix[1][0];
+  std::complex<double> d = matrix[1][1];
+  std::complex<double> x = vector[0];
+  std::complex<double> y = vector[1];
   // Every std::array needs an extra set of braces
   // because std::array is a wrapper
-  std::array<int, 2> resultVector = {{(a * x + b * y), (c * x + d * y)}};
+  std::array<std::complex<double>, 2> resultVector = {
+      {(a * x + b * y), (c * x + d * y)}};
   return resultVector;
+}
+
+// A function that takes in the alpha and beta magnitudes and computes
+// the resulting transformation of applying the hadamard gate to that
+// qubit. Returns alpha and beta to the caller in the form of an object
+// that holds the complex replacement structs (similar to normalize state).
+// Alpha and beta must be defined as complexReplacement to start,
+// or js can not pass them in properly (see norm function for why).
+AlphaAndBetaClass hadamardGate(complexReplacement alphaStruct,
+                               complexReplacement betaStruct) {
+  // Define the matrix for the hadamard gate
+  // (Every std::array needs an extra set of braces
+  // because std::array is a wrapper).
+  // First, convert the gates values into complex value of 1/sqrt
+  std::complex<double> hadValues(1 / std::sqrt(2), 0);
+  // Now create the matrix. Standard form is:
+  // (1/sqrt(2)) (1, 1)
+  //             (1, -1), but you can distribute the 1/sqrt(2) through
+  std::array<std::array<std::complex<double>, 2>, 2> hadMatrix = {
+      {{hadValues, hadValues}, {hadValues, -hadValues}}};
+
+  // Get the alpha and beta structs into std::complex as
+  // complex multiplication is built into std::complex
+  std::complex alpha(alphaStruct.re, alphaStruct.im);
+  std::complex beta(betaStruct.re, betaStruct.im);
+
+  // alpha and beta are scalars associated with |0> aka (1 0)^T,
+  // |1> aka (0 1)^T. So, write out their full matrix forms
+  std::array<std::complex<double>, 2> zeroVector = {
+      {alpha, std::complex<double>(0.0, 0.0)}};
+
+  std::array<std::complex<double>, 2> oneVector = {
+      {std::complex<double>(0.0, 0.0), beta}};
+
+  // Calculate the matrix-vector multiplication for each
+  std::array<std::complex<double>, 2> hadAppliedToZero =
+      matrixVectorMultiplication(hadMatrix, zeroVector);
+  std::array<std::complex<double>, 2> hadAppliedToOne =
+      matrixVectorMultiplication(hadMatrix, oneVector);
+
+  // Add the two resulting vectors together
+  std::array<std::complex<double>, 2> resultVector = {
+      {hadAppliedToZero[0] + hadAppliedToOne[0],
+       hadAppliedToZero[1] + hadAppliedToOne[1]}};
+
+  // Make the two vectors into their corresponding alpha and beta.
+  // The top row (row 0) is the magnitude of alpha, because it
+  // corresponds to (1,0)^T. The bottom row (row 1) is the magnitude
+  // of alpha, as it corresponds to (0,1)^T.
+  // Get the imaginary and real values out of std::complex using .real()
+  // and .imag()
+  complexReplacement alphaToReturn = {resultVector[0].real(),
+                                      resultVector[0].imag()};
+  complexReplacement betaToReturn = {resultVector[1].real(),
+                                     resultVector[1].imag()};
+  // Make our alpha and beta class that we will return
+  AlphaAndBetaClass resultVals = AlphaAndBetaClass(alphaToReturn, betaToReturn);
+
+  return resultVals;
 }

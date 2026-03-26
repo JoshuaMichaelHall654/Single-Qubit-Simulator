@@ -41,6 +41,11 @@ WHEN YOU WANT TO ADD A NEW FUNCTION FOR THE JS TO SEE, MAKE SURE TO ADD IT TO EM
 You must also embind irregular data structures, like c++'s complex or any objects you make.
 Make sure to declare objects with using in order to have automatic memory management. 
 
+The currently use command to compile the backend is:
+emcc "..\projects\Qubit project\Backend\backend.cpp" -lembind -sMODULARIZE=1 -sEXPORT_ES6=1 -sEXPORT_NAME=bigBreakModule -o "..\projects\Qubit project\Frontend\qubit-frontend\src\compiledBackend\backend.out.js
+
+idk what happened to the preloaded file.
+
 To test the c++ code WITHOUT emscripten (so you don't forget), just run:
 g++ -o backend backend.cpp
 in the vscode terminal. Make sure the terminal is in the backend folder so it can see backend.cpp.
