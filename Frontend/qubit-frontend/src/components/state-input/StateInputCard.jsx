@@ -1,7 +1,6 @@
 // Imports of on device files
 import "../../App.css";
 import "katex/dist/katex.min.css";
-import backendModule from "../../compiledBackend/backend.out";
 import { InputErrorText } from "./InputErrorText";
 import { validateAmplitudeInput } from "./validateAmplitudeInput";
 import { checkNormalization } from "../checkNormalization";
@@ -21,13 +20,12 @@ import {
   Arrow90degRight,
 } from "react-bootstrap-icons";
 
-console.time("time to await backend");
-const backend = await backendModule();
-console.timeEnd("time to await backend");
-
 // Make our stack for undo and redo. Technically not needed
 // until the first transform occurs, but that is fine.
 const undoAndRedoStack = new DoublyLinkedList();
+
+// Declare backend, but do not call set it until everything else has loaded
+let backend;
 
 export function StateInputCard({
   // Probably should be ...props and then call props. later, but idk
@@ -41,22 +39,20 @@ export function StateInputCard({
   probOne,
   setProbZero,
   setProbOne,
+  evalAlpha,
+  evalBeta,
 }) {
   // The "raw" text of the inputs. Since the users can type anything,
   // we have to make sure the values are safe before working with them.
   const [rawAlpha, setRawAlpha] = useState("");
   const [rawBeta, setRawBeta] = useState("");
+
   // Create a value to hold the error of the normalization if there is one
   const [normalizationError, setNormalizationError] = useState("");
 
   // If zero error is true, that means both alpha and beta are zero, and
   // an error should be displayed
   const [zeroError, setZeroError] = useState(false);
-
-  // Define the evaluated versions of alpha and beta. Changes to the normalized values
-  // when normalize for me is ran.
-  const evalAlpha = useRef(0.0);
-  const evalBeta = useRef(0.0);
 
   // Validate input returns an error message when the input is invalid.
   // If its empty, the input is valid, and so nothing is displayed.
@@ -459,21 +455,6 @@ export function StateInputCard({
                     normalizedStateResult.betaStruct.re,
                     normalizedStateResult.betaStruct.im,
                   );
-
-                  // Test hadamard gate
-                  console.time("calculate hadamard");
-                  const resultOfThing = backend.hadamardGate(
-                    // Make sure to pass it as a structure using
-                    // what we defined as our members in the c++ backend
-                    // (re and im). In math.js, complex values get their
-                    // real and imaginary values through .re and .im properties as well,
-                    // so the naming was deliberate.
-                    { re: evalAlpha.current.re, im: evalAlpha.current.im },
-                    { re: evalBeta.current.re, im: evalBeta.current.im },
-                  );
-                  console.timeEnd("calculate hadamard");
-                  console.log(resultOfThing);
-                  console.log("hello");
 
                   // Get the string formatted versions of alpha and beta
                   const formattedAlpha = formatComplex(

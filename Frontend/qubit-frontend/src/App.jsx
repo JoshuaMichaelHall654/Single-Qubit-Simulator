@@ -4,10 +4,6 @@ import "katex/dist/katex.min.css";
 import { StateInputCard } from "./components/state-input/StateInputCard";
 import { StateMeasurementCard } from "./components/measurement/StateMeasurementCard";
 
-// Import the module from the .js file. The .js file then calls the compiled .wasm file
-// for the actual calculations.
-import backendModule from "./compiledBackend/backend.out";
-
 // Std react
 import { useState, useRef, useEffect } from "react";
 
@@ -36,10 +32,6 @@ import { Container, Row, Col, Card, ProgressBar } from "react-bootstrap";
 /* TLDR: Prefer controlled (state) inputs when the UI needs to react as the user types.
  * Use uncontrolled inputs/refs when you only need the value at specific times (submit/blur) or for imperative actions. */
 
-// Create a backendModule instance from our backendModule module/package.
-// Must be done outside of a function to use await
-const backend = await backendModule();
-
 function App() {
   // Make a state variable for the status of normalization
   const [normalizedStatus, setNormalizedStatus] = useState("Idle");
@@ -55,6 +47,11 @@ function App() {
 
   // True for add false for subtract
   const [addOrSubt, setAddOrSubt] = useState(true);
+
+  // Define the evaluated versions of alpha and beta. Changes to the normalized values
+  // when normalize for me is called by stateinput.
+  const evalAlpha = useRef(0.0);
+  const evalBeta = useRef(0.0);
 
   // Run .testJS and you will see that it does work!
   // console.log(backend.testJS());
@@ -81,13 +78,19 @@ function App() {
                 sqrNormalization={sqrNormalization}
                 setProbZero={setProbZero}
                 setProbOne={setProbOne}
+                evalAlpha={evalAlpha}
+                evalBeta={evalBeta}
               />
             </Card>
           </Col>
           {/*Col to create a right hand side */}
           <Col xs={12} sm={5}>
             <Card>
-              <StateMeasurementCard />
+              <StateMeasurementCard
+                normalizedStatus={normalizedStatus}
+                evalAlpha={evalAlpha}
+                evalBeta={evalBeta}
+              />
             </Card>
           </Col>
         </Row>
