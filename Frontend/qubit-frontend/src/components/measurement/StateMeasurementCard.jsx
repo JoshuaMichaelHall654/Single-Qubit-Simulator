@@ -2,35 +2,34 @@ import { Button, Col, Dropdown, Form, Row } from "react-bootstrap";
 import backendModule from "../../compiledBackend/backend.out";
 import { useEffect } from "react";
 
+console.time("time to await backend");
 let backend = await backendModule();
+console.timeEnd("time to await backend");
 
 export function StateMeasurementCard({
   normalizedStatus,
   evalAlpha,
   evalBeta,
 }) {
-  // Test hadamard gate
-  /*
-  console.time("calculate hadamard");
-  const resultOfThing = backend.hadamardGate(
-    // Make sure to pass it as a structure using
-    // what we defined as our members in the c++ backend
-    // (re and im). In math.js, complex values get their
-    // real and imaginary values through .re and .im properties as well,
-    // so the naming was deliberate.
-    { re: evalAlpha.current.re, im: evalAlpha.current.im },
-    { re: evalBeta.current.re, im: evalBeta.current.im },
-  );
-  console.timeEnd("calculate hadamard");
-  console.log(resultOfThing);
-  console.log("hello"); */
-
   // Set backend once everything else has loaded and only then
   useEffect(() => {
-    console.time("time to await backend");
-    backend = backendModule();
-    console.timeEnd("time to await backend");
-  }, []);
+    if (evalAlpha.current.re != null) {
+      console.time("calculate hadamard");
+      const resultOfThing = backend.hadamardGate(
+        // Make sure to pass it as a structure using
+        // what we defined as our members in the c++ backend
+        // (re and im). In math.js, complex values get their
+        // real and imaginary values through .re and .im properties as well,
+        // so the naming was deliberate.
+        { re: evalAlpha.current.re, im: evalAlpha.current.im },
+        { re: evalBeta.current.re, im: evalBeta.current.im },
+      );
+      console.timeEnd("calculate hadamard");
+      console.log(resultOfThing);
+      console.log("hello");
+    }
+  }, [evalAlpha.current]);
+
   console.log("Yo did it work? " + evalAlpha.current + " " + evalBeta.current);
   return (
     <>
