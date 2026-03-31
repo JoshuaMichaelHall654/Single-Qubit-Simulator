@@ -64,7 +64,7 @@ function App() {
           {/*Col to create a left hand side.*/}
           <Col xs={12} sm={7}>
             {/** Remove the horizontal padding so the text fills up most of the space */}
-            <Card className="px-0 d-flex flex-column gap-3">
+            <Card className="px-0 d-flex flex-column gap-2">
               {/* Left hand side card with things like state input, normalization, etc*/}
               {/*Pass down the props correctly */}
               <StateInputCard
@@ -85,7 +85,7 @@ function App() {
           </Col>
           {/*Col to create a right hand side */}
           <Col xs={12} sm={5}>
-            <Card>
+            <Card className="px-0 d-flex flex-column gap-2">
               <StateMeasurementCard
                 normalizedStatus={normalizedStatus}
                 evalAlpha={evalAlpha}

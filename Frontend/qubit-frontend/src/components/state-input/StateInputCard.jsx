@@ -441,7 +441,7 @@ export function StateInputCard({
                     setNormalizedStatus,
                     addOrSubt,
                   );
-                  // TODO: make all this logic oen function if you ever need to update
+                  // TODO: make all this logic one function if you ever need to update
                   // all of these at once again (i.e. some other function changes the users
                   // input like normalize for me does)
                   // Update eval alpha and beta. Must be done with the normalizedStateResult, not

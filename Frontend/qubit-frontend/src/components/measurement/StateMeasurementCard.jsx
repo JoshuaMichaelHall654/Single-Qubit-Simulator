@@ -1,6 +1,6 @@
 import { Button, Col, Dropdown, Form, Row } from "react-bootstrap";
 import backendModule from "../../compiledBackend/backend.out";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 console.time("time to await backend");
 let backend = await backendModule();
@@ -11,11 +11,16 @@ export function StateMeasurementCard({
   evalAlpha,
   evalBeta,
 }) {
-  // Set backend once everything else has loaded and only then
-  useEffect(() => {
-    if (evalAlpha.current.re != null) {
-      console.time("calculate hadamard");
-      const resultOfThing = backend.hadamardGate(
+  // Current gate
+  const [currentGate, setCurrentGate] = useState("");
+
+  // test function, likely to be removed
+  const [resultOfThing, setResultOfThing] = useState("");
+
+  // Apply gate function
+  function applyGate(currentGate) {
+    if (currentGate === "Hadamard Gate") {
+      const result = backend.hadamardGate(
         // Make sure to pass it as a structure using
         // what we defined as our members in the c++ backend
         // (re and im). In math.js, complex values get their
@@ -24,13 +29,10 @@ export function StateMeasurementCard({
         { re: evalAlpha.current.re, im: evalAlpha.current.im },
         { re: evalBeta.current.re, im: evalBeta.current.im },
       );
-      console.timeEnd("calculate hadamard");
-      console.log(resultOfThing);
-      console.log("hello");
+      setResultOfThing(result);
     }
-  }, [evalAlpha.current]);
+  }
 
-  console.log("Yo did it work? " + evalAlpha.current + " " + evalBeta.current);
   return (
     <>
       <Row className="">
@@ -41,37 +43,89 @@ export function StateMeasurementCard({
           <div>Simple (Hadamard) Gate and measurement!</div>
         </Col>
       </Row>
-      {/**Tell the user to input something if they are idle or to normalize their state
-       * if its not normalized
+      {/**Use align items baseline to align all items vertically based
+       * on where their text is (align-items center does it based on
+       * the center of their element, which is different between
+       * text, a dropdown, and a button)
        */}
-      <Row>
-        <Col>
-          {normalizedStatus == "idle" ? (
-            "Please input alpha and beta"
-          ) : // If its not normalized, tell the user to normalize alpha and beta.
-          // Otherwise, display the button
-          normalizedStatus == "not normalized" ? (
-            "Please normalize alpha and beta"
-          ) : (
-            <Form.Group controlId="transformation">
-              <Form.Label>Transformation</Form.Label>
-              <Form.Select
-                // Classname w-auto makes the select width fit its content. Select center
-                // was the attempt to align the select with the options in the select.
-                // Doesnt really work since dropdowns are browser based unless
-                // you use bootstrap Dropdown (not doing it).
-                className="w-auto select-center"
-                style={{ minWidth: "6rem" }}
+      <Row className="align-items-baseline">
+        {/**Tell the user to input something if they are idle or to normalize their state
+         * if its not normalized
+         */}
+        {normalizedStatus == "idle" ? (
+          <Col> Please input alpha and beta first </Col>
+        ) : // If its not normalized, tell the user to normalize alpha and beta.
+        // Otherwise, display the button
+        normalizedStatus == "not normalized" ? (
+          <Col> Please normalize alpha and beta first </Col>
+        ) : (
+          <>
+            {/** Otherwise, display the full row. className="d-flex justify-content-center" is
+             * there for when screens are between xs and xl. This makes it
+             * so they fill up the center of their row. d-flex makes it into a flexbox, so that justify-content-center
+             * centers them, and my-2 means they have a margin of 2 on the top and bottom to give each other space.
+             */}
+            <Col xs={12} xxl={4} className="d-flex justify-content-center my-2">
+              Transformations:
+            </Col>
+            <Col xs={12} xxl={4} className="d-flex justify-content-center my-2">
+              <Form.Group controlId="transformation">
+                <Form.Select
+                  className="w-auto justify-content-center"
+                  style={{ minWidth: "6rem" }}
+                  onChange={(eventObject) => {
+                    setCurrentGate(eventObject.target.value);
+                  }}
+                >
+                  <option>Choose a gate</option>
+                  <option>Hadamard Gate</option>
+                  <option>Other</option>
+                </Form.Select>
+              </Form.Group>
+            </Col>
+            <Col xs={12} xxl={4} className="d-flex justify-content-center my-2">
+              <Button
+                onClick={() => {
+                  applyGate(currentGate);
+                }}
               >
-                <option onChange>10</option>
-                <option>9</option>
-              </Form.Select>
-            </Form.Group>
-          )}
-        </Col>
+                Apply Gate
+              </Button>
+            </Col>
+          </>
+        )}
       </Row>
       <Row>
-        <Col></Col>
+        {/** These might all need to be in the same row such that they can stack vertically
+         * next to each other
+         */}
+        <Col>Result:</Col>
+        {resultOfThing === ""
+          ? ""
+          : " (" +
+            resultOfThing.alpha.re +
+            " + " +
+            resultOfThing.alpha.im +
+            "i) |0> + (" +
+            resultOfThing.beta.re +
+            " + " +
+            resultOfThing.beta.im +
+            "i) |1> "}
+      </Row>
+      <Row>
+        <Col>
+          {/** Changing eval alpha does not change raw alpha.
+           * Why is there a diffrence between these two things again?
+           */}
+          <Button
+            onClick={() => {
+              evalAlpha.current = resultOfThing.alpha;
+              evalBeta.current = resultOfThing.beta;
+            }}
+          >
+            Make result alpha and beta
+          </Button>
+        </Col>
       </Row>
       <></>
     </>
