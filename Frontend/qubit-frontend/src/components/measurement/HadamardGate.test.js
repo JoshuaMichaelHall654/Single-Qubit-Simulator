@@ -1,6 +1,41 @@
 import { expect, test } from "vitest";
 import backendModule from "../../compiledBackend/backend.out";
-import { cos, e, i, phi, pi, sin, sqrt, tau } from "mathjs";
+import {
+  asin,
+  cos,
+  cot,
+  csc,
+  e,
+  i,
+  phi,
+  pi,
+  sec,
+  sin,
+  sqrt,
+  tan,
+  tau,
+  acos,
+  acosh,
+  acot,
+  acsc,
+  asec,
+  asinh,
+  atan,
+  atanh,
+  abs,
+  arg,
+  complex,
+  conj,
+  cosh,
+  exp,
+  im,
+  log,
+  nthRoot,
+  pow,
+  re,
+  sinh,
+  tanh,
+} from "mathjs";
 import {
   checkNormalizationHelper,
   checkNormalization,
@@ -160,423 +195,510 @@ test("results are as expected for states using cos that is normalized (cos(pi/4)
   expect(resultHadamard.beta.im).toBe(0);
 });
 
-/**
- * States with function normalized test
- */ /** 
-test("results return normalized for states using cos that is normalized (cos(pi/4), sin(pi/4), +/-)", () => {
-  // + = true, - = false. Check normalization expects strings from
-  // the user typing
-  const resultPlus = checkNormalization("cos(pi/4)", "sin(pi/4)", true);
-  // Make sure checkNormalization returns normalized
-  expect(resultPlus.resultOfCheck).toBe("normalized");
-  const resultMinus = checkNormalization("cos(pi/4)", "sin(pi/4)", false);
-  expect(resultMinus.resultOfCheck).toBe("normalized");
+test("results are as expected for states using sin that is normalized (sin(pi/6), sqrt(1 - sin(pi/6)^2))", () => {
+  const result = checkNormalization("sin(pi/6)", "sqrt(1 - sin(pi/6)^2)", true);
+  const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
+  // Alpha should become (sin(pi/6) + sqrt(1 - sin(pi/6)^2)/sqrt(2)
+  expect(resultHadamard.alpha.re).toBeCloseTo(
+    (sin(pi / 6) + sqrt(1 - sin(pi / 6) ** 2)) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.alpha.im).toBe(0);
+  // Alpha should become (sin(pi/6) - sqrt(1 - sin(pi/6)^2)/sqrt(2)
+  expect(resultHadamard.beta.re).toBeCloseTo(
+    (sin(pi / 6) - sqrt(1 - sin(pi / 6) ** 2)) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.beta.im).toBe(0);
 });
 
-test("results return normalized for states using sin that is normalized (sin(pi/6), sqrt(1 - sin(pi/6)^2), +/-)", () => {
-  // + = true, - = false. Check normalization expects strings from
-  // the user typing
-  const resultPlus = checkNormalization(
-    "sin(pi/6)",
-    "sqrt(1 - sin(pi/6)^2)",
-    true,
+test("results are as expected for states using tan that is normalized (tan(pi/8), sqrt(1 - tan(pi/8)^2))", () => {
+  const result = checkNormalization("tan(pi/8)", "sqrt(1 - tan(pi/8)^2)", true);
+  const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
+  // Alpha should become (tan(pi/8) + sqrt(1 - tan(pi/8)^2)/sqrt(2)
+  expect(resultHadamard.alpha.re).toBeCloseTo(
+    (tan(pi / 8) + sqrt(1 - tan(pi / 8) ** 2)) / sqrt(2),
+    9,
   );
-  // Make sure checkNormalization returns normalized
-  expect(resultPlus.resultOfCheck).toBe("normalized");
-  const resultMinus = checkNormalization(
-    "sin(pi/6)",
-    "sqrt(1 - sin(pi/6)^2)",
-    false,
+  expect(resultHadamard.alpha.im).toBe(0);
+  // Beta should become (tan(pi/8) - sqrt(1 - tan(pi/8)^2)/sqrt(2)),
+  expect(resultHadamard.beta.re).toBeCloseTo(
+    (tan(pi / 8) - sqrt(1 - tan(pi / 8) ** 2)) / sqrt(2),
+    9,
   );
-  expect(resultMinus.resultOfCheck).toBe("normalized");
+  expect(resultHadamard.beta.im).toBe(0);
 });
 
-test("results return normalized for states using tan that is normalized (tan(pi/8), sqrt(1 - tan(pi/8)^2), +/-)", () => {
-  // + = true, - = false. Check normalization expects strings from
-  // the user typing
-  const resultPlus = checkNormalization(
-    "tan(pi/8)",
-    "sqrt(1 - tan(pi/8)^2)",
-    true,
-  );
-  // Make sure checkNormalization returns normalized
-  expect(resultPlus.resultOfCheck).toBe("normalized");
-  const resultMinus = checkNormalization(
-    "tan(pi/8)",
-    "sqrt(1 - tan(pi/8)^2)",
-    false,
-  );
-  expect(resultMinus.resultOfCheck).toBe("normalized");
-});
-
-test("results return normalized for states using cot that is normalized (cot(pi/3) / sqrt(1 + cot(pi/3)^2), 1 / sqrt(1 + cot(pi/3)^2), +/-)", () => {
-  // + = true, - = false. Check normalization expects strings from
-  // the user typing
-  const resultPlus = checkNormalization(
+test("results are as expected for states using cot that is normalized (cot(pi/3) / sqrt(1 + cot(pi/3)^2), 1 / sqrt(1 + cot(pi/3)^2)", () => {
+  const result = checkNormalization(
     "cot(pi/3) / sqrt(1 + cot(pi/3)^2)",
     "1 / sqrt(1 + cot(pi/3)^2)",
     true,
   );
-  // Make sure checkNormalization returns normalized
-  expect(resultPlus.resultOfCheck).toBe("normalized");
-  const resultMinus = checkNormalization(
-    "cot(pi/3) / sqrt(1 + cot(pi/3)^2)",
-    "1 / sqrt(1 + cot(pi/3)^2)",
-    false,
+  const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
+  // Alpha should become ((cot(pi/3) / sqrt(1 + cot(pi/3)^2)) + (1 / sqrt(1 + cot(pi/3)^2)))/sqrt(2)
+  expect(resultHadamard.alpha.re).toBeCloseTo(
+    (cot(pi / 3) / sqrt(1 + cot(pi / 3) ** 2) +
+      1 / sqrt(1 + cot(pi / 3) ** 2)) /
+      sqrt(2),
+    9,
   );
-  expect(resultMinus.resultOfCheck).toBe("normalized");
+  expect(resultHadamard.alpha.im).toBe(0);
+  // Beta should become ((cot(pi/3) / sqrt(1 + cot(pi/3)^2)) - (1 / sqrt(1 + cot(pi/3)^2)))/sqrt(2)
+  expect(resultHadamard.beta.re).toBeCloseTo(
+    (cot(pi / 3) / sqrt(1 + cot(pi / 3) ** 2) -
+      1 / sqrt(1 + cot(pi / 3) ** 2)) /
+      sqrt(2),
+    9,
+  );
+  expect(resultHadamard.beta.im).toBe(0);
 });
 
-test("results return normalized for states using sec that is normalized (1 / sec(pi/3), sqrt(1 - (1/sec(pi/3))^2), +/-)", () => {
-  // + = true, - = false. Check normalization expects strings from
-  // the user typing
-  const resultPlus = checkNormalization(
+test("results are as expected for states using sec that is normalized (1 / sec(pi/3), sqrt(1 - (1/sec(pi/3))^2))", () => {
+  const result = checkNormalization(
     "1 / sec(pi/3)",
     "sqrt(1 - (1/sec(pi/3))^2)",
     true,
   );
-  // Make sure checkNormalization returns normalized
-  expect(resultPlus.resultOfCheck).toBe("normalized");
-  const resultMinus = checkNormalization(
-    "1 / sec(pi/3)",
-    "sqrt(1 - (1/sec(pi/3))^2)",
-    false,
+  const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
+  // Alpha should become ((1 / sec(pi/3)) + (sqrt(1 - (1/sec(pi/3))^2))))/sqrt(2)
+  expect(resultHadamard.alpha.re).toBeCloseTo(
+    (1 / sec(pi / 3) + sqrt(1 - 1 / sec(pi / 3) ** 2)) / sqrt(2),
+    9,
   );
-  expect(resultMinus.resultOfCheck).toBe("normalized");
+  expect(resultHadamard.alpha.im).toBe(0);
+  // Beta should become ((1 / sec(pi/3)) - (sqrt(1 - (1/sec(pi/3))^2))))/sqrt(2)
+  expect(resultHadamard.beta.re).toBeCloseTo(
+    (1 / sec(pi / 3) - sqrt(1 - 1 / sec(pi / 3) ** 2)) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.beta.im).toBe(0);
 });
 
-test("results return normalized for states using csc that is normalized (1 / csc(pi/6), sqrt(1 - (1/csc(pi/6))^2), +/-)", () => {
-  // + = true, - = false. Check normalization expects strings from
-  // the user typing
-  const resultPlus = checkNormalization(
+test("results are as expected for states using csc that is normalized (1 / csc(pi/6), sqrt(1 - (1/csc(pi/6))^2)", () => {
+  const result = checkNormalization(
     "1 / csc(pi/6)",
     "sqrt(1 - (1/csc(pi/6))^2)",
     true,
   );
-  // Make sure checkNormalization returns normalized
-  expect(resultPlus.resultOfCheck).toBe("normalized");
-  const resultMinus = checkNormalization(
-    "1 / csc(pi/6)",
-    "sqrt(1 - (1/csc(pi/6))^2)",
-    false,
+  const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
+  // Alpha should become ((1 / csc(pi/6)) + (sqrt(1 - (1/csc(pi/6))^2)/sqrt(2)
+  expect(resultHadamard.alpha.re).toBeCloseTo(
+    (1 / csc(pi / 6) + sqrt(1 - (1 / csc(pi / 6)) ** 2)) / sqrt(2),
+    9,
   );
-  expect(resultMinus.resultOfCheck).toBe("normalized");
+  expect(resultHadamard.alpha.im).toBe(0);
+  // beta should become ((1 / csc(pi/6)) - (sqrt(1 - (1/csc(pi/6))^2)/sqrt(2)
+  expect(resultHadamard.beta.re).toBeCloseTo(
+    (1 / csc(pi / 6) - sqrt(1 - (1 / csc(pi / 6)) ** 2)) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.beta.im).toBe(0);
 });
 
-test("results return normalized for states using asin that is normalized (cos(asin(1/2)), sin(asin(1/2)), +/-)", () => {
-  // + = true, - = false. Check normalization expects strings from
-  // the user typing
-  const resultPlus = checkNormalization(
-    "cos(asin(1/2))",
-    "sin(asin(1/2))",
-    true,
+test("results are as expected for states using asin that is normalized (cos(asin(1/2)), sin(asin(1/2))", () => {
+  const result = checkNormalization("cos(asin(1/2))", "sin(asin(1/2))", true);
+  const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
+  // Alpha should become (cos(asin(1 / 2)) + sin(asin(1 / 2))) / sqrt(2)
+  expect(resultHadamard.alpha.re).toBeCloseTo(
+    (cos(asin(1 / 2)) + sin(asin(1 / 2))) / sqrt(2),
+    9,
   );
-  // Make sure checkNormalization returns normalized
-  expect(resultPlus.resultOfCheck).toBe("normalized");
-  const resultMinus = checkNormalization(
-    "cos(asin(1/2))",
-    "sin(asin(1/2))",
-    false,
+  expect(resultHadamard.alpha.im).toBe(0);
+  // beta should become (cos(asin(1 / 2)) - sin(asin(1 / 2))) / sqrt(2),
+  expect(resultHadamard.beta.re).toBeCloseTo(
+    (cos(asin(1 / 2)) - sin(asin(1 / 2))) / sqrt(2),
+    9,
   );
-  expect(resultMinus.resultOfCheck).toBe("normalized");
+  expect(resultHadamard.beta.im).toBe(0);
 });
 
-test("results return normalized for states using acos that is normalized (cos(acos(1/2)), sin(acos(1/2)), +/-)", () => {
-  // + = true, - = false. Check normalization expects strings from
-  // the user typing
-  const resultPlus = checkNormalization(
-    "cos(acos(1/2))",
-    "sin(acos(1/2))",
-    true,
+test("results are as expected for states using acos that is normalized (cos(acos(1/2)), sin(acos(1/2)))", () => {
+  const result = checkNormalization("cos(acos(1/2))", "sin(acos(1/2))", true);
+  const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
+  // Alpha should become (cos(acos(1/2)) + sin(acos(1/2))) / sqrt(2)
+  expect(resultHadamard.alpha.re).toBeCloseTo(
+    (cos(acos(1 / 2)) + sin(acos(1 / 2))) / sqrt(2),
+    9,
   );
-  // Make sure checkNormalization returns normalized
-  expect(resultPlus.resultOfCheck).toBe("normalized");
-  const resultMinus = checkNormalization(
-    "cos(acos(1/2))",
-    "sin(acos(1/2))",
-    false,
+  expect(resultHadamard.alpha.im).toBe(0);
+  // Beta should become (cos(acos(1/2)) - sin(acos(1/2))) / sqrt(2)
+  expect(resultHadamard.beta.re).toBeCloseTo(
+    (cos(acos(1 / 2)) - sin(acos(1 / 2))) / sqrt(2),
+    9,
   );
-  expect(resultMinus.resultOfCheck).toBe("normalized");
+  expect(resultHadamard.beta.im).toBe(0);
 });
 
-test("results return normalized for states using atan that is normalized (cos(atan(1)), sin(atan(1)), +/-)", () => {
-  // + = true, - = false. Check normalization expects strings from
-  // the user typing
-  const resultPlus = checkNormalization("cos(atan(1))", "sin(atan(1))", true);
-  // Make sure checkNormalization returns normalized
-  expect(resultPlus.resultOfCheck).toBe("normalized");
-  const resultMinus = checkNormalization("cos(atan(1))", "sin(atan(1))", false);
-  expect(resultMinus.resultOfCheck).toBe("normalized");
+test("results are as expected for states using atan that is normalized (cos(atan(1)), sin(atan(1)))", () => {
+  const result = checkNormalization("cos(atan(1))", "sin(atan(1))", true);
+  const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
+  // Alpha should become (cos(atan(1)) + sin(atan(1))) / sqrt(2)
+  expect(resultHadamard.alpha.re).toBeCloseTo(
+    (cos(atan(1)) + sin(atan(1))) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.alpha.im).toBe(0);
+  // Beta should become (cos(atan(1)) - sin(atan(1))) / sqrt(2)
+  expect(resultHadamard.beta.re).toBeCloseTo(
+    (cos(atan(1)) - sin(atan(1))) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.beta.im).toBe(0);
 });
 
-test("results return normalized for states using sqrt that is normalized (sqrt(1/3), sqrt(2/3), +/-)", () => {
-  // + = true, - = false. Check normalization expects strings from
-  // the user typing
-  const resultPlus = checkNormalization("sqrt(1/3)", "sqrt(2/3)", true);
-  // Make sure checkNormalization returns normalized
-  expect(resultPlus.resultOfCheck).toBe("normalized");
-  const resultMinus = checkNormalization("sqrt(1/3)", "sqrt(2/3)", false);
-  expect(resultMinus.resultOfCheck).toBe("normalized");
+test("results are as expected for states using sqrt that is normalized (sqrt(1/3), sqrt(2/3))", () => {
+  const result = checkNormalization("sqrt(1/3)", "sqrt(2/3)", true);
+  const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
+  // Alpha should become (sqrt(1/3) + sqrt(2/3)) / sqrt(2)
+  expect(resultHadamard.alpha.re).toBeCloseTo(
+    (sqrt(1 / 3) + sqrt(2 / 3)) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.alpha.im).toBe(0);
+  // Beta should become (sqrt(1/3) - sqrt(2/3)) / sqrt(2)
+  expect(resultHadamard.beta.re).toBeCloseTo(
+    (sqrt(1 / 3) - sqrt(2 / 3)) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.beta.im).toBe(0);
 });
 
-test("results return normalized for states using acot that is normalized (cos(acot(sqrt(3))), sin(acot(sqrt(3))), +/-)", () => {
-  // + = true, - = false. Check normalization expects strings from
-  // the user typing
-  const resultPlus = checkNormalization(
+test("results are as expected for states using acot that is normalized (cos(acot(sqrt(3))), sin(acot(sqrt(3))))", () => {
+  const result = checkNormalization(
     "cos(acot(sqrt(3)))",
     "sin(acot(sqrt(3)))",
     true,
   );
-  // Make sure checkNormalization returns normalized
-  expect(resultPlus.resultOfCheck).toBe("normalized");
-  const resultMinus = checkNormalization(
-    "cos(acot(sqrt(3)))",
-    "sin(acot(sqrt(3)))",
-    false,
+  const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
+  // Alpha should become (cos(acot(sqrt(3))) + sin(acot(sqrt(3)))) / sqrt(2)
+  expect(resultHadamard.alpha.re).toBeCloseTo(
+    (cos(acot(sqrt(3))) + sin(acot(sqrt(3)))) / sqrt(2),
+    9,
   );
-  expect(resultMinus.resultOfCheck).toBe("normalized");
-});
-
-test("results return normalized for states using asec that is normalized (cos(asec(2)), sin(asec(2)), +/-)", () => {
-  // + = true, - = false. Check normalization expects strings from
-  // the user typing
-  const resultPlus = checkNormalization("cos(asec(2))", "sin(asec(2))", true);
-  // Make sure checkNormalization returns normalized
-  expect(resultPlus.resultOfCheck).toBe("normalized");
-  const resultMinus = checkNormalization("cos(asec(2))", "sin(asec(2))", false);
-  expect(resultMinus.resultOfCheck).toBe("normalized");
-});
-
-test("results return normalized for states using acsc that is normalized (sin(acsc(2)), cos(acsc(2)), +/-)", () => {
-  // + = true, - = false. Check normalization expects strings from
-  // the user typing
-  const resultPlus = checkNormalization("sin(acsc(2))", "cos(acsc(2))", true);
-  // Make sure checkNormalization returns normalized
-  expect(resultPlus.resultOfCheck).toBe("normalized");
-  const resultMinus = checkNormalization("sin(acsc(2))", "cos(acsc(2))", false);
-  expect(resultMinus.resultOfCheck).toBe("normalized");
-});
-
-test("results return normalized for states using sinh that is normalized (sinh(1) / cosh(1), 1 / cosh(1), +/-)", () => {
-  // + = true, - = false. Check normalization expects strings from
-  // the user typing
-  const resultPlus = checkNormalization(
-    "sinh(1) / cosh(1)",
-    "1 / cosh(1)",
-    true,
+  expect(resultHadamard.alpha.im).toBe(0);
+  // Beta should become (cos(acot(sqrt(3))) - sin(acot(sqrt(3)))) / sqrt(2)
+  expect(resultHadamard.beta.re).toBeCloseTo(
+    (cos(acot(sqrt(3))) - sin(acot(sqrt(3)))) / sqrt(2),
+    9,
   );
-  // Make sure checkNormalization returns normalized
-  expect(resultPlus.resultOfCheck).toBe("normalized");
-  const resultMinus = checkNormalization(
-    "sinh(1) / cosh(1)",
-    "1 / cosh(1)",
-    false,
-  );
-  expect(resultMinus.resultOfCheck).toBe("normalized");
+  expect(resultHadamard.beta.im).toBe(0);
 });
 
-test("results return normalized for states using cosh that is normalized (1 / cosh(1), sqrt(1 - 1/cosh(1)^2), +/-)", () => {
-  // + = true, - = false. Check normalization expects strings from
-  // the user typing
-  const resultPlus = checkNormalization(
+test("results are as expected for states using asec that is normalized (cos(asec(2)), sin(asec(2)))", () => {
+  const result = checkNormalization("cos(asec(2))", "sin(asec(2))", true);
+  const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
+  // Alpha should become (cos(asec(2)) + sin(asec(2))) / sqrt(2)
+  expect(resultHadamard.alpha.re).toBeCloseTo(
+    (cos(asec(2)) + sin(asec(2))) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.alpha.im).toBe(0);
+  // Beta should become (cos(asec(2)) - sin(asec(2))) / sqrt(2)
+  expect(resultHadamard.beta.re).toBeCloseTo(
+    (cos(asec(2)) - sin(asec(2))) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.beta.im).toBe(0);
+});
+
+test("results are as expected for states using acsc that is normalized (sin(acsc(2)), cos(acsc(2)))", () => {
+  const result = checkNormalization("sin(acsc(2))", "cos(acsc(2))", true);
+  const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
+  // Alpha should become (sin(acsc(2)) + cos(acsc(2))) / sqrt(2)
+  expect(resultHadamard.alpha.re).toBeCloseTo(
+    (sin(acsc(2)) + cos(acsc(2))) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.alpha.im).toBe(0);
+  // Beta should become (sin(acsc(2)) - cos(acsc(2))) / sqrt(2)
+  expect(resultHadamard.beta.re).toBeCloseTo(
+    (sin(acsc(2)) - cos(acsc(2))) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.beta.im).toBe(0);
+});
+
+test("results are as expected for states using sinh that is normalized (sinh(1) / cosh(1), 1 / cosh(1))", () => {
+  const result = checkNormalization("sinh(1) / cosh(1)", "1 / cosh(1)", true);
+  const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
+  // Alpha should become (sinh(1) / cosh(1) + 1 / cosh(1)) / sqrt(2)
+  expect(resultHadamard.alpha.re).toBeCloseTo(
+    (sinh(1) / cosh(1) + 1 / cosh(1)) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.alpha.im).toBe(0);
+  // Beta should become (sinh(1) / cosh(1) - 1 / cosh(1)) / sqrt(2)
+  expect(resultHadamard.beta.re).toBeCloseTo(
+    (sinh(1) / cosh(1) - 1 / cosh(1)) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.beta.im).toBe(0);
+});
+
+test("results are as expected for states using cosh that is normalized (1 / cosh(1), sqrt(1 - 1/cosh(1)^2))", () => {
+  const result = checkNormalization(
     "1 / cosh(1)",
     "sqrt(1 - 1/cosh(1)^2)",
     true,
   );
-  // Make sure checkNormalization returns normalized
-  expect(resultPlus.resultOfCheck).toBe("normalized");
-  const resultMinus = checkNormalization(
-    "1 / cosh(1)",
-    "sqrt(1 - 1/cosh(1)^2)",
-    false,
+  const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
+  // Alpha should become (1 / cosh(1) + sqrt(1 - (1 / cosh(1))^2)) / sqrt(2)
+  expect(resultHadamard.alpha.re).toBeCloseTo(
+    (1 / cosh(1) + sqrt(1 - (1 / cosh(1)) ** 2)) / sqrt(2),
+    9,
   );
-  expect(resultMinus.resultOfCheck).toBe("normalized");
-});
-
-test("results return normalized for states using tanh that is normalized (tanh(1), 1 / cosh(1), +/-)", () => {
-  // + = true, - = false. Check normalization expects strings from
-  // the user typing
-  const resultPlus = checkNormalization("tanh(1)", "1 / cosh(1)", true);
-  // Make sure checkNormalization returns normalized
-  expect(resultPlus.resultOfCheck).toBe("normalized");
-  const resultMinus = checkNormalization("tanh(1)", "1 / cosh(1)", false);
-  expect(resultMinus.resultOfCheck).toBe("normalized");
-});
-
-test("results return normalized for states using asinh that is normalized (cos(asinh(1)), sin(asinh(1)), +/-)", () => {
-  // + = true, - = false. Check normalization expects strings from
-  // the user typing
-  const resultPlus = checkNormalization("cos(asinh(1))", "sin(asinh(1))", true);
-  // Make sure checkNormalization returns normalized
-  expect(resultPlus.resultOfCheck).toBe("normalized");
-  const resultMin = checkNormalization("cos(asinh(1))", "sin(asinh(1))", false);
-  expect(resultMin.resultOfCheck).toBe("normalized");
-});
-
-test("results return normalized for states using acosh that is normalized (cos(acosh(2)), sin(acosh(2)), +/-)", () => {
-  // + = true, - = false. Check normalization expects strings from
-  // the user typing
-  const resultPlus = checkNormalization("cos(acosh(2))", "sin(acosh(2))", true);
-  // Make sure checkNormalization returns normalized
-  expect(resultPlus.resultOfCheck).toBe("normalized");
-  const resultMin = checkNormalization("cos(acosh(2))", "sin(acosh(2))", false);
-  expect(resultMin.resultOfCheck).toBe("normalized");
-});
-
-test("results return normalized for states using atanh that is normalized (cos(atanh(1/2)), sin(atanh(1/2)), +/-)", () => {
-  // + = true, - = false. Check normalization expects strings from
-  // the user typing
-  const resultPlus = checkNormalization(
-    "cos(atanh(1/2))",
-    "sin(atanh(1/2))",
-    true,
+  expect(resultHadamard.alpha.im).toBe(0);
+  // Beta should become (1 / cosh(1) - sqrt(1 - (1 / cosh(1))^2)) / sqrt(2)
+  expect(resultHadamard.beta.re).toBeCloseTo(
+    (1 / cosh(1) - sqrt(1 - (1 / cosh(1)) ** 2)) / sqrt(2),
+    9,
   );
-  // Make sure checkNormalization returns normalized
-  expect(resultPlus.resultOfCheck).toBe("normalized");
-  const resultMinus = checkNormalization(
-    "cos(atanh(1/2))",
-    "sin(atanh(1/2))",
-    false,
+  expect(resultHadamard.beta.im).toBe(0);
+});
+
+test("results are as expected for states using tanh that is normalized (tanh(1), 1 / cosh(1))", () => {
+  const result = checkNormalization("tanh(1)", "1 / cosh(1)", true);
+  const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
+  // Alpha should become (tanh(1) + 1 / cosh(1)) / sqrt(2)
+  expect(resultHadamard.alpha.re).toBeCloseTo(
+    (tanh(1) + 1 / cosh(1)) / sqrt(2),
+    9,
   );
-  expect(resultMinus.resultOfCheck).toBe("normalized");
-});
-
-test("results return normalized for states using nthRoot that is normalized (1 / nthRoot(8, 3), sqrt(3) / 2, +/-)", () => {
-  // + = true, - = false. Check normalization expects strings from
-  // the user typing
-  const resultPlus = checkNormalization(
-    "1 / nthRoot(8, 3)",
-    "sqrt(3) / 2",
-    true,
+  expect(resultHadamard.alpha.im).toBe(0);
+  // Beta should become (tanh(1) - 1 / cosh(1)) / sqrt(2)
+  expect(resultHadamard.beta.re).toBeCloseTo(
+    (tanh(1) - 1 / cosh(1)) / sqrt(2),
+    9,
   );
-  // Make sure checkNormalization returns normalized
-  expect(resultPlus.resultOfCheck).toBe("normalized");
-  const resultMinus = checkNormalization(
-    "1 / nthRoot(8, 3)",
-    "sqrt(3) / 2",
-    false,
+  expect(resultHadamard.beta.im).toBe(0);
+});
+
+test("results are as expected for states using asinh that is normalized (cos(asinh(1)), sin(asinh(1)))", () => {
+  const result = checkNormalization("cos(asinh(1))", "sin(asinh(1))", true);
+  const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
+  // Alpha should become (cos(asinh(1)) + sin(asinh(1))) / sqrt(2)
+  expect(resultHadamard.alpha.re).toBeCloseTo(
+    (cos(asinh(1)) + sin(asinh(1))) / sqrt(2),
+    9,
   );
-  expect(resultMinus.resultOfCheck).toBe("normalized");
+  expect(resultHadamard.alpha.im).toBe(0);
+  // Beta should become (cos(asinh(1)) - sin(asinh(1))) / sqrt(2)
+  expect(resultHadamard.beta.re).toBeCloseTo(
+    (cos(asinh(1)) - sin(asinh(1))) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.beta.im).toBe(0);
 });
 
-test("results return normalized for states using exp that is normalized (exp(-1), sqrt(1 - exp(-2)), +/-)", () => {
-  // + = true, - = false. Check normalization expects strings from
-  // the user typing
-  const resultPlus = checkNormalization("exp(-1)", "sqrt(1 - exp(-2))", true);
-  // Make sure checkNormalization returns normalized
-  expect(resultPlus.resultOfCheck).toBe("normalized");
-  const resultMinus = checkNormalization("exp(-1)", "sqrt(1 - exp(-2))", false);
-  expect(resultMinus.resultOfCheck).toBe("normalized");
+test("results are as expected for states using acosh that is normalized (cos(acosh(2)), sin(acosh(2)))", () => {
+  const result = checkNormalization("cos(acosh(2))", "sin(acosh(2))", true);
+  const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
+  // Alpha should become (cos(acosh(2)) + sin(acosh(2))) / sqrt(2)
+  expect(resultHadamard.alpha.re).toBeCloseTo(
+    (cos(acosh(2)) + sin(acosh(2))) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.alpha.im).toBe(0);
+  // Beta should become (cos(acosh(2)) - sin(acosh(2))) / sqrt(2)
+  expect(resultHadamard.beta.re).toBeCloseTo(
+    (cos(acosh(2)) - sin(acosh(2))) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.beta.im).toBe(0);
 });
 
-test("results return normalized for states using log that is normalized (log(sqrt(e)), sqrt(3) / 2, +/-)", () => {
-  // + = true, - = false. Check normalization expects strings from
-  // the user typing
-  const resultPlus = checkNormalization("log(sqrt(e))", "sqrt(3) / 2", true);
-  // Make sure checkNormalization returns normalized
-  expect(resultPlus.resultOfCheck).toBe("normalized");
-  const resultMinus = checkNormalization("log(sqrt(e))", "sqrt(3) / 2", false);
-  expect(resultMinus.resultOfCheck).toBe("normalized");
+test("results are as expected for states using atanh that is normalized (cos(atanh(1/2)), sin(atanh(1/2)))", () => {
+  const result = checkNormalization("cos(atanh(1/2))", "sin(atanh(1/2))", true);
+  const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
+  // Alpha should become (cos(atanh(1/2)) + sin(atanh(1/2))) / sqrt(2)
+  expect(resultHadamard.alpha.re).toBeCloseTo(
+    (cos(atanh(1 / 2)) + sin(atanh(1 / 2))) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.alpha.im).toBe(0);
+  // Beta should become (cos(atanh(1/2)) - sin(atanh(1/2))) / sqrt(2)
+  expect(resultHadamard.beta.re).toBeCloseTo(
+    (cos(atanh(1 / 2)) - sin(atanh(1 / 2))) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.beta.im).toBe(0);
 });
 
-test("results return normalized for states using pow that is normalized (pow(4, -1/2), sqrt(3) / 2, +/-)", () => {
-  // + = true, - = false. Check normalization expects strings from
-  // the user typing
-  const resultPlus = checkNormalization("pow(4, -1/2)", "sqrt(3) / 2", true);
-  // Make sure checkNormalization returns normalized
-  expect(resultPlus.resultOfCheck).toBe("normalized");
-  const resultMinus = checkNormalization("pow(4, -1/2)", "sqrt(3) / 2", false);
-  expect(resultMinus.resultOfCheck).toBe("normalized");
+test("results are as expected for states using nthRoot that is normalized (1 / nthRoot(8, 3), sqrt(3) / 2)", () => {
+  const result = checkNormalization("1 / nthRoot(8, 3)", "sqrt(3) / 2", true);
+  const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
+  // Alpha should become (1 / nthRoot(8, 3) + sqrt(3) / 2) / sqrt(2)
+  expect(resultHadamard.alpha.re).toBeCloseTo(
+    (1 / nthRoot(8, 3) + sqrt(3) / 2) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.alpha.im).toBe(0);
+  // Beta should become (1 / nthRoot(8, 3) - sqrt(3) / 2) / sqrt(2)
+  expect(resultHadamard.beta.re).toBeCloseTo(
+    (1 / nthRoot(8, 3) - sqrt(3) / 2) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.beta.im).toBe(0);
 });
 
-test("results return normalized for states using abs that is normalized (abs(complex(-3, -4)) / 10, sqrt(3) / 2, +/-)", () => {
-  // + = true, - = false. Check normalization expects strings from
-  // the user typing
-  const resultPlus = checkNormalization(
+test("results are as expected for states using exp that is normalized (exp(-1), sqrt(1 - exp(-2)))", () => {
+  const result = checkNormalization("exp(-1)", "sqrt(1 - exp(-2))", true);
+  const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
+  // Alpha should become (exp(-1) + sqrt(1 - exp(-2))) / sqrt(2)
+  expect(resultHadamard.alpha.re).toBeCloseTo(
+    (exp(-1) + sqrt(1 - exp(-2))) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.alpha.im).toBe(0);
+  // Beta should become (exp(-1) - sqrt(1 - exp(-2))) / sqrt(2)
+  expect(resultHadamard.beta.re).toBeCloseTo(
+    (exp(-1) - sqrt(1 - exp(-2))) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.beta.im).toBe(0);
+});
+
+test("results are as expected for states using log that is normalized (log(sqrt(e)), sqrt(3) / 2)", () => {
+  const result = checkNormalization("log(sqrt(e))", "sqrt(3) / 2", true);
+  const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
+  // Alpha should become (log(sqrt(e)) + sqrt(3) / 2) / sqrt(2)
+  expect(resultHadamard.alpha.re).toBeCloseTo(
+    (log(sqrt(e)) + sqrt(3) / 2) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.alpha.im).toBe(0);
+  // Beta should become (log(sqrt(e)) - sqrt(3) / 2) / sqrt(2)
+  expect(resultHadamard.beta.re).toBeCloseTo(
+    (log(sqrt(e)) - sqrt(3) / 2) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.beta.im).toBe(0);
+});
+
+test("results are as expected for states using pow that is normalized (pow(4, -1/2), sqrt(3) / 2)", () => {
+  const result = checkNormalization("pow(4, -1/2)", "sqrt(3) / 2", true);
+  const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
+  // Alpha should become (pow(4, -1/2) + sqrt(3) / 2) / sqrt(2)
+  expect(resultHadamard.alpha.re).toBeCloseTo(
+    (pow(4, -1 / 2) + sqrt(3) / 2) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.alpha.im).toBe(0);
+  // Beta should become (pow(4, -1/2) - sqrt(3) / 2) / sqrt(2)
+  expect(resultHadamard.beta.re).toBeCloseTo(
+    (pow(4, -1 / 2) - sqrt(3) / 2) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.beta.im).toBe(0);
+});
+
+test("results are as expected for states using abs that is normalized (abs(complex(-3, -4)) / 10, sqrt(3) / 2)", () => {
+  const result = checkNormalization(
     "abs(complex(-3, -4)) / 10",
     "sqrt(3) / 2",
     true,
   );
-  // Make sure checkNormalization returns normalized
-  expect(resultPlus.resultOfCheck).toBe("normalized");
-  const resultMinus = checkNormalization(
-    "abs(complex(-3, -4)) / 10",
-    "sqrt(3) / 2",
-    false,
+  const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
+  // Alpha should become (abs(complex(-3, -4)) / 10 + sqrt(3) / 2) / sqrt(2)
+  expect(resultHadamard.alpha.re).toBeCloseTo(
+    (abs(complex(-3, -4)) / 10 + sqrt(3) / 2) / sqrt(2),
+    9,
   );
-  expect(resultMinus.resultOfCheck).toBe("normalized");
+  expect(resultHadamard.alpha.im).toBe(0);
+  // Beta should become (abs(complex(-3, -4)) / 10 - sqrt(3) / 2) / sqrt(2)
+  expect(resultHadamard.beta.re).toBeCloseTo(
+    (abs(complex(-3, -4)) / 10 - sqrt(3) / 2) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.beta.im).toBe(0);
 });
 
-test("results return normalized for states using arg that is normalized (cos(arg(complex(1, 1))), sin(arg(complex(1, 1))), +/-)", () => {
-  // + = true, - = false. Check normalization expects strings from
-  // the user typing
-  const resultPlus = checkNormalization(
+test("results are as expected for states using arg that is normalized (cos(arg(complex(1, 1))), sin(arg(complex(1, 1))))", () => {
+  const result = checkNormalization(
     "cos(arg(complex(1, 1)))",
     "sin(arg(complex(1, 1)))",
     true,
   );
-  // Make sure checkNormalization returns normalized
-  expect(resultPlus.resultOfCheck).toBe("normalized");
-  const resultMinus = checkNormalization(
-    "cos(arg(complex(1, 1)))",
-    "sin(arg(complex(1, 1)))",
-    false,
+  const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
+  // Alpha should become (cos(arg(complex(1, 1))) + sin(arg(complex(1, 1)))) / sqrt(2)
+  expect(resultHadamard.alpha.re).toBeCloseTo(
+    (cos(arg(complex(1, 1))) + sin(arg(complex(1, 1)))) / sqrt(2),
+    9,
   );
-  expect(resultMinus.resultOfCheck).toBe("normalized");
+  expect(resultHadamard.alpha.im).toBe(0);
+  // Beta should become (cos(arg(complex(1, 1))) - sin(arg(complex(1, 1)))) / sqrt(2)
+  expect(resultHadamard.beta.re).toBeCloseTo(
+    (cos(arg(complex(1, 1))) - sin(arg(complex(1, 1)))) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.beta.im).toBe(0);
 });
 
-test("results return normalized for states using conj that is normalized (conj(complex(1, -1)) / 2, conj(complex(1, 1)) / 2, +/-)", () => {
-  // + = true, - = false. Check normalization expects strings from
-  // the user typing
-  const resultPlus = checkNormalization(
+test("results are as expected for states using conj that is normalized (conj(complex(1, -1)) / 2, conj(complex(1, 1)) / 2)", () => {
+  // alpha = complex(1, 1) / 2, beta = complex(1, -1) / 2 after conj
+  // alpha + beta = complex(1, 0), alpha - beta = complex(0, 1)
+  const result = checkNormalization(
     "conj(complex(1, -1)) / 2",
     "conj(complex(1, 1)) / 2",
     true,
   );
-  // Make sure checkNormalization returns normalized
-  expect(resultPlus.resultOfCheck).toBe("normalized");
-  const resultMinus = checkNormalization(
-    "conj(complex(1, -1)) / 2",
-    "conj(complex(1, 1)) / 2",
-    false,
+  const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
+  // Alpha should become complex(1, 0) / sqrt(2)
+  expect(resultHadamard.alpha.re).toBeCloseTo(1 / sqrt(2), 9);
+  expect(resultHadamard.alpha.im).toBeCloseTo(0, 9);
+  // Beta should become complex(0, 1) / sqrt(2)
+  expect(resultHadamard.beta.re).toBeCloseTo(0, 9);
+  expect(resultHadamard.beta.im).toBeCloseTo(1 / sqrt(2), 9);
+});
+
+test("results are as expected for states using re that is normalized (re(complex(3, 4)) / 5, 4/5)", () => {
+  const result = checkNormalization("re(complex(3, 4)) / 5", "4/5", true);
+  const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
+  // Alpha should become (re(complex(3, 4)) / 5 + 4/5) / sqrt(2)
+  expect(resultHadamard.alpha.re).toBeCloseTo(
+    (re(complex(3, 4)) / 5 + 4 / 5) / sqrt(2),
+    9,
   );
-  expect(resultMinus.resultOfCheck).toBe("normalized");
+  expect(resultHadamard.alpha.im).toBe(0);
+  // Beta should become (re(complex(3, 4)) / 5 - 4/5) / sqrt(2)
+  expect(resultHadamard.beta.re).toBeCloseTo(
+    (re(complex(3, 4)) / 5 - 4 / 5) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.beta.im).toBe(0);
 });
 
-test("results return normalized for states using re that is normalized (re(complex(3, 4)) / 5, 4/5, +/-)", () => {
-  // + = true, - = false. Check normalization expects strings from
-  // the user typing
-  const resultPlus = checkNormalization("re(complex(3, 4)) / 5", "4/5", true);
-  // Make sure checkNormalization returns normalized
-  expect(resultPlus.resultOfCheck).toBe("normalized");
-  const resultMinus = checkNormalization("re(complex(3, 4)) / 5", "4/5", false);
-  expect(resultMinus.resultOfCheck).toBe("normalized");
+test("results are as expected for states using im that is normalized (im(complex(3, 4)) / 5, 3/5)", () => {
+  const result = checkNormalization("im(complex(3, 4)) / 5", "3/5", true);
+  const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
+  // Alpha should become (im(complex(3, 4)) / 5 + 3/5) / sqrt(2)
+  expect(resultHadamard.alpha.re).toBeCloseTo(
+    (im(complex(3, 4)) / 5 + 3 / 5) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.alpha.im).toBe(0);
+  // Beta should become (im(complex(3, 4)) / 5 - 3/5) / sqrt(2)
+  expect(resultHadamard.beta.re).toBeCloseTo(
+    (im(complex(3, 4)) / 5 - 3 / 5) / sqrt(2),
+    9,
+  );
+  expect(resultHadamard.beta.im).toBe(0);
 });
 
-test("results return normalized for states using im that is normalized (im(complex(3, 4)) / 5, 3/5, +/-)", () => {
-  // + = true, - = false. Check normalization expects strings from
-  // the user typing
-  const resultPlus = checkNormalization("im(complex(3, 4)) / 5", "3/5", true);
-  // Make sure checkNormalization returns normalized
-  expect(resultPlus.resultOfCheck).toBe("normalized");
-  const resultMinus = checkNormalization("im(complex(3, 4)) / 5", "3/5", false);
-  expect(resultMinus.resultOfCheck).toBe("normalized");
-});
-
-test("results return normalized for states using complex that is normalized (complex(1, 1) / 2, complex(1, -1) / 2, +/-)", () => {
-  // + = true, - = false. Check normalization expects strings from
-  // the user typing
-  const resultPlus = checkNormalization(
+test("results are as expected for states using complex that is normalized (complex(1, 1) / 2, complex(1, -1) / 2)", () => {
+  // alpha = complex(1, 1) / 2, beta = complex(1, -1) / 2
+  // alpha + beta = complex(1, 0), alpha - beta = complex(0, 1)
+  const result = checkNormalization(
     "complex(1, 1) / 2",
     "complex(1, -1) / 2",
     true,
   );
-  // Make sure checkNormalization returns normalized
-  expect(resultPlus.resultOfCheck).toBe("normalized");
-  const resultMinus = checkNormalization(
-    "complex(1, 1) / 2",
-    "complex(1, -1) / 2",
-    false,
-  );
-  expect(resultMinus.resultOfCheck).toBe("normalized");
-*/
+  const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
+  // Alpha should become complex(1, 0) / sqrt(2)
+  expect(resultHadamard.alpha.re).toBeCloseTo(1 / sqrt(2), 9);
+  expect(resultHadamard.alpha.im).toBeCloseTo(0, 9);
+  // Beta should become complex(0, 1) / sqrt(2)
+  expect(resultHadamard.beta.re).toBeCloseTo(0, 9);
+  expect(resultHadamard.beta.im).toBeCloseTo(1 / sqrt(2), 9);
+});
