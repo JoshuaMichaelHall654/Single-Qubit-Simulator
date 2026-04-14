@@ -385,35 +385,35 @@ test("results are as expected for states using acot that is normalized (cos(acot
   expect(resultHadamard.beta.im).toBe(0);
 });
 
-test("results are as expected for states using asec that is normalized (cos(asec(2)), sin(asec(2)))", () => {
-  const result = checkNormalization("cos(asec(2))", "sin(asec(2))", true);
+test("results are as expected for states using asec that is normalized (cos(asec(4)), sin(asec(4)))", () => {
+  const result = checkNormalization("cos(asec(4))", "sin(asec(4))", true);
   const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
-  // Alpha should become (cos(asec(2)) + sin(asec(2))) / sqrt(2)
+  // Alpha should become (cos(asec(4)) + sin(asec(4))) / sqrt(2)
   expect(resultHadamard.alpha.re).toBeCloseTo(
-    (cos(asec(2)) + sin(asec(2))) / sqrt(2),
+    (cos(asec(4)) + sin(asec(4))) / sqrt(2),
     9,
   );
   expect(resultHadamard.alpha.im).toBe(0);
-  // Beta should become (cos(asec(2)) - sin(asec(2))) / sqrt(2)
+  // Beta should become (cos(asec(4)) - sin(asec(4))) / sqrt(2)
   expect(resultHadamard.beta.re).toBeCloseTo(
-    (cos(asec(2)) - sin(asec(2))) / sqrt(2),
+    (cos(asec(4)) - sin(asec(4))) / sqrt(2),
     9,
   );
   expect(resultHadamard.beta.im).toBe(0);
 });
 
-test("results are as expected for states using acsc that is normalized (sin(acsc(2)), cos(acsc(2)))", () => {
-  const result = checkNormalization("sin(acsc(2))", "cos(acsc(2))", true);
+test("results are as expected for states using acsc that is normalized (sin(acsc(5)), cos(acsc(5)))", () => {
+  const result = checkNormalization("sin(acsc(5))", "cos(acsc(5))", true);
   const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
-  // Alpha should become (sin(acsc(2)) + cos(acsc(2))) / sqrt(2)
+  // Alpha should become (sin(acsc(5)) + cos(acsc(5))) / sqrt(2)
   expect(resultHadamard.alpha.re).toBeCloseTo(
-    (sin(acsc(2)) + cos(acsc(2))) / sqrt(2),
+    (sin(acsc(5)) + cos(acsc(5))) / sqrt(2),
     9,
   );
   expect(resultHadamard.alpha.im).toBe(0);
-  // Beta should become (sin(acsc(2)) - cos(acsc(2))) / sqrt(2)
+  // Beta should become (sin(acsc(5)) - cos(acsc(5))) / sqrt(2)
   expect(resultHadamard.beta.re).toBeCloseTo(
-    (sin(acsc(2)) - cos(acsc(2))) / sqrt(2),
+    (sin(acsc(5)) - cos(acsc(5))) / sqrt(2),
     9,
   );
   expect(resultHadamard.beta.im).toBe(0);
@@ -525,18 +525,22 @@ test("results are as expected for states using atanh that is normalized (cos(ata
   expect(resultHadamard.beta.im).toBe(0);
 });
 
-test("results are as expected for states using nthRoot that is normalized (1 / nthRoot(8, 3), sqrt(3) / 2)", () => {
-  const result = checkNormalization("1 / nthRoot(8, 3)", "sqrt(3) / 2", true);
+test("results are as expected for states using nthRoot that is normalized (1 / nthRoot(27, 3), 2 * sqrt(2) / 3)", () => {
+  const result = checkNormalization(
+    "1 / nthRoot(27, 3)",
+    "2 * sqrt(2) / 3",
+    true,
+  );
   const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
-  // Alpha should become (1 / nthRoot(8, 3) + sqrt(3) / 2) / sqrt(2)
+  // Alpha should become (1 / nthRoot(27, 3) + 2 * sqrt(2) / 3) / sqrt(2)
   expect(resultHadamard.alpha.re).toBeCloseTo(
-    (1 / nthRoot(8, 3) + sqrt(3) / 2) / sqrt(2),
+    (1 / nthRoot(27, 3) + (2 * sqrt(2)) / 3) / sqrt(2),
     9,
   );
   expect(resultHadamard.alpha.im).toBe(0);
-  // Beta should become (1 / nthRoot(8, 3) - sqrt(3) / 2) / sqrt(2)
+  // Beta should become (1 / nthRoot(27, 3) - 2 * sqrt(2) / 3) / sqrt(2)
   expect(resultHadamard.beta.re).toBeCloseTo(
-    (1 / nthRoot(8, 3) - sqrt(3) / 2) / sqrt(2),
+    (1 / nthRoot(27, 3) - (2 * sqrt(2)) / 3) / sqrt(2),
     9,
   );
   expect(resultHadamard.beta.im).toBe(0);
@@ -559,56 +563,56 @@ test("results are as expected for states using exp that is normalized (exp(-1), 
   expect(resultHadamard.beta.im).toBe(0);
 });
 
-test("results are as expected for states using log that is normalized (log(sqrt(e)), sqrt(3) / 2)", () => {
-  const result = checkNormalization("log(sqrt(e))", "sqrt(3) / 2", true);
+test("results are as expected for states using log that is normalized (log(e^(2/3)), sqrt(5) / 3)", () => {
+  const result = checkNormalization("log(e^(2/3))", "sqrt(5) / 3", true);
   const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
-  // Alpha should become (log(sqrt(e)) + sqrt(3) / 2) / sqrt(2)
+  // Alpha should become (log(e^(2/3)) + sqrt(5) / 3) / sqrt(2)
   expect(resultHadamard.alpha.re).toBeCloseTo(
-    (log(sqrt(e)) + sqrt(3) / 2) / sqrt(2),
+    (log(pow(e, 2 / 3)) + sqrt(5) / 3) / sqrt(2),
     9,
   );
   expect(resultHadamard.alpha.im).toBe(0);
-  // Beta should become (log(sqrt(e)) - sqrt(3) / 2) / sqrt(2)
+  // Beta should become (log(e^(2/3)) - sqrt(5) / 3) / sqrt(2)
   expect(resultHadamard.beta.re).toBeCloseTo(
-    (log(sqrt(e)) - sqrt(3) / 2) / sqrt(2),
+    (log(pow(e, 2 / 3)) - sqrt(5) / 3) / sqrt(2),
     9,
   );
   expect(resultHadamard.beta.im).toBe(0);
 });
 
-test("results are as expected for states using pow that is normalized (pow(4, -1/2), sqrt(3) / 2)", () => {
-  const result = checkNormalization("pow(4, -1/2)", "sqrt(3) / 2", true);
+test("results are as expected for states using pow that is normalized (pow(27, -2/3), 4 * sqrt(5) / 9)", () => {
+  const result = checkNormalization("pow(27, -2/3)", "4 * sqrt(5) / 9", true);
   const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
-  // Alpha should become (pow(4, -1/2) + sqrt(3) / 2) / sqrt(2)
+  // Alpha should become (pow(27, -2/3) + 4 * sqrt(5) / 9) / sqrt(2)
   expect(resultHadamard.alpha.re).toBeCloseTo(
-    (pow(4, -1 / 2) + sqrt(3) / 2) / sqrt(2),
+    (pow(27, -2 / 3) + (4 * sqrt(5)) / 9) / sqrt(2),
     9,
   );
   expect(resultHadamard.alpha.im).toBe(0);
-  // Beta should become (pow(4, -1/2) - sqrt(3) / 2) / sqrt(2)
+  // Beta should become (pow(27, -2/3) - 4 * sqrt(5) / 9) / sqrt(2)
   expect(resultHadamard.beta.re).toBeCloseTo(
-    (pow(4, -1 / 2) - sqrt(3) / 2) / sqrt(2),
+    (pow(27, -2 / 3) - (4 * sqrt(5)) / 9) / sqrt(2),
     9,
   );
   expect(resultHadamard.beta.im).toBe(0);
 });
 
-test("results are as expected for states using abs that is normalized (abs(complex(-3, -4)) / 10, sqrt(3) / 2)", () => {
+test("results are as expected for states using abs that is normalized (abs(complex(1, 2)) / 5, 2 / sqrt(5))", () => {
   const result = checkNormalization(
-    "abs(complex(-3, -4)) / 10",
-    "sqrt(3) / 2",
+    "abs(complex(1, 2)) / 5",
+    "2 / sqrt(5)",
     true,
   );
   const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
-  // Alpha should become (abs(complex(-3, -4)) / 10 + sqrt(3) / 2) / sqrt(2)
+  // Alpha should become (abs(complex(1, 2)) / 5 + 2 / sqrt(5)) / sqrt(2)
   expect(resultHadamard.alpha.re).toBeCloseTo(
-    (abs(complex(-3, -4)) / 10 + sqrt(3) / 2) / sqrt(2),
+    (abs(complex(1, 2)) / 5 + 2 / sqrt(5)) / sqrt(2),
     9,
   );
   expect(resultHadamard.alpha.im).toBe(0);
-  // Beta should become (abs(complex(-3, -4)) / 10 - sqrt(3) / 2) / sqrt(2)
+  // Beta should become (abs(complex(1, 2)) / 5 - 2 / sqrt(5)) / sqrt(2)
   expect(resultHadamard.beta.re).toBeCloseTo(
-    (abs(complex(-3, -4)) / 10 - sqrt(3) / 2) / sqrt(2),
+    (abs(complex(1, 2)) / 5 - 2 / sqrt(5)) / sqrt(2),
     9,
   );
   expect(resultHadamard.beta.im).toBe(0);
@@ -635,21 +639,21 @@ test("results are as expected for states using arg that is normalized (cos(arg(c
   expect(resultHadamard.beta.im).toBe(0);
 });
 
-test("results are as expected for states using conj that is normalized (conj(complex(1, -1)) / 2, conj(complex(1, 1)) / 2)", () => {
-  // alpha = complex(1, 1) / 2, beta = complex(1, -1) / 2 after conj
-  // alpha + beta = complex(1, 0), alpha - beta = complex(0, 1)
+test("results are as expected for states using conj that is normalized (conj(complex(1, -2)) / sqrt(5), conj(complex(2, 1)) / sqrt(5))", () => {
+  // alpha = complex(1, 2) / sqrt(5), beta = complex(2, -1) / sqrt(5) after conj
+  // alpha + beta = complex(3, 1) / sqrt(5), alpha - beta = complex(-1, 3) / sqrt(5)
   const result = checkNormalization(
-    "conj(complex(1, -1)) / 2",
-    "conj(complex(1, 1)) / 2",
+    "conj(complex(1, -2)) / sqrt(5)",
+    "conj(complex(2, 1)) / sqrt(5)",
     true,
   );
   const resultHadamard = backend.hadamardGate(result.alphaNum, result.betaNum);
-  // Alpha should become complex(1, 0) / sqrt(2)
-  expect(resultHadamard.alpha.re).toBeCloseTo(1 / sqrt(2), 9);
-  expect(resultHadamard.alpha.im).toBeCloseTo(0, 9);
-  // Beta should become complex(0, 1) / sqrt(2)
-  expect(resultHadamard.beta.re).toBeCloseTo(0, 9);
-  expect(resultHadamard.beta.im).toBeCloseTo(1 / sqrt(2), 9);
+  // Alpha should become complex(3, 1) / sqrt(10)
+  expect(resultHadamard.alpha.re).toBeCloseTo(3 / sqrt(10), 9);
+  expect(resultHadamard.alpha.im).toBeCloseTo(1 / sqrt(10), 9);
+  // Beta should become complex(-1, 3) / sqrt(10)
+  expect(resultHadamard.beta.re).toBeCloseTo(-1 / sqrt(10), 9);
+  expect(resultHadamard.beta.im).toBeCloseTo(3 / sqrt(10), 9);
 });
 
 test("results are as expected for states using re that is normalized (re(complex(3, 4)) / 5, 4/5)", () => {
