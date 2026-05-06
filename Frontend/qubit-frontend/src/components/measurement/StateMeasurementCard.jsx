@@ -10,6 +10,8 @@ export function StateMeasurementCard({
   normalizedStatus,
   evalAlpha,
   evalBeta,
+  probZero,
+  probOne,
 }) {
   // Current gate
   const [currentGate, setCurrentGate] = useState("");
@@ -91,6 +93,12 @@ export function StateMeasurementCard({
               >
                 Apply Gate
               </Button>
+            </Col>
+            <Col>
+              We currently have {probZero} is probZero and {probOne} is probOne.
+              Also alpha is {evalAlpha.current.re} + {evalAlpha.current.im} and
+              beta is {evalBeta.current.re} + {evalBeta.current.im}. prob zero
+              and prob one are in fact |alpha|^2 and |beta|^2 as expected.
             </Col>
           </>
         )}

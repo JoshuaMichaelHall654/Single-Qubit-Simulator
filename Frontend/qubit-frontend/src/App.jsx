@@ -90,6 +90,8 @@ function App() {
                 normalizedStatus={normalizedStatus}
                 evalAlpha={evalAlpha}
                 evalBeta={evalBeta}
+                probOne={probOne}
+                probZero={probZero}
               />
             </Card>
           </Col>
