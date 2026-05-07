@@ -2,7 +2,7 @@
 #include <sys/stat.h>
 // include the enscripten library in order to use Embind. emcc will be able to
 // find it, even though vscode can not, so don't mind the squiggles.
-#include <emscripten/bind.h>
+// #include <emscripten/bind.h>
 
 #include <array>
 #include <cmath>
@@ -67,13 +67,38 @@ NormClass normalizeState(double probZero, double probOne,
                          complexReplacement alphaStruct,
                          complexReplacement betaStruct);
 
+// TODO, why does this prototyped function have the wrong declaration?
+// It should be arrays should contain std::complex<double>, not int.
+// Is it intentional, or unintentional but doesn't break anything?
 std::array<int, 2> matrixVectorMultiplication(
     std::array<std::array<int, 2>, 2> matrix, std::array<int, 2> vector);
 
 AlphaAndBetaClass hadamardGate(complexReplacement alphaStruct,
                                complexReplacement betaStruct);
-int main() { return 0; }
 
+std::complex<double> rowColVectorMult(
+    std::array<std::complex<double>, 2> rowVec,
+    std::array<std::complex<double>, 2> colVec);
+
+double tempName(std::array<std::complex<double>, 2> basisVector,
+                complexReplacement alphaStruct, complexReplacement betaStruct);
+
+int main() {
+  // check the |+> state
+  std::array<std::complex<double>, 2> rowVec{(1 / sqrt(2)), 1 / sqrt(2)};
+  std::array<std::complex<double>, 2> colVec{(1 / sqrt(3)), (1 / sqrt(3))};
+  std::cout << rowColVectorMult(rowVec, colVec);
+  std::cout << "\n";
+  // make an alpha and beta struct complexReplacement.
+  // Remember that complexStruct = {re, im}
+  complexReplacement alphaStruct{1 / (sqrt(2)), 0};
+  complexReplacement betaStruct{1 / sqrt(2), 0};
+  // Call our probability finding function
+  std::cout << tempName(rowVec, alphaStruct, betaStruct);
+  return 0;
+}
+
+/*
 // Register Embind bindings for this translation unit.
 // EMSCRIPTEN_BINDINGS(...) is a macro (not a namespace member), so it is not
 // written as emscripten::EMSCRIPTEN_BINDINGS.
@@ -87,34 +112,35 @@ int main() { return 0; }
 // Design note (for this project): keep the JS-facing surface small and expose
 // "essential" operations/data, while leaving the heavy QM math in C++.
 EMSCRIPTEN_BINDINGS(my_module) {
-  // embind all complicated data structures as well.
-  // First, embind our complex struct using value object. Make sure to bind
-  // its members as well using field.
-  emscripten::value_object<complexReplacement>("complexReplacement")
-      .field("re", &complexReplacement::re)
-      .field("im", &complexReplacement::im);
+// embind all complicated data structures as well.
+// First, embind our complex struct using value object. Make sure to bind
+// its members as well using field.
+emscripten::value_object<complexReplacement>("complexReplacement")
+    .field("re", &complexReplacement::re)
+    .field("im", &complexReplacement::im);
 
-  // Now embind our norm class using value_object, not class. This means
-  // we cant do new NormClass in JS, but we can stll access values like
-  // result.probZero and result.alphaStruct.re
-  emscripten::value_object<NormClass>("NormClass")
-      .field("probZero", &NormClass::probZero)
-      .field("probOne", &NormClass::probOne)
-      .field("normAmpFactor", &NormClass::normAmpFactor)
-      .field("alphaStruct", &NormClass::alphaStruct)
-      .field("betaStruct", &NormClass::betaStruct);
-  // Embind our alpha and beta class to return those
-  // (could return them through norm, but thats a waste of time)
-  emscripten::value_object<AlphaAndBetaClass>("AlphaAndBetaClass")
-      .field("alpha", &AlphaAndBetaClass::alpha)
-      .field("beta", &AlphaAndBetaClass::beta);
+// Now embind our norm class using value_object, not class. This means
+// we cant do new NormClass in JS, but we can stll access values like
+// result.probZero and result.alphaStruct.re
+emscripten::value_object<NormClass>("NormClass")
+    .field("probZero", &NormClass::probZero)
+    .field("probOne", &NormClass::probOne)
+    .field("normAmpFactor", &NormClass::normAmpFactor)
+    .field("alphaStruct", &NormClass::alphaStruct)
+    .field("betaStruct", &NormClass::betaStruct);
+// Embind our alpha and beta class to return those
+// (could return them through norm, but thats a waste of time)
+emscripten::value_object<AlphaAndBetaClass>("AlphaAndBetaClass")
+    .field("alpha", &AlphaAndBetaClass::alpha)
+    .field("beta", &AlphaAndBetaClass::beta);
 
-  // Embind the functions last, because it depends on data above.
-  // First comes the name of the function as js will see
-  // it, and second comes the reference to the actual function in your c++ code.
-  emscripten::function("normalizeState", &normalizeState);
-  emscripten::function("hadamardGate", &hadamardGate);
+// Embind the functions last, because it depends on data above.
+// First comes the name of the function as js will see
+// it, and second comes the reference to the actual function in your c++ code.
+emscripten::function("normalizeState", &normalizeState);
+emscripten::function("hadamardGate", &hadamardGate);
 }
+*/
 
 // The full function that exists for testing js integration
 int testJSFunctionality() { return 2 + 3; }
@@ -193,6 +219,65 @@ std::array<std::complex<double>, 2> matrixVectorMultiplication(
   std::array<std::complex<double>, 2> resultVector = {
       {(a * x + b * y), (c * x + d * y)}};
   return resultVector;
+}
+
+// A function that takes in a row vector and a col vector
+// and multiplies them together. Usually, the row vector will be
+// the bases for calculating probability (i.e. <0| = (0,1))
+// while the col vector will be the normalized state. Returns
+// a scalar (usually the probability amplitude), which can be a complex,
+// so return a complex double. This DOES NOT calculate the probability,
+// just the probability amplitude.
+std::complex<double> rowColVectorMult(
+    std::array<std::complex<double>, 2> rowVec,
+    std::array<std::complex<double>, 2> colVec) {
+  // For a 1x2 times 2x1, the calculation is
+  // (a, b) * (x)   = (a*x) + (b*y)
+  //          (y)
+
+  // return the result of the multiplication
+  return (rowVec[0] * colVec[0]) + (rowVec[1] * colVec[1]);
+}
+
+// A function to measure the current alpha and beta with respect to the
+// basis of choice. The basis must be provided in it its vector form
+// (row or column doesn't technically matter. I mean, you could
+// make it a column vector by having a 2d array of 1 element each,
+// but im going to assume a 1d array of 2 elements), and not its bra/ket
+// form. It returns the probability in terms of double, since
+// the probability must be a real number.
+double tempName(std::array<std::complex<double>, 2> basisVector,
+                complexReplacement alphaStruct, complexReplacement betaStruct) {
+  // converting alpha and beta into a single std::array of complex doubles
+  // (the states vector form).
+
+  // Start by making alpha and beta into complex values
+  std::complex alpha(alphaStruct.re, alphaStruct.im);
+  std::complex beta(betaStruct.re, betaStruct.im);
+
+  // Now, make a state vector with them
+  std::array<std::complex<double>, 2> stateVector{alpha, beta};
+  // Multiply the 2 vectors together using the function rowColVecMult.
+  // Remember that the basis vector is first so it goes in
+  // as the row vector, and the state vector is second so it acts
+  // as the column vector. This is the probability amplitude
+  std::complex<double> probabilityAmplitude =
+      rowColVectorMult(basisVector, stateVector);
+
+  // The probability is found by taking magnitude squared of the
+  // probability amplitude, i.e: |amp|^2. For any value a,
+  // |a|^2 = aa*, where a* = (a.real, a.im * -1). So, calculate
+  // the probability amplitude squared as amp * (amp.real(), amp.im * - 1).
+  // This is guaranteed to be a real number, but the compiler doesn't know that,
+  // so we must first make it into a complex number.
+  std::complex<double> probSquared =
+      (probabilityAmplitude *
+       std::complex<double>{probabilityAmplitude.real(),
+                            probabilityAmplitude.imag() * -1});
+
+  // Manually return only the real part of probSquared (probSquared.imag == 0
+  // anyways)
+  return probSquared.real();
 }
 
 // A function that takes in the alpha and beta magnitudes and computes
