@@ -18,6 +18,7 @@ These operators include quantum gate operators as well as the Pauli spin\* and r
 ### In Progress:
 - Hadamard Gate
 #### Current Phase: In development
+- Measurement - calculating probabilities that the state ends up in one state or another. X, Y, and Z bases for sure, maybe other relevant ones as time goes on.
 #### Current Phase: Being tested or refactored
 - "Normalize For Me" button - allow the user to let the simulator normalize for them. Don't want to auto normalize just in case the user made a typo
 - "Reset to Starting State" button - if the user applied too many gates, they can start over from the beginning
@@ -29,7 +30,6 @@ These operators include quantum gate operators as well as the Pauli spin\* and r
 #### UI/UX and standard QM
 - Multiple state input methods - one is writing in dirac notation aka superposition form. The other is 2 by 1 matrix form aka single matrix form. Should have a selector as well examples/clear indicators so users know which is which.
 - Simple Q&A - answers why only single qubits are allowed, how to find a single qubit form (maybe), what basis we are using, what the Z basis is, and other questions.
-- Measurement - calculating probabilities that the state ends up in one state or another. X, Y, and Z bases for sure, maybe other relevant ones as time goes on.
 - Collapse Simulation - simulate the system collapsing into one of the two states using some random number generator
 
 #### Gates and Operators
