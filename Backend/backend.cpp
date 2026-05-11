@@ -2,7 +2,7 @@
 #include <sys/stat.h>
 // include the enscripten library in order to use Embind. emcc will be able to
 // find it, even though vscode can not, so don't mind the squiggles.
-// #include <emscripten/bind.h>
+#include <emscripten/bind.h>
 
 #include <array>
 #include <cmath>
@@ -24,17 +24,12 @@ struct complexReplacement {
 class NormClass {
   // Make all the values public
  public:
-  double probZero;
-  double probOne;
   double normAmpFactor;
   complexReplacement alphaStruct;
   complexReplacement betaStruct;
 
   // Make the consturctor
-  NormClass(double pZero, double pOne, double normAmp, complexReplacement a,
-            complexReplacement b) {
-    probZero = pZero;
-    probOne = pOne;
+  NormClass(double normAmp, complexReplacement a, complexReplacement b) {
     normAmpFactor = normAmp;
     alphaStruct = a;
     betaStruct = b;
@@ -62,8 +57,7 @@ class AlphaAndBetaClass {
 // Functions must be "prototyped" in C++ before main, or main will not recognize
 // them.
 int testJSFunctionality();
-NormClass normalizeState(double probZero, double probOne,
-                         double sqrNormalization,
+NormClass normalizeState(double sqrNormalization,
                          complexReplacement alphaStruct,
                          complexReplacement betaStruct);
 
@@ -86,18 +80,17 @@ int main() {
   // check the |+> state
   std::array<std::complex<double>, 2> rowVec{(1 / sqrt(2)), 1 / sqrt(2)};
   std::array<std::complex<double>, 2> colVec{(1 / sqrt(3)), (1 / sqrt(3))};
-  std::cout << rowColVectorMult(rowVec, colVec);
-  std::cout << "\n";
-  // make an alpha and beta struct complexReplacement.
-  // Remember that complexStruct = {re, im}
+  //::cout << rowColVectorMult(rowVec, colVec);
+  // std::cout << "\n";
+  //  make an alpha and beta struct complexReplacement.
+  //  Remember that complexStruct = {re, im}
   complexReplacement alphaStruct{1 / (sqrt(2)), 0};
   complexReplacement betaStruct{1 / sqrt(2), 0};
   // Call our probability finding function
-  std::cout << measurementProbability(rowVec, alphaStruct, betaStruct);
+  // std::cout << measurementProbability(rowVec, alphaStruct, betaStruct);
   return 0;
 }
 
-/*
 // Register Embind bindings for this translation unit.
 // EMSCRIPTEN_BINDINGS(...) is a macro (not a namespace member), so it is not
 // written as emscripten::EMSCRIPTEN_BINDINGS.
@@ -111,62 +104,54 @@ int main() {
 // Design note (for this project): keep the JS-facing surface small and expose
 // "essential" operations/data, while leaving the heavy QM math in C++.
 EMSCRIPTEN_BINDINGS(my_module) {
-// embind all complicated data structures as well.
-// First, embind our complex struct using value object. Make sure to bind
-// its members as well using field.
-emscripten::value_object<complexReplacement>("complexReplacement")
-    .field("re", &complexReplacement::re)
-    .field("im", &complexReplacement::im);
+  // embind all complicated data structures as well.
+  // First, embind our complex struct using value object. Make sure to bind
+  // its members as well using field.
+  emscripten::value_object<complexReplacement>("complexReplacement")
+      .field("re", &complexReplacement::re)
+      .field("im", &complexReplacement::im);
 
-// Now embind our norm class using value_object, not class. This means
-// we cant do new NormClass in JS, but we can stll access values like
-// result.probZero and result.alphaStruct.re
-emscripten::value_object<NormClass>("NormClass")
-    .field("probZero", &NormClass::probZero)
-    .field("probOne", &NormClass::probOne)
-    .field("normAmpFactor", &NormClass::normAmpFactor)
-    .field("alphaStruct", &NormClass::alphaStruct)
-    .field("betaStruct", &NormClass::betaStruct);
-// Embind our alpha and beta class to return those
-// (could return them through norm, but thats a waste of time)
-emscripten::value_object<AlphaAndBetaClass>("AlphaAndBetaClass")
-    .field("alpha", &AlphaAndBetaClass::alpha)
-    .field("beta", &AlphaAndBetaClass::beta);
+  // Now embind our norm class using value_object, not class. This means
+  // we cant do new NormClass in JS, but we can stll access values like
+  // result.alphaStruct.re
+  emscripten::value_object<NormClass>("NormClass")
+      .field("normAmpFactor", &NormClass::normAmpFactor)
+      .field("alphaStruct", &NormClass::alphaStruct)
+      .field("betaStruct", &NormClass::betaStruct);
+  // Embind our alpha and beta class to return those
+  // (could return them through norm, but thats a waste of time)
+  emscripten::value_object<AlphaAndBetaClass>("AlphaAndBetaClass")
+      .field("alpha", &AlphaAndBetaClass::alpha)
+      .field("beta", &AlphaAndBetaClass::beta);
 
-// Embind the functions last, because it depends on data above.
-// First comes the name of the function as js will see
-// it, and second comes the reference to the actual function in your c++ code.
-emscripten::function("normalizeState", &normalizeState);
-emscripten::function("hadamardGate", &hadamardGate);
+  // Embind the functions last, because it depends on data above.
+  // First comes the name of the function as js will see
+  // it, and second comes the reference to the actual function in your c++ code.
+  emscripten::function("normalizeState", &normalizeState);
+  emscripten::function("hadamardGate", &hadamardGate);
 }
-*/
 
 // The full function that exists for testing js integration
 int testJSFunctionality() { return 2 + 3; }
 
-// Normalize the state using the values of probZero, probOne, and
-// sqrNormalization (the squared normalization factor). The normalized
-// amplitudes (i.e alpha/N) and the normalized probabilities (|alpha|^2/N^2) are
-// NOT the same! TODO check for unnecessary calculations and fix
-// sqrNormalization is zero error
-NormClass normalizeState(double probZero, double probOne,
-                         double sqrNormalization,
+// Normalize the state using sqrNormalization (the squared normalization
+// factor). The normalized amplitudes
+// (i.e alpha/N) and the normalized probabilities (|alpha|^2/N^2) are NOT the
+// same! TODO check for unnecessary calculations and fix sqrNormalization is
+// zero error
+NormClass normalizeState(double sqrNormalization,
                          complexReplacement alphaStruct,
                          complexReplacement betaStruct) {
   // First, check if sqrNormalization is zero. If it is, figure out a way to
   // deal with this later. This function should not be callable when
   // sqrNormalization is zero, so it should be fine.
   if (std::abs(sqrNormalization) <= 0.000000001) {
-    return NormClass(0.0, 0.0, 0.0, {0.0, 0.0}, {0.0, 0.0});
+    return NormClass(0.0, {0.0, 0.0}, {0.0, 0.0});
   }
 
   // Make new alpha and beta from the struct complexReplacement to std::complex.
   std::complex<double> alpha(alphaStruct.re, alphaStruct.im);
   std::complex<double> beta(betaStruct.re, betaStruct.im);
-
-  // Next, divide each unnormalized probability to get their true probability
-  probOne = probOne / sqrNormalization;
-  probZero = probZero / sqrNormalization;
 
   // Next, calculate the sqrt of the squared normalization factor to get the
   // normalize amplitude factor.
@@ -184,8 +169,8 @@ NormClass normalizeState(double probZero, double probOne,
   complexReplacement newBetaStruct = {beta.real(), beta.imag()};
 
   // add our values to reeturn
-  NormClass normalizedValues = NormClass(probZero, probOne, normAmpFactor,
-                                         newAlphaStruct, newBetaStruct);
+  NormClass normalizedValues =
+      NormClass(normAmpFactor, newAlphaStruct, newBetaStruct);
 
   // Return zero to end the function
   return normalizedValues;

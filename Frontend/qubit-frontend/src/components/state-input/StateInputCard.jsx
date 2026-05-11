@@ -35,10 +35,6 @@ export function StateInputCard({
   setNormalizedStatus,
   sqrNormalization,
   setSqrNormalization,
-  probZero,
-  probOne,
-  setProbZero,
-  setProbOne,
   evalAlpha,
   evalBeta,
 }) {
@@ -130,8 +126,6 @@ export function StateInputCard({
           evalAlpha.current = result.alphaNum;
           evalBeta.current = result.betaNum;
           setSqrNormalization(result.sqrNorm);
-          setProbZero(result.alphaProb);
-          setProbOne(result.betaProb);
         }, delayMs);
 
         // Clear the timeout
@@ -207,7 +201,6 @@ export function StateInputCard({
     // when the current node and the top node do not match, which is how the stack allowes for redoing)
     setCanRedo(undoAndRedoStack.redoAllowed());
     const rows = undoAndRedoStack.toArray();
-    console.table(rows);
   }
 
   return (
@@ -430,11 +423,8 @@ export function StateInputCard({
                   // call save earlier state to show that a transformation has been called
                   // Call saveEarlierState
                   saveEarlierState();
-
                   // call normalize for me and get its result
                   const normalizedStateResult = normalizeForMe(
-                    probZero,
-                    probOne,
                     sqrNormalization,
                     evalAlpha.current,
                     evalBeta.current,

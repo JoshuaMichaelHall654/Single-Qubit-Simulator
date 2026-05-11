@@ -7,15 +7,10 @@ import {} from "../App";
 // Every state must be normalized in order to properly measure it.
 // This method checks if the state is normalized. We return
 // true or false.
-// Currently, alpha must be the amplitude of state |0>
-// and beta must be the amplitude of state |1>. This can be changed
-// be removing or redoing the probZero and probOne declarations below.
 export function checkNormalizationHelper(alpha, beta) {
   // Make an object to hold the values we want to save
-  const createResults = (sqrNorm, alphaProb, betaProb) => ({
+  const createResults = (sqrNorm) => ({
     sqrNorm: sqrNorm,
-    alphaProb: alphaProb,
-    betaProb: betaProb,
   });
 
   // The state is normalized if |a|^2 and |b|^2 both add to 1.
@@ -49,24 +44,15 @@ export function checkNormalizationHelper(alpha, beta) {
 }
 
 // A function that checks the normalization and updates
-// values related to normalization and probabilities
+// values related to normalization.
 export function checkNormalization(rawAlpha, rawBeta, addOrSubt) {
   // In here is what we want to happen after typing stops.
 
-  const checkResult = (
-    resultOfCheck,
-    alphaNum,
-    betaNum,
-    sqrNorm,
-    alphaProb,
-    betaProb,
-  ) => ({
+  const checkResult = (resultOfCheck, alphaNum, betaNum, sqrNorm) => ({
     resultOfCheck: resultOfCheck,
     alphaNum: alphaNum,
     betaNum: betaNum,
     sqrNorm: sqrNorm,
-    alphaProb: alphaProb,
-    betaProb: betaProb,
   });
 
   // Create alphaNum and betaNum, which serve as proxies for
@@ -110,25 +96,11 @@ export function checkNormalization(rawAlpha, rawBeta, addOrSubt) {
   // Finally, check if it equals 1 with epsillon comparison to avoid floating
   // point errors causing a false negative. Using 10^-11 as epsilon for now.
   if (abs(result.sqrNorm - 1) < 0.00000000001) {
-    return checkResult(
-      "normalized",
-      alphaNum,
-      betaNum,
-      result.sqrNorm,
-      result.alphaProb,
-      result.betaProb,
-    );
+    return checkResult("normalized", alphaNum, betaNum, result.sqrNorm);
   }
 
   // Otherwise its false
   else {
-    return checkResult(
-      "not normalized",
-      alphaNum,
-      betaNum,
-      result.sqrNorm,
-      result.alphaProb,
-      result.betaProb,
-    );
+    return checkResult("not normalized", alphaNum, betaNum, result.sqrNorm);
   }
 }

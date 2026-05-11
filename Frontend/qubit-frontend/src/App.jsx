@@ -39,12 +39,6 @@ function App() {
   // Create a global sqrNormalization value (N^2)
   const [sqrNormalization, setSqrNormalization] = useState(-1.0);
 
-  // Make global probability variables that hold the probability of the state
-  // being in 0 and 1 after collapse from z basis measurement. Have them default
-  // to negative 1 to signal something is wrong, as they can never be negative.
-  const [probZero, setProbZero] = useState(-1.0);
-  const [probOne, setProbOne] = useState(-1.0);
-
   // True for add false for subtract
   const [addOrSubt, setAddOrSubt] = useState(true);
 
@@ -73,11 +67,7 @@ function App() {
                 normalizedStatus={normalizedStatus}
                 setNormalizedStatus={setNormalizedStatus}
                 setSqrNormalization={setSqrNormalization}
-                probOne={probOne}
-                probZero={probZero}
                 sqrNormalization={sqrNormalization}
-                setProbZero={setProbZero}
-                setProbOne={setProbOne}
                 evalAlpha={evalAlpha}
                 evalBeta={evalBeta}
               />
@@ -90,8 +80,6 @@ function App() {
                 normalizedStatus={normalizedStatus}
                 evalAlpha={evalAlpha}
                 evalBeta={evalBeta}
-                probOne={probOne}
-                probZero={probZero}
               />
             </Card>
           </Col>

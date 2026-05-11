@@ -7,8 +7,6 @@ const backend = await backendModule();
 // anywhere, but since rawAlpha and beta are updated in stateInput,
 // I have them change in state input as well.)
 export function normalizeForMe(
-  probZero,
-  probOne,
   sqrNormalization,
   alphaCurrentVal,
   betaCurrentVal,
@@ -18,8 +16,6 @@ export function normalizeForMe(
   console.time("backend call");
   // call the backend to normalize the state
   const normalizedStateResult = backend.normalizeState(
-    probZero,
-    probOne,
     sqrNormalization,
     // Make sure to pass it as a structure using
     // what we defined as our members in the c++ backend

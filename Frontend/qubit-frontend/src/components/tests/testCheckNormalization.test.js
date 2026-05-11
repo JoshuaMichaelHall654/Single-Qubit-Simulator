@@ -12,14 +12,10 @@ import { abs } from "mathjs";
 /**
  * Helper function tests: unnormalized inputs
  */
-test("helper correctly calculates norm and prob for integer (1, 1)", () => {
+test("helper correctly calculates norm for integer (1, 1)", () => {
   const result = checkNormalizationHelper(1, 1);
   // Make sure its not normalized directly
   expect(abs(result.sqrNorm - 1) < 0.00000000001).toBe(false);
-  // Make sure the correct alpha and beta probabilities are returned
-  // (its just 1 since these are not yet normalized)
-  expect(result.alphaProb).toBe(1);
-  expect(result.betaProb).toBe(1);
 });
 
 // In Js, 1.0 and 1 are the same number. So, the tests for check normalization
@@ -27,27 +23,16 @@ test("helper correctly calculates norm and prob for integer (1, 1)", () => {
 // for checkNormalization, as there we are testing that it recognizes
 // strings, not numbers.
 
-test("helper correctly returns norm and prob for one large double (1.00000000001, 1)", () => {
+test("helper correctly returns norm for one large double (1.00000000001, 1)", () => {
   const result = checkNormalizationHelper(1.00000000001, 1);
   // Make sure its not normalized
   expect(abs(result.sqrNorm - 1) < 0.00000000001).toBe(false);
-  // Make sure the correct alpha and beta probabilities are returned.
-  // A floating point error dictates that alpha will be 1.00000000002,
-  // so just check that its within the range of 1 (must be
-  // looser than 1e-11)
-  expect(abs(result.alphaProb - 1) < 0.000000001).toBe(true);
-  expect(result.betaProb).toBe(1);
 });
 
-test("helper correctly returns norm and prob for doubles greater than our 10^-11 margin of error (.00001, 1)", () => {
+test("helper correctly returns norm for doubles greater than our 10^-11 margin of error (.00001, 1)", () => {
   const result = checkNormalizationHelper(0.00001, 1);
   // Make sure its not normalized
   expect(abs(result.sqrNorm - 1) < 0.00000000001).toBe(false);
-  // Make sure the correct alpha and beta probabilities are returned.
-  // A floating point error will occur with alpha, so make sure
-  // its within the range of 0.
-  expect(abs(result.alphaProb) < 0.00001).toBe(true);
-  expect(result.betaProb).toBe(1);
 });
 
 /**
@@ -143,20 +128,16 @@ test("results are unnormalized for user_test_3 (sin(2i^3), 3^i * 4, +/-)", () =>
 /**
  * Helper function tests: normalized inputs
  */
-test("helper correctly returns norm and prob for integers (0, 1)", () => {
+test("helper correctly returns norm for integers (0, 1)", () => {
   const result = checkNormalizationHelper(0, 1);
   // Make sure it is normalized
   expect(abs(result.sqrNorm - 1) < 0.00000000001).toBe(true);
-  expect(result.alphaProb).toBe(0);
-  expect(result.betaProb).toBe(1);
 });
 
-test("helper correctly returns norm and prob for integers (1, 0)", () => {
+test("helper correctly returns norm for integers (1, 0)", () => {
   const result = checkNormalizationHelper(1, 0);
   // Make sure it is normalized
   expect(abs(result.sqrNorm - 1) < 0.00000000001).toBe(true);
-  expect(result.alphaProb).toBe(1);
-  expect(result.betaProb).toBe(0);
 });
 
 /**
@@ -724,7 +705,7 @@ test("results return normalized for states using complex that is normalized (com
 /**
  * Helper function tests: edge cases
  */
-test("helper function returns correct probs and incorrect norm on input that is less than our 10^-11 margin (0.000001, 1)", () => {
+test("helper function returns incorrect norm on input that is less than our 10^-11 margin (0.000001, 1)", () => {
   // We check that the result is 1 within 1 * 10^-11 precision.
   // We have alpha = .000001, which is 1 * 10^-6. checkNormalizationHelper
   // will do alpha * alphaComplexConj, which is just alpha * alpha for real numbers,
@@ -734,10 +715,6 @@ test("helper function returns correct probs and incorrect norm on input that is 
   const result = checkNormalizationHelper(0.000001, 1);
   // Make sure it says its normalized
   expect(abs(result.sqrNorm - 1) < 0.00000000001).toBe(true);
-  // Both alpha and beta should be correct, only norm should be wrong.
-  // Alpha prob should be 0 within a margin of error.
-  expect(abs(result.alphaProb) < 0.00001).toBe(true);
-  expect(result.betaProb).toBe(1);
 });
 
 /**
