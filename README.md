@@ -34,7 +34,6 @@ These operators include quantum gate operators as well as the Pauli spin\* and r
 
 #### Gates and Operators
 
-- Hadamard Gate (H)
 - Identity Gate (I) - for mathematical consistency
 - Pauli Gates/Spin Matricies - σx, σy, σz
 - Rotation Gates/Pauli Rotation Matricies - Ri(θ)
