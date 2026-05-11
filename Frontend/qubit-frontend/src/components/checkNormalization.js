@@ -89,9 +89,7 @@ export function checkNormalization(rawAlpha, rawBeta, addOrSubt) {
     return checkResult("zero error", null, null, null, null, null);
   }
 
-  console.time("checkNorm");
   const result = checkNormalizationHelper(alphaNum, betaNum);
-  console.timeEnd("checkNorm");
 
   // Finally, check if it equals 1 with epsillon comparison to avoid floating
   // point errors causing a false negative. Using 10^-11 as epsilon for now.

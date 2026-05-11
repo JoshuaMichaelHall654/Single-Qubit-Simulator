@@ -429,6 +429,7 @@ export function StateInputCard({
                     evalAlpha.current,
                     evalBeta.current,
                     setNormalizedStatus,
+                    setNormalizationError,
                     addOrSubt,
                   );
                   // TODO: make all this logic one function if you ever need to update
@@ -436,25 +437,20 @@ export function StateInputCard({
                   // input like normalize for me does)
                   // Update eval alpha and beta. Must be done with the normalizedStateResult, not
                   // rawAlpha and beta because async guarantees they are not yet updated
-                  // by the time the below runs
-                  evalAlpha.current = complex(
-                    normalizedStateResult.alphaStruct.re,
-                    normalizedStateResult.alphaStruct.im,
-                  );
-                  evalBeta.current = complex(
-                    normalizedStateResult.betaStruct.re,
-                    normalizedStateResult.betaStruct.im,
-                  );
+                  // by the time the below runs. sqrNormalization is not updated
+                  // since it didn't change.
+                  evalAlpha.current = complex(normalizedStateResult.alpha);
+                  evalBeta.current = complex(normalizedStateResult.beta);
 
                   // Get the string formatted versions of alpha and beta
                   const formattedAlpha = formatComplex(
-                    normalizedStateResult.alphaStruct.re,
-                    normalizedStateResult.alphaStruct.im,
+                    normalizedStateResult.alpha.re,
+                    normalizedStateResult.alpha.im,
                   );
 
                   const formattedBeta = formatComplex(
-                    normalizedStateResult.betaStruct.re,
-                    normalizedStateResult.betaStruct.im,
+                    normalizedStateResult.beta.re,
+                    normalizedStateResult.beta.im,
                   );
 
                   // Update raw alpha and beta using those strings

@@ -21,23 +21,6 @@ struct complexReplacement {
 };
 
 // Create a class we can return to our jsx.
-class NormClass {
-  // Make all the values public
- public:
-  double normAmpFactor;
-  complexReplacement alphaStruct;
-  complexReplacement betaStruct;
-
-  // Make the consturctor
-  NormClass(double normAmp, complexReplacement a, complexReplacement b) {
-    normAmpFactor = normAmp;
-    alphaStruct = a;
-    betaStruct = b;
-  }
-
-  // Make a default construct to prevent enscripten from getting angry
-  NormClass() = default;
-};
 
 class AlphaAndBetaClass {
  public:
@@ -57,9 +40,6 @@ class AlphaAndBetaClass {
 // Functions must be "prototyped" in C++ before main, or main will not recognize
 // them.
 int testJSFunctionality();
-NormClass normalizeState(double sqrNormalization,
-                         complexReplacement alphaStruct,
-                         complexReplacement betaStruct);
 
 std::array<std::complex<double>, 2> matrixVectorMultiplication(
     std::array<std::array<std::complex<double>, 2>, 2> matrix,
@@ -111,14 +91,10 @@ EMSCRIPTEN_BINDINGS(my_module) {
       .field("re", &complexReplacement::re)
       .field("im", &complexReplacement::im);
 
-  // Now embind our norm class using value_object, not class. This means
-  // we cant do new NormClass in JS, but we can stll access values like
-  // result.alphaStruct.re
-  emscripten::value_object<NormClass>("NormClass")
-      .field("normAmpFactor", &NormClass::normAmpFactor)
-      .field("alphaStruct", &NormClass::alphaStruct)
-      .field("betaStruct", &NormClass::betaStruct);
-  // Embind our alpha and beta class to return those
+  // Embind our alpha and beta class to return alpha and beta.
+  // embinding the class means we cant make a new alphaandbetaclass
+  // in js, but we can stll access values like
+  // result.alpha
   // (could return them through norm, but thats a waste of time)
   emscripten::value_object<AlphaAndBetaClass>("AlphaAndBetaClass")
       .field("alpha", &AlphaAndBetaClass::alpha)
@@ -127,54 +103,11 @@ EMSCRIPTEN_BINDINGS(my_module) {
   // Embind the functions last, because it depends on data above.
   // First comes the name of the function as js will see
   // it, and second comes the reference to the actual function in your c++ code.
-  emscripten::function("normalizeState", &normalizeState);
   emscripten::function("hadamardGate", &hadamardGate);
 }
 
 // The full function that exists for testing js integration
 int testJSFunctionality() { return 2 + 3; }
-
-// Normalize the state using sqrNormalization (the squared normalization
-// factor). The normalized amplitudes
-// (i.e alpha/N) and the normalized probabilities (|alpha|^2/N^2) are NOT the
-// same! TODO check for unnecessary calculations and fix sqrNormalization is
-// zero error
-NormClass normalizeState(double sqrNormalization,
-                         complexReplacement alphaStruct,
-                         complexReplacement betaStruct) {
-  // First, check if sqrNormalization is zero. If it is, figure out a way to
-  // deal with this later. This function should not be callable when
-  // sqrNormalization is zero, so it should be fine.
-  if (std::abs(sqrNormalization) <= 0.000000001) {
-    return NormClass(0.0, {0.0, 0.0}, {0.0, 0.0});
-  }
-
-  // Make new alpha and beta from the struct complexReplacement to std::complex.
-  std::complex<double> alpha(alphaStruct.re, alphaStruct.im);
-  std::complex<double> beta(betaStruct.re, betaStruct.im);
-
-  // Next, calculate the sqrt of the squared normalization factor to get the
-  // normalize amplitude factor.
-  double normAmpFactor = std::sqrt(sqrNormalization);
-
-  // Normalize alpha and beta
-  alpha = alpha / normAmpFactor;
-  beta = beta / normAmpFactor;
-  std::cout << alpha << " normalized and normalized " << beta << std::endl;
-
-  // Now convert them back to structs. Remember, .real() is for complex from
-  // std, but our complex struct has the member re (represent the same ideas,
-  // just renamed for clarity)
-  complexReplacement newAlphaStruct = {alpha.real(), alpha.imag()};
-  complexReplacement newBetaStruct = {beta.real(), beta.imag()};
-
-  // add our values to reeturn
-  NormClass normalizedValues =
-      NormClass(normAmpFactor, newAlphaStruct, newBetaStruct);
-
-  // Return zero to end the function
-  return normalizedValues;
-}
 
 // Takes in a 2x2 matrix and a (mathematical) vector and multiplies them
 // together, giving the output vector. Use std::array instead of generic arrays.

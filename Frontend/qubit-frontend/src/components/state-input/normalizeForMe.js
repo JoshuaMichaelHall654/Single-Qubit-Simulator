@@ -1,5 +1,4 @@
-import backendModule from "../../compiledBackend/backend.out";
-const backend = await backendModule();
+import { abs, sqrt, divide, complex } from "mathjs";
 
 // Does all the calculation, but doesn't update any of the values (
 // rawAlpha and beta must be updated in state input card for
@@ -11,44 +10,39 @@ export function normalizeForMe(
   alphaCurrentVal,
   betaCurrentVal,
   setNormalizedStatus,
+  setNormalizationError,
   addOrSubt,
 ) {
-  console.time("backend call");
-  // call the backend to normalize the state
-  const normalizedStateResult = backend.normalizeState(
-    sqrNormalization,
-    // Make sure to pass it as a structure using
-    // what we defined as our members in the c++ backend
-    // (re and im). In math.js, complex values get their
-    // real and imaginary values through .re and .im properties as well,
-    // so the naming was deliberate.
-    { re: alphaCurrentVal.re, im: alphaCurrentVal.im },
-    { re: betaCurrentVal.re, im: betaCurrentVal.im },
-  );
-  console.timeEnd("backend call");
+  // First, check if sqrNormalization is zero. If it is, figure out a way to
+  // deal with this later. This function should not be callable when
+  // sqrNormalization is zero, so it should be fine. TODO
+  if (abs(sqrNormalization - 1) <= 0.000000001) {
+    setNormalizedStatus("error");
+    setNormalizationError("Sqrnorm should not be 0");
+    return;
+  }
+
+  // Next, calculate the sqrt of the squared normalization
+  // factor (sqrt(N^2) = N) to get the normalization amplitude factor.
+  const normAmpFactor = sqrt(sqrNormalization);
+
+  // Normalize alpha and beta by dividing by N. Make sure to use math.divide
+  // to handle division using complex value. Make sure its complex (even
+  // though im pretty sure state input already made sure its
+  // complex) using math.complex
+  const alResult = divide(complex(alphaCurrentVal), normAmpFactor);
+  const beResult = divide(complex(betaCurrentVal), normAmpFactor);
 
   // Check that the returned values are actually usable. Dont update our
   // values if normalizedStateResult is garbage/unusuable for whatever reason.
-  // First, make sure normalizedStateResult is not null
-  if (normalizedStateResult === null) {
+  // First, make sure alResult and beResult are not null
+  if (alResult === null || beResult === null) {
     setNormalizedStatus("error");
-    setNormalizationError("Normalization returned null result");
+    setNormalizationError("Normalization returned null for alpha or beta");
     return;
   }
-  // Make sure that alpha struct and beta struct exist
-  else if (
-    normalizedStateResult.alphaStruct === null ||
-    normalizedStateResult.betaStruct === null
-  ) {
-    setNormalizedStatus("error");
-    setNormalizationError("Normalization returned null alpha or beta");
-    return;
-  }
-  // Use for easier reading
-  const alResult = normalizedStateResult.alphaStruct;
-  const beResult = normalizedStateResult.betaStruct;
 
-  // Make sure that alpha and beta struct have valid real and imaginary numbers that are finite.
+  // Make sure that alpha and beta have valid real and imaginary numbers that are finite.
   if (!Number.isFinite(alResult.re) || !Number.isFinite(alResult.im)) {
     setNormalizedStatus("error");
     setNormalizationError(
@@ -67,13 +61,15 @@ export function normalizeForMe(
   // If the user is subtracting by beta, make sure that the
   // negative value of beta is removed (to prevent --, which would be wrong)
   if (addOrSubt === false) {
-    // multiply both values by negative 1, essnetially distributing
+    // multiply both values by negative 1, essentially distributing
     // a second negative one to cancel out the first distributed one.
-    normalizedStateResult.betaStruct.re *= -1;
-    normalizedStateResult.betaStruct.im *= -1;
+    beResult = multiply(beResult, -1);
   }
 
   setNormalizedStatus("normalized");
+
+  // Make an object to hold alResult and beResult
+  const normalizedStateResult = { alpha: alResult, beta: beResult };
 
   // Return an object containing the new values we need
   return normalizedStateResult;
