@@ -67,11 +67,9 @@ NormClass normalizeState(double probZero, double probOne,
                          complexReplacement alphaStruct,
                          complexReplacement betaStruct);
 
-// TODO, why does this prototyped function have the wrong declaration?
-// It should be arrays should contain std::complex<double>, not int.
-// Is it intentional, or unintentional but doesn't break anything?
-std::array<int, 2> matrixVectorMultiplication(
-    std::array<std::array<int, 2>, 2> matrix, std::array<int, 2> vector);
+std::array<std::complex<double>, 2> matrixVectorMultiplication(
+    std::array<std::array<std::complex<double>, 2>, 2> matrix,
+    std::array<std::complex<double>, 2> vector);
 
 AlphaAndBetaClass hadamardGate(complexReplacement alphaStruct,
                                complexReplacement betaStruct);
@@ -80,8 +78,9 @@ std::complex<double> rowColVectorMult(
     std::array<std::complex<double>, 2> rowVec,
     std::array<std::complex<double>, 2> colVec);
 
-double tempName(std::array<std::complex<double>, 2> basisVector,
-                complexReplacement alphaStruct, complexReplacement betaStruct);
+double measurementProbability(std::array<std::complex<double>, 2> basisVector,
+                              complexReplacement alphaStruct,
+                              complexReplacement betaStruct);
 
 int main() {
   // check the |+> state
@@ -94,7 +93,7 @@ int main() {
   complexReplacement alphaStruct{1 / (sqrt(2)), 0};
   complexReplacement betaStruct{1 / sqrt(2), 0};
   // Call our probability finding function
-  std::cout << tempName(rowVec, alphaStruct, betaStruct);
+  std::cout << measurementProbability(rowVec, alphaStruct, betaStruct);
   return 0;
 }
 
@@ -239,15 +238,20 @@ std::complex<double> rowColVectorMult(
   return (rowVec[0] * colVec[0]) + (rowVec[1] * colVec[1]);
 }
 
-// A function to measure the current alpha and beta with respect to the
-// basis of choice. The basis must be provided in it its vector form
+// A function to return the probability of collapse of the current 2 state
+// system to a specific basis state, given that a measurement in this
+// basis is performed.
+// Remember: basis is the whole set of states/vectors (i.e. {|0>,|1>}),
+// while the basis state is one of the states/vectors of that basis.
+// The basis state must be provided in it its vector form
 // (row or column doesn't technically matter. I mean, you could
 // make it a column vector by having a 2d array of 1 element each,
 // but im going to assume a 1d array of 2 elements), and not its bra/ket
 // form. It returns the probability in terms of double, since
 // the probability must be a real number.
-double tempName(std::array<std::complex<double>, 2> basisVector,
-                complexReplacement alphaStruct, complexReplacement betaStruct) {
+double measurementProbability(std::array<std::complex<double>, 2> basisVector,
+                              complexReplacement alphaStruct,
+                              complexReplacement betaStruct) {
   // converting alpha and beta into a single std::array of complex doubles
   // (the states vector form).
 
