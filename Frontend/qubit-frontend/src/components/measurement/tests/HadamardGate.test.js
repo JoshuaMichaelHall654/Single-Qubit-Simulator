@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import backendModule from "../../compiledBackend/backend.out";
+import backendModule from "../../../compiledBackend/backend.out";
 import {
   asin,
   cos,
@@ -39,7 +39,7 @@ import {
 import {
   checkNormalizationHelper,
   checkNormalization,
-} from "../checkNormalization";
+} from "../../checkNormalization";
 let backend = await backendModule();
 
 // ================================================================

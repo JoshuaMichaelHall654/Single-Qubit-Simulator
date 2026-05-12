@@ -1,7 +1,7 @@
 import { abs, sqrt, divide, complex } from "mathjs";
 
 // Does all the calculation, but doesn't update any of the values (
-// rawAlpha and beta must be updated in state input card for
+// rawAlpha and rawBeta must be updated in state input card for
 // synchronisity reasons. Eval alpha and beta can be updated
 // anywhere, but since rawAlpha and beta are updated in stateInput,
 // I have them change in state input as well.)
