@@ -1,4 +1,4 @@
-import { abs, sqrt, divide, complex } from "mathjs";
+import { abs, sqrt, divide, complex, multiply } from "mathjs";
 
 // Does all the calculation, but doesn't update any of the values (
 // rawAlpha and rawBeta must be updated in state input card for
@@ -16,7 +16,7 @@ export function normalizeForMe(
   // First, check if sqrNormalization is zero. If it is, figure out a way to
   // deal with this later. This function should not be callable when
   // sqrNormalization is zero, so it should be fine. TODO
-  if (abs(sqrNormalization - 1) <= 0.000000001) {
+  if (abs(sqrNormalization) <= 0.000000001) {
     setNormalizedStatus("error");
     setNormalizationError("Sqrnorm should not be 0");
     return;
@@ -30,8 +30,8 @@ export function normalizeForMe(
   // to handle division using complex value. Make sure its complex (even
   // though im pretty sure state input already made sure its
   // complex) using math.complex
-  const alResult = divide(complex(alphaCurrentVal), normAmpFactor);
-  const beResult = divide(complex(betaCurrentVal), normAmpFactor);
+  let alResult = divide(complex(alphaCurrentVal), normAmpFactor);
+  let beResult = divide(complex(betaCurrentVal), normAmpFactor);
 
   // Check that the returned values are actually usable. Dont update our
   // values if normalizedStateResult is garbage/unusuable for whatever reason.
