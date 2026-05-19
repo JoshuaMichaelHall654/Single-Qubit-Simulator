@@ -1,6 +1,42 @@
 import { complex, sqrt } from "mathjs";
 import { normalizeForMe } from "../normalizeForMe";
 import { expect, test, vi } from "vitest";
+import {
+  asin,
+  cos,
+  cot,
+  csc,
+  e,
+  i,
+  phi,
+  pi,
+  sec,
+  sin,
+  sqrt,
+  tan,
+  tau,
+  acos,
+  acosh,
+  acot,
+  acsc,
+  asec,
+  asinh,
+  atan,
+  atanh,
+  abs,
+  arg,
+  complex,
+  conj,
+  cosh,
+  exp,
+  im,
+  log,
+  nthRoot,
+  pow,
+  re,
+  sinh,
+  tanh,
+} from "mathjs";
 
 //
 // SECTION 1: Successful normalizations
@@ -388,6 +424,95 @@ test("alpha and beta are correctly normalized for a state of only imaginary numb
   expect(resultNormalization.alpha.im).toBeCloseTo(1 / sqrt(2));
   expect(resultNormalization.beta.re).toBeCloseTo(0);
   expect(resultNormalization.beta.im).toBeCloseTo(-1 / sqrt(2));
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
+test("alpha and beta are correctly normalized when both components have real and imaginary parts when subtracted (1+i,1-i)", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |1+i|^2 + |1-i|^2 = 2 + 2
+  const sqrNormalization = 2 + 2;
+
+  // addOrSubt = false flips the sign of beta after normalization.
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    complex(1, 1),
+    complex(1, -1),
+    setNormalizedStatus,
+    setNormalizedError,
+    false,
+  );
+
+  // Alpha should be re = 1/2, im = 1/2.
+  // Beta should be re = -1/2, im = 1/2 (beta's sign is flipped).
+  expect(resultNormalization.alpha.re).toBeCloseTo(0.5);
+  expect(resultNormalization.alpha.im).toBeCloseTo(0.5);
+  expect(resultNormalization.beta.re).toBeCloseTo(-0.5);
+  expect(resultNormalization.beta.im).toBeCloseTo(0.5);
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
+test("alpha and beta are correctly normalized for a state of only imaginary numbers including a negative value (-i,i)", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  const sqrNormalization = 1 + 1;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    complex(0, -1),
+    complex(0, 1),
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be re = 0, im = -1/sqrt(2).
+  // Beta should be re = 0, im = 1/sqrt(2).
+  expect(resultNormalization.alpha.re).toBeCloseTo(0);
+  expect(resultNormalization.alpha.im).toBeCloseTo(-1 / sqrt(2));
+  expect(resultNormalization.beta.re).toBeCloseTo(0);
+  expect(resultNormalization.beta.im).toBeCloseTo(1 / sqrt(2));
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
+test("alpha and beta are correctly normalized for a state with very small but valid magnitudes (1e-4,1e-4)", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |1e-4|^2 + |1e-4|^2 = 1e-8 + 1e-8 = 2e-8.
+  // sqrNormalization is well outside the 1e-9 epsilon window,
+  // so it should normalize successfully rather than firing the guard.
+  const sqrNormalization = 1e-8 + 1e-8;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    1e-4,
+    1e-4,
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be re = 1/sqrt(2), im = 0.
+  // Beta should be re = 1/sqrt(2), im = 0.
+  expect(resultNormalization.alpha.re).toBeCloseTo(1 / sqrt(2));
+  expect(resultNormalization.alpha.im).toBeCloseTo(0);
+  expect(resultNormalization.beta.re).toBeCloseTo(1 / sqrt(2));
+  expect(resultNormalization.beta.im).toBeCloseTo(0);
 
   expect(setNormalizedError).toBeCalledTimes(0);
 
