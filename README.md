@@ -1,13 +1,12 @@
 # Single Qubit Simulator (C++/React)
 
-Web-based single-qubit simulator with a C++ backend compiled to WebAssembly and integrated into a React UI. Focuses on API design across the JS/Wasm boundary, performance-oriented numeric computation, and a clean interactive interface.
+Web-based single-qubit simulator with a C++ backend compiled to WebAssembly and integrated into a React UI. Focuses on API design across the JS/Wasm boundary, performance-oriented computation, and a clean interactive interface.
 
 # What does it do?
 
-This program allows the user to take a single qubit state quantum system (aka any two level quantum system) as input and apply several quantum operators, simulating the output state.
-These operators include quantum gate operators as well as the Pauli spin\* and rotation matricies.
+This program allows the user to take a single qubit (i.e., any two-level quantum system) as input and apply several quantum operators, simulating the output state.
+These operators include Hadamard gate and the Pauli matrices (spin and rotation).
 
-\*Note that just because they are called "Pauli spin", that does not mean they can only be used on systems with spin. They can be used on any two level quantum system.
 
 ## Feature Status:
 
@@ -35,8 +34,8 @@ These operators include quantum gate operators as well as the Pauli spin\* and r
 #### Gates and Operators
 
 - Identity Gate (I) - for mathematical consistency
-- Pauli Gates/Spin Matricies - σx, σy, σz
-- Rotation Gates/Pauli Rotation Matricies - Ri(θ)
+- Pauli Gates/Spin Matrices - σx, σy, σz
+- Rotation Gates/Pauli Rotation Matrices - Ri(θ)
 - Phase Gates - S (90 degrees rotation around Z) and T (45 degrees rotation around Z)
 
 #### Visualization
@@ -47,7 +46,7 @@ These operators include quantum gate operators as well as the Pauli spin\* and r
 
 # Why doesn't this include multi-qubit states and gates?
 
-Time constraints
+I wanted to constrain this projects scope in order to finish it in a timely manner. I may come back to it in the future and add multi-qubits though.
 
 # Design choices:
 
@@ -72,7 +71,7 @@ depending on if I need to calculate or if I need to communicate with the fronten
 ## The terminal command used to compile the C++ code to the .js and .wasm files was:
 
 ```bash
-emcc "..\projects\Qubit project\Backend\backend.cpp" -lembind -sMODULARIZE=1 -sEXPORT_ES6=1 -sEXPORT_NAME=bigBreakModule -o "..\projects\Qubit project\Frontend\qubit-frontend\src\compiledBackend\backend.out.js
+emcc "..\projects\Qubit project\Backend\backend.cpp" -lembind -sMODULARIZE=1 -sEXPORT_ES6=1 -sEXPORT_NAME=QubitSimModule -o "..\src\compiledBackend\backend.out.js"
 ```
 
 If you would like to do this compilation yourself, you will need to install emscripten as the documentation describes here: https://emscripten.org/docs/getting_started/downloads.html. The compilation was done on a windows device, hence the \ instead of /.
@@ -82,15 +81,3 @@ If you would like to do this compilation yourself, you will need to install emsc
 npm run test
 ```
 Since package.json contains ```"test": "vitest"```
-
-## You can compile the react code using:
-
-# What I learned.
-
-## About emscripten
-
-## About fullstack development choices
-
-## About runtime issues
-
-## Other stuff tba
