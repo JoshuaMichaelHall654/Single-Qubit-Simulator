@@ -692,7 +692,390 @@ test("alpha and beta are correctly normalized for a state using tau (tau, 1)", (
   expect(setNormalizedStatus).toBeCalledTimes(1);
 });
 
+test("alpha and beta are correctly normalized for a state using sqrt (sqrt(2), 1)", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |sqrt(2)|^2 + |1|^2 = 2 + 1
+  const sqrNormalization = sqrt(2) ** 2 + 1;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    sqrt(2),
+    1,
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be sqrt(2) / sqrt(3).
+  // Beta should be 1 / sqrt(3).
+  expect(resultNormalization.alpha.re).toBeCloseTo(
+    sqrt(2) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.alpha.im).toBe(0);
+  expect(resultNormalization.beta.re).toBeCloseTo(
+    1 / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.im).toBe(0);
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
 // 1C: Functions test
+
+test("alpha and beta are correctly normalized for a state using abs (abs(-2), 1)", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |abs(-2)|^2 + |1|^2 = 4 + 1
+  const sqrNormalization = abs(-2) ** 2 + 1;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    abs(-2),
+    1,
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be abs(-2) / sqrt(5).
+  // Beta should be 1 / sqrt(5).
+  expect(resultNormalization.alpha.re).toBeCloseTo(
+    abs(-2) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.alpha.im).toBe(0);
+  expect(resultNormalization.beta.re).toBeCloseTo(
+    1 / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.im).toBe(0);
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
+test("alpha and beta are correctly normalized for a state using arg (arg(complex(1, 1)), 1)", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |arg(complex(1, 1))|^2 + |1|^2 = (pi/4)^2 + 1
+  const sqrNormalization = arg(complex(1, 1)) ** 2 + 1;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    arg(complex(1, 1)),
+    1,
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be arg(complex(1, 1)) / sqrt(sqrNorm).
+  // Beta should be 1 / sqrt(sqrNorm).
+  expect(resultNormalization.alpha.re).toBeCloseTo(
+    arg(complex(1, 1)) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.alpha.im).toBe(0);
+  expect(resultNormalization.beta.re).toBeCloseTo(
+    1 / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.im).toBe(0);
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
+test("alpha and beta are correctly normalized for a state using complex (complex(1, 2), complex(3, 4))", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |1+2i|^2 + |3+4i|^2 = 5 + 25
+  const sqrNormalization = 5 + 25;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    complex(1, 2),
+    complex(3, 4),
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be (1+2i) / sqrt(30): re = 1/sqrt(30), im = 2/sqrt(30).
+  // Beta should be (3+4i) / sqrt(30): re = 3/sqrt(30), im = 4/sqrt(30).
+  expect(resultNormalization.alpha.re).toBeCloseTo(
+    1 / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.alpha.im).toBeCloseTo(
+    2 / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.re).toBeCloseTo(
+    3 / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.im).toBeCloseTo(
+    4 / sqrt(sqrNormalization),
+    9,
+  );
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
+test("alpha and beta are correctly normalized for a state using conj (conj(complex(1, 1)), 1)", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |1-i|^2 + |1|^2 = 2 + 1
+  const sqrNormalization = 2 + 1;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    conj(complex(1, 1)),
+    1,
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be (1-i) / sqrt(3): re = 1/sqrt(3), im = -1/sqrt(3).
+  // Beta should be 1 / sqrt(3).
+  expect(resultNormalization.alpha.re).toBeCloseTo(
+    1 / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.alpha.im).toBeCloseTo(
+    -1 / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.re).toBeCloseTo(
+    1 / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.im).toBe(0);
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
+test("alpha and beta are correctly normalized for a state using exp (exp(2), 1)", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |exp(2)|^2 + |1|^2 = exp(2)^2 + 1
+  const sqrNormalization = exp(2) ** 2 + 1;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    exp(2),
+    1,
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be exp(2) / sqrt(sqrNorm).
+  // Beta should be 1 / sqrt(sqrNorm).
+  expect(resultNormalization.alpha.re).toBeCloseTo(
+    exp(2) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.alpha.im).toBe(0);
+  expect(resultNormalization.beta.re).toBeCloseTo(
+    1 / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.im).toBe(0);
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
+test("alpha and beta are correctly normalized for a state using im (im(complex(3, 4)), 3)", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |im(complex(3, 4))|^2 + |3|^2 = 16 + 9
+  const sqrNormalization = 16 + 9;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    im(complex(3, 4)),
+    3,
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be 4/5.
+  // Beta should be 3/5.
+  expect(resultNormalization.alpha.re).toBeCloseTo(
+    im(complex(3, 4)) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.alpha.im).toBe(0);
+  expect(resultNormalization.beta.re).toBeCloseTo(
+    3 / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.im).toBe(0);
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
+test("alpha and beta are correctly normalized for a state using log (log(2), 1)", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |log(2)|^2 + |1|^2
+  const sqrNormalization = log(2) ** 2 + 1;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    log(2),
+    1,
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be log(2) / sqrt(sqrNorm).
+  // Beta should be 1 / sqrt(sqrNorm).
+  expect(resultNormalization.alpha.re).toBeCloseTo(
+    log(2) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.alpha.im).toBe(0);
+  expect(resultNormalization.beta.re).toBeCloseTo(
+    1 / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.im).toBe(0);
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
+test("alpha and beta are correctly normalized for a state using nthRoot (nthRoot(8, 3), 1)", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |nthRoot(8, 3)|^2 + |1|^2 = 4 + 1
+  const sqrNormalization = nthRoot(8, 3) ** 2 + 1;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    nthRoot(8, 3),
+    1,
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be nthRoot(8, 3) / sqrt(5) = 2/sqrt(5).
+  // Beta should be 1/sqrt(5).
+  expect(resultNormalization.alpha.re).toBeCloseTo(
+    nthRoot(8, 3) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.alpha.im).toBe(0);
+  expect(resultNormalization.beta.re).toBeCloseTo(
+    1 / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.im).toBe(0);
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
+test("alpha and beta are correctly normalized for a state using pow (pow(2, 3), 1)", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |pow(2, 3)|^2 + |1|^2 = 64 + 1
+  const sqrNormalization = pow(2, 3) ** 2 + 1;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    pow(2, 3),
+    1,
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be pow(2, 3) / sqrt(65) = 8/sqrt(65).
+  // Beta should be 1/sqrt(65).
+  expect(resultNormalization.alpha.re).toBeCloseTo(
+    pow(2, 3) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.alpha.im).toBe(0);
+  expect(resultNormalization.beta.re).toBeCloseTo(
+    1 / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.im).toBe(0);
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
+test("alpha and beta are correctly normalized for a state using re (re(complex(3, 4)), 4)", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |re(complex(3, 4))|^2 + |4|^2 = 9 + 16
+  const sqrNormalization = 9 + 16;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    re(complex(3, 4)),
+    4,
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be 3/5.
+  // Beta should be 4/5.
+  expect(resultNormalization.alpha.re).toBeCloseTo(
+    re(complex(3, 4)) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.alpha.im).toBe(0);
+  expect(resultNormalization.beta.re).toBeCloseTo(
+    4 / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.im).toBe(0);
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
 
 test("alpha and beta are correctly normalized for a state using cos (cos(pi/3), cos(pi/4))", () => {
   const setNormalizedStatus = vi.fn();
@@ -725,6 +1108,584 @@ test("alpha and beta are correctly normalized for a state using cos (cos(pi/3), 
 
   expect(setNormalizedError).toBeCalledTimes(0);
 
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
+test("alpha and beta are correctly normalized for a state using sin (sin(pi/3), sin(pi/4))", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |sin(pi/3)|^2 + |sin(pi/4)|^2 = 3/4 + 1/2
+  const sqrNormalization = sin(pi / 3) ** 2 + sin(pi / 4) ** 2;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    sin(pi / 3),
+    sin(pi / 4),
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be sin(pi/3) / sqrt(sqrNorm).
+  // Beta should be sin(pi/4) / sqrt(sqrNorm).
+  expect(resultNormalization.alpha.re).toBeCloseTo(
+    sin(pi / 3) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.alpha.im).toBe(0);
+  expect(resultNormalization.beta.re).toBeCloseTo(
+    sin(pi / 4) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.im).toBe(0);
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
+test("alpha and beta are correctly normalized for a state using asin (asin(1/2), 1)", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |asin(1/2)|^2 + |1|^2 = (pi/6)^2 + 1
+  const sqrNormalization = asin(1 / 2) ** 2 + 1;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    asin(1 / 2),
+    1,
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be asin(1/2) / sqrt(sqrNorm).
+  // Beta should be 1 / sqrt(sqrNorm).
+  expect(resultNormalization.alpha.re).toBeCloseTo(
+    asin(1 / 2) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.alpha.im).toBe(0);
+  expect(resultNormalization.beta.re).toBeCloseTo(
+    1 / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.im).toBe(0);
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
+test("alpha and beta are correctly normalized for a state using cot (cot(pi/3), cot(pi/4))", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |cot(pi/3)|^2 + |cot(pi/4)|^2 = 1/3 + 1
+  const sqrNormalization = cot(pi / 3) ** 2 + cot(pi / 4) ** 2;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    cot(pi / 3),
+    cot(pi / 4),
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be cot(pi/3) / sqrt(sqrNorm).
+  // Beta should be cot(pi/4) / sqrt(sqrNorm).
+  expect(resultNormalization.alpha.re).toBeCloseTo(
+    cot(pi / 3) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.alpha.im).toBe(0);
+  expect(resultNormalization.beta.re).toBeCloseTo(
+    cot(pi / 4) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.im).toBe(0);
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
+test("alpha and beta are correctly normalized for a state using csc (csc(pi/6), csc(pi/4))", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |csc(pi/6)|^2 + |csc(pi/4)|^2 = 4 + 2
+  const sqrNormalization = csc(pi / 6) ** 2 + csc(pi / 4) ** 2;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    csc(pi / 6),
+    csc(pi / 4),
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be csc(pi/6) / sqrt(sqrNorm).
+  // Beta should be csc(pi/4) / sqrt(sqrNorm).
+  expect(resultNormalization.alpha.re).toBeCloseTo(
+    csc(pi / 6) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.alpha.im).toBe(0);
+  expect(resultNormalization.beta.re).toBeCloseTo(
+    csc(pi / 4) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.im).toBe(0);
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
+test("alpha and beta are correctly normalized for a state using sec (sec(pi/3), sec(pi/4))", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |sec(pi/3)|^2 + |sec(pi/4)|^2 = 4 + 2
+  const sqrNormalization = sec(pi / 3) ** 2 + sec(pi / 4) ** 2;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    sec(pi / 3),
+    sec(pi / 4),
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be sec(pi/3) / sqrt(sqrNorm).
+  // Beta should be sec(pi/4) / sqrt(sqrNorm).
+  expect(resultNormalization.alpha.re).toBeCloseTo(
+    sec(pi / 3) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.alpha.im).toBe(0);
+  expect(resultNormalization.beta.re).toBeCloseTo(
+    sec(pi / 4) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.im).toBe(0);
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
+test("alpha and beta are correctly normalized for a state using tan (tan(pi/4), tan(pi/3))", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |tan(pi/4)|^2 + |tan(pi/3)|^2 = 1 + 3
+  const sqrNormalization = tan(pi / 4) ** 2 + tan(pi / 3) ** 2;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    tan(pi / 4),
+    tan(pi / 3),
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be tan(pi/4) / sqrt(sqrNorm).
+  // Beta should be tan(pi/3) / sqrt(sqrNorm).
+  expect(resultNormalization.alpha.re).toBeCloseTo(
+    tan(pi / 4) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.alpha.im).toBe(0);
+  expect(resultNormalization.beta.re).toBeCloseTo(
+    tan(pi / 3) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.im).toBe(0);
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
+test("alpha and beta are correctly normalized for a state using acos (acos(1/2), 1)", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |acos(1/2)|^2 + |1|^2 = (pi/3)^2 + 1
+  const sqrNormalization = acos(1 / 2) ** 2 + 1;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    acos(1 / 2),
+    1,
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be acos(1/2) / sqrt(sqrNorm).
+  // Beta should be 1 / sqrt(sqrNorm).
+  expect(resultNormalization.alpha.re).toBeCloseTo(
+    acos(1 / 2) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.alpha.im).toBe(0);
+  expect(resultNormalization.beta.re).toBeCloseTo(
+    1 / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.im).toBe(0);
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
+test("alpha and beta are correctly normalized for a state using acosh (acosh(2), 1)", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |acosh(2)|^2 + |1|^2
+  const sqrNormalization = acosh(2) ** 2 + 1;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    acosh(2),
+    1,
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be acosh(2) / sqrt(sqrNorm).
+  // Beta should be 1 / sqrt(sqrNorm).
+  expect(resultNormalization.alpha.re).toBeCloseTo(
+    acosh(2) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.alpha.im).toBe(0);
+  expect(resultNormalization.beta.re).toBeCloseTo(
+    1 / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.im).toBe(0);
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
+test("alpha and beta are correctly normalized for a state using acot (acot(1), 1)", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |acot(1)|^2 + |1|^2 = (pi/4)^2 + 1
+  const sqrNormalization = acot(1) ** 2 + 1;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    acot(1),
+    1,
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be acot(1) / sqrt(sqrNorm).
+  // Beta should be 1 / sqrt(sqrNorm).
+  expect(resultNormalization.alpha.re).toBeCloseTo(
+    acot(1) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.alpha.im).toBe(0);
+  expect(resultNormalization.beta.re).toBeCloseTo(
+    1 / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.im).toBe(0);
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
+test("alpha and beta are correctly normalized for a state using acsc (acsc(2), 1)", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |acsc(2)|^2 + |1|^2 = (pi/6)^2 + 1
+  const sqrNormalization = acsc(2) ** 2 + 1;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    acsc(2),
+    1,
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be acsc(2) / sqrt(sqrNorm).
+  // Beta should be 1 / sqrt(sqrNorm).
+  expect(resultNormalization.alpha.re).toBeCloseTo(
+    acsc(2) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.alpha.im).toBe(0);
+  expect(resultNormalization.beta.re).toBeCloseTo(
+    1 / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.im).toBe(0);
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
+test("alpha and beta are correctly normalized for a state using asec (asec(2), 1)", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |asec(2)|^2 + |1|^2 = (pi/3)^2 + 1
+  const sqrNormalization = asec(2) ** 2 + 1;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    asec(2),
+    1,
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be asec(2) / sqrt(sqrNorm).
+  // Beta should be 1 / sqrt(sqrNorm).
+  expect(resultNormalization.alpha.re).toBeCloseTo(
+    asec(2) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.alpha.im).toBe(0);
+  expect(resultNormalization.beta.re).toBeCloseTo(
+    1 / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.im).toBe(0);
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
+test("alpha and beta are correctly normalized for a state using asinh (asinh(1), 1)", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |asinh(1)|^2 + |1|^2
+  const sqrNormalization = asinh(1) ** 2 + 1;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    asinh(1),
+    1,
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be asinh(1) / sqrt(sqrNorm).
+  // Beta should be 1 / sqrt(sqrNorm).
+  expect(resultNormalization.alpha.re).toBeCloseTo(
+    asinh(1) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.alpha.im).toBe(0);
+  expect(resultNormalization.beta.re).toBeCloseTo(
+    1 / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.im).toBe(0);
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
+test("alpha and beta are correctly normalized for a state using atan (atan(1), 1)", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |atan(1)|^2 + |1|^2 = (pi/4)^2 + 1
+  const sqrNormalization = atan(1) ** 2 + 1;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    atan(1),
+    1,
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be atan(1) / sqrt(sqrNorm).
+  // Beta should be 1 / sqrt(sqrNorm).
+  expect(resultNormalization.alpha.re).toBeCloseTo(
+    atan(1) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.alpha.im).toBe(0);
+  expect(resultNormalization.beta.re).toBeCloseTo(
+    1 / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.im).toBe(0);
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
+test("alpha and beta are correctly normalized for a state using atanh (atanh(1/2), 1)", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |atanh(1/2)|^2 + |1|^2
+  const sqrNormalization = atanh(1 / 2) ** 2 + 1;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    atanh(1 / 2),
+    1,
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be atanh(1/2) / sqrt(sqrNorm).
+  // Beta should be 1 / sqrt(sqrNorm).
+  expect(resultNormalization.alpha.re).toBeCloseTo(
+    atanh(1 / 2) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.alpha.im).toBe(0);
+  expect(resultNormalization.beta.re).toBeCloseTo(
+    1 / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.im).toBe(0);
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
+test("alpha and beta are correctly normalized for a state using cosh (cosh(1), 1)", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |cosh(1)|^2 + |1|^2
+  const sqrNormalization = cosh(1) ** 2 + 1;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    cosh(1),
+    1,
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be cosh(1) / sqrt(sqrNorm).
+  // Beta should be 1 / sqrt(sqrNorm).
+  expect(resultNormalization.alpha.re).toBeCloseTo(
+    cosh(1) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.alpha.im).toBe(0);
+  expect(resultNormalization.beta.re).toBeCloseTo(
+    1 / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.im).toBe(0);
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
+test("alpha and beta are correctly normalized for a state using sinh (sinh(1), 1)", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |sinh(1)|^2 + |1|^2
+  const sqrNormalization = sinh(1) ** 2 + 1;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    sinh(1),
+    1,
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be sinh(1) / sqrt(sqrNorm).
+  // Beta should be 1 / sqrt(sqrNorm).
+  expect(resultNormalization.alpha.re).toBeCloseTo(
+    sinh(1) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.alpha.im).toBe(0);
+  expect(resultNormalization.beta.re).toBeCloseTo(
+    1 / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.im).toBe(0);
+
+  expect(setNormalizedError).toBeCalledTimes(0);
+  expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
+  expect(setNormalizedStatus).toBeCalledTimes(1);
+});
+
+test("alpha and beta are correctly normalized for a state using tanh (tanh(1), 1)", () => {
+  const setNormalizedStatus = vi.fn();
+  const setNormalizedError = vi.fn();
+
+  // |tanh(1)|^2 + |1|^2
+  const sqrNormalization = tanh(1) ** 2 + 1;
+
+  const resultNormalization = normalizeForMe(
+    sqrNormalization,
+    tanh(1),
+    1,
+    setNormalizedStatus,
+    setNormalizedError,
+    true,
+  );
+
+  // Alpha should be tanh(1) / sqrt(sqrNorm).
+  // Beta should be 1 / sqrt(sqrNorm).
+  expect(resultNormalization.alpha.re).toBeCloseTo(
+    tanh(1) / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.alpha.im).toBe(0);
+  expect(resultNormalization.beta.re).toBeCloseTo(
+    1 / sqrt(sqrNormalization),
+    9,
+  );
+  expect(resultNormalization.beta.im).toBe(0);
+
+  expect(setNormalizedError).toBeCalledTimes(0);
   expect(setNormalizedStatus).toHaveBeenCalledWith("normalized");
   expect(setNormalizedStatus).toBeCalledTimes(1);
 });
