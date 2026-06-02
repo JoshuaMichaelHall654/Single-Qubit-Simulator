@@ -1,9 +1,14 @@
+import { round } from "mathjs";
+
 // A helper function to format complex values as strings.
 // Expects finite numbers.
 export function formatComplex(real, imag) {
   if (!Number.isFinite(real) || !Number.isFinite(imag)) {
     return "Error in formatting. NaN or infinity";
   }
+  // Have only the text round up, but in the background, keep full precision.
+  real = round(real, 11);
+  imag = round(imag, 11);
 
   // If the imaginary values dont exist, just return real, no need to care about positive or negative
   if (imag === 0) {

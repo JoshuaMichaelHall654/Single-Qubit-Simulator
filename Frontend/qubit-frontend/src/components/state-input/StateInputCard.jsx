@@ -2,7 +2,7 @@
 import "../../App.css";
 import "katex/dist/katex.min.css";
 import { InputErrorText } from "./InputErrorText";
-import { validateAmplitudeInput } from "./validateAmplitudeInput";
+import { validateAmplitudeInput } from "../validateAmplitudeInput";
 import { checkNormalization } from "../checkNormalization";
 import { normalizeForMe } from "./normalizeForMe";
 import { DoublyLinkedList } from "./undoRedoStack";

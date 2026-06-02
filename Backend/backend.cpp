@@ -52,9 +52,9 @@ std::complex<double> rowColVectorMult(
     std::array<std::complex<double>, 2> rowVec,
     std::array<std::complex<double>, 2> colVec);
 
-double measurementProbability(std::array<std::complex<double>, 2> basisVector,
-                              complexReplacement alphaStruct,
-                              complexReplacement betaStruct);
+double measurementProbability(
+    std::vector<complexReplacement> basisVectorReplacement,
+    complexReplacement alphaStruct, complexReplacement betaStruct);
 
 int main() {
   // check the |+> state
@@ -91,6 +91,11 @@ EMSCRIPTEN_BINDINGS(my_module) {
       .field("re", &complexReplacement::re)
       .field("im", &complexReplacement::im);
 
+  // Embind our array of complex replacement. Must be a vector
+  // because complex is a struct and emscripten can't handle binding
+  // arrays of structs as far as I can tell
+  emscripten::register_vector<complexReplacement>("ComplexReplacementArray");
+
   // Embind our alpha and beta class to return alpha and beta.
   // embinding the class means we cant make a new alphaandbetaclass
   // in js, but we can stll access values like
@@ -104,6 +109,7 @@ EMSCRIPTEN_BINDINGS(my_module) {
   // First comes the name of the function as js will see
   // it, and second comes the reference to the actual function in your c++ code.
   emscripten::function("hadamardGate", &hadamardGate);
+  emscripten::function("measurementProbability", &measurementProbability);
 }
 
 // The full function that exists for testing js integration
@@ -167,9 +173,11 @@ std::complex<double> rowColVectorMult(
 // but im going to assume a 1d array of 2 elements), and not its bra/ket
 // form. It returns the probability in terms of double, since
 // the probability must be a real number.
-double measurementProbability(std::array<std::complex<double>, 2> basisVector,
-                              complexReplacement alphaStruct,
-                              complexReplacement betaStruct) {
+// the arrays hold complex replacements, since that is how we pass
+// complex between js and C++.
+double measurementProbability(
+    std::vector<complexReplacement> basisVectorReplacement,
+    complexReplacement alphaStruct, complexReplacement betaStruct) {
   // converting alpha and beta into a single std::array of complex doubles
   // (the states vector form).
 
@@ -179,6 +187,14 @@ double measurementProbability(std::array<std::complex<double>, 2> basisVector,
 
   // Now, make a state vector with them
   std::array<std::complex<double>, 2> stateVector{alpha, beta};
+
+  // Convert the array of complex replacements into the basis vector
+  std::complex zeroth(basisVectorReplacement[0].re,
+                      basisVectorReplacement[0].im);
+  std::complex first(basisVectorReplacement[1].re,
+                     basisVectorReplacement[1].im);
+
+  std::array<std::complex<double>, 2> basisVector{zeroth, first};
   // Multiply the 2 vectors together using the function rowColVecMult.
   // Remember that the basis vector is first so it goes in
   // as the row vector, and the state vector is second so it acts

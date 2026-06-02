@@ -99,6 +99,7 @@ export function checkNormalization(rawAlpha, rawBeta, addOrSubt) {
 
   // Otherwise its false
   else {
+    console.log(abs(result.sqrNorm - 1));
     return checkResult("not normalized", alphaNum, betaNum, result.sqrNorm);
   }
 }

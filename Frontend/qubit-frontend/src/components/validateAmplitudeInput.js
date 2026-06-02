@@ -1,5 +1,4 @@
 import { parse } from "mathjs";
-import {} from "../../App";
 // Create a list of allowed functions. Math.parse evalutes many functions as symbols AND
 // functions, so we need to carefully choose which symbols to exclude (i.e. variables) and
 // which to include (i.e. trig functions).
