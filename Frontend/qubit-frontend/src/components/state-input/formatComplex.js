@@ -8,8 +8,8 @@ export function formatComplex(real, imag) {
     return "Error in formatting. NaN or infinity";
   }
   // Have only the text round up, but in the background, keep full precision.
-  real = round(real, 4);
-  imag = round(imag, 4);
+  real = round(real, 11);
+  imag = round(imag, 11);
 
   // If the imaginary values dont exist, just return real, no need to care about positive or negative
   if (imag === 0) {
