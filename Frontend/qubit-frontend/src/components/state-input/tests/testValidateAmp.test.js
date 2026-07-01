@@ -1,4 +1,4 @@
-import { validateAmplitudeInput } from "../validateAmplitudeInput";
+import { validateAmplitudeInput } from "../../validateAmplitudeInput";
 import { expect, test } from "vitest";
 
 // test the validate amp input function

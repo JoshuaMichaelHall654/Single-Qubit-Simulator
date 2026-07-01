@@ -10,6 +10,7 @@ import { InlineMath } from "react-katex";
 import { complex } from "mathjs";
 import { useEffect, useState, useRef } from "react";
 import { Button, Container, Form, Row, Col, InputGroup } from "react-bootstrap";
+import { formatComplex } from "../state-input/formatComplex";
 
 console.time("time to await backend");
 let backend = await backendModule();
@@ -22,6 +23,8 @@ export function StateMeasurementCard({
 }) {
   // Current gate
   const [currentGate, setCurrentGate] = useState("");
+  const [formattedAlpha, setFormattedAlpha] = useState("");
+  const [formattedBeta, setFormattedBeta] = useState("");
 
   // amplitude of |0>
   const [rawMeasurementAmpZero, setAmpZero] = useState("");
@@ -34,7 +37,6 @@ export function StateMeasurementCard({
   const validationErrorZero = validateAmplitudeInput(rawMeasurementAmpZero);
   const validationErrorOne = validateAmplitudeInput(rawMeasurementAmpOne);
 
-  // test function, likely to be removed
   const [resultOfThing, setResultOfThing] = useState("");
 
   /*
@@ -57,6 +59,11 @@ export function StateMeasurementCard({
         { re: evalBeta.current.re, im: evalBeta.current.im },
       );
       setResultOfThing(result);
+      const alpha = formatComplex(result.alpha.re, result.alpha.im);
+
+      const beta = formatComplex(result.beta.re, result.beta.im);
+      setFormattedAlpha(alpha);
+      setFormattedBeta(beta);
     }
   }
 
@@ -165,17 +172,9 @@ export function StateMeasurementCard({
                */}
               <Col>
                 Result:{" "}
-                {resultOfThing === ""
+                {formattedAlpha === ""
                   ? ""
-                  : " (" +
-                    resultOfThing.alpha.re +
-                    " + " +
-                    resultOfThing.alpha.im +
-                    "i) |0> + (" +
-                    resultOfThing.beta.re +
-                    " + " +
-                    resultOfThing.beta.im +
-                    "i) |1> "}
+                  : formattedAlpha + "|0> + " + formattedBeta + "|1>"}
               </Col>
             </Row>
             <Row>

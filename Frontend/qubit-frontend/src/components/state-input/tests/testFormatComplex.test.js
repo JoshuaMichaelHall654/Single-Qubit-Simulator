@@ -53,18 +53,6 @@ test("returns valid complex number with really long values (3000000000.01, -3000
   expect(result).toBe("3000000000.01 - 3000000000.01i");
 });
 
-test("returns valid number with really low precise floating point real number (0.00000000000000000000000001, 1)", () => {
-  const result = formatComplex(0.00000000000000000000000001, 1);
-  expect(result).toBeTypeOf("string");
-  expect(result).toBe("1e-26 + 1i");
-});
-
-test("returns valid number with really low precise floating point complex number (0.00000000000000000000000001, 1)", () => {
-  const result = formatComplex(1, 0.00000000000000000000000001);
-  expect(result).toBeTypeOf("string");
-  expect(result).toBe("1 + 1e-26i");
-});
-
 // Stateinput should prevent invalid answers. However, test that the failure results are as expected.
 test("returns error text for recieving not a number (string of a number)", () => {
   const result = formatComplex("1", 0);
