@@ -38,6 +38,8 @@ export function StateInputCard({
   evalAlpha,
   evalBeta,
 }) {
+  const [isNormalizing, setIsNormalizing] = useState(false);
+
   // The "raw" text of the inputs. Since the users can type anything,
   // we have to make sure the values are safe before working with them.
   const [rawAlpha, setRawAlpha] = useState("");
@@ -122,9 +124,18 @@ export function StateInputCard({
             }
           }
 
-          // Update the other values obtained from checking normalization
-          evalAlpha.current = result.alphaNum;
-          evalBeta.current = result.betaNum;
+          // Update the other values obtained from checking normalization, only
+          // if isNormalizing isn't true. This prevents the error from trying
+          // to format the rawAlpha causing the useEffect to run, causing
+          // evalAlpha to change to the current alpha and beta.
+          if (isNormalizing) {
+            // set it to false so the next user typing actually changes things
+            setIsNormalizing(false);
+          } else {
+            evalAlpha.current = result.alphaNum;
+            evalBeta.current = result.betaNum;
+          }
+
           setSqrNormalization(result.sqrNorm);
         }, delayMs);
 
@@ -452,6 +463,9 @@ export function StateInputCard({
                     normalizedStateResult.beta.re,
                     normalizedStateResult.beta.im,
                   );
+
+                  // set is normalizing to true
+                  setIsNormalizing(true);
 
                   // Update raw alpha and beta using those strings
                   setRawAlpha(formattedAlpha);

@@ -49,6 +49,7 @@ export function StateMeasurementCard({
   // Apply gate function
   function applyGate(currentGate) {
     if (currentGate === "Hadamard Gate") {
+      console.log(evalAlpha.current.re, evalBeta.current.re, "    affdsdfs");
       const result = backend.hadamardGate(
         // Make sure to pass it as a structure using
         // what we defined as our members in the c++ backend
@@ -109,7 +110,6 @@ export function StateMeasurementCard({
       { re: evalAlpha.current.re, im: evalAlpha.current.im },
       { re: evalBeta.current.re, im: evalBeta.current.im },
     );
-    console.log(result);
   }
 
   return (
