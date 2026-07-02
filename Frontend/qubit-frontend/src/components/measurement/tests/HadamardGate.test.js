@@ -706,3 +706,74 @@ test("results are as expected for states using complex that is normalized (compl
   expect(resultHadamard.beta.re).toBeCloseTo(0, 9);
   expect(resultHadamard.beta.im).toBeCloseTo(1 / sqrt(2), 9);
 });
+
+// ================================================================
+// SECTION 4: Edge cases
+// ================================================================
+// H acts as: alpha' = (alpha + beta) / sqrt(2), beta' = (alpha - beta) / sqrt(2).
+// These target the states where one output channel cancels to exactly zero
+// or where an amplitude is purely imaginary. Every prior gate test fed the
+// gate a "+" state, so the alpha = -beta side below was never exercised.
+
+test("results are as expected for the minus state where the plus channel cancels (1/sqrt(2), -1/sqrt(2))", () => {
+  const result = backend.hadamardGate(
+    { re: 1 / sqrt(2), im: 0 },
+    { re: -1 / sqrt(2), im: 0 },
+  );
+  // Alpha should cancel to exactly 0 (the (alpha + beta) channel)
+  expect(result.alpha.re).toBe(0);
+  expect(result.alpha.im).toBe(0);
+  // Beta should become 1 (the state collapses to |1>)
+  expect(result.beta.re).toBeCloseTo(1, 9);
+  expect(result.beta.im).toBe(0);
+});
+
+test("results are as expected for a purely imaginary amplitude (i, 0)", () => {
+  const result = backend.hadamardGate({ re: 0, im: 1 }, { re: 0, im: 0 });
+  // Alpha should become i/sqrt(2): real part exactly 0, imaginary part 1/sqrt(2)
+  expect(result.alpha.re).toBe(0);
+  expect(result.alpha.im).toBeCloseTo(1 / sqrt(2), 9);
+  // Beta should become i/sqrt(2) as well
+  expect(result.beta.re).toBe(0);
+  expect(result.beta.im).toBeCloseTo(1 / sqrt(2), 9);
+});
+
+test("results are as expected for imaginary channel cancellation (i/sqrt(2), i/sqrt(2))", () => {
+  const result = backend.hadamardGate(
+    { re: 0, im: 1 / sqrt(2) },
+    { re: 0, im: 1 / sqrt(2) },
+  );
+  // Alpha should become i: real part exactly 0, imaginary part 1
+  expect(result.alpha.re).toBe(0);
+  expect(result.alpha.im).toBeCloseTo(1, 9);
+  // Beta should cancel to exactly 0 (the (alpha - beta) channel, imaginary parts subtract)
+  expect(result.beta.re).toBe(0);
+  expect(result.beta.im).toBe(0);
+});
+
+test("results are as expected for a near-basis state with a tiny amplitude (sqrt(1 - eps^2), eps)", () => {
+  const eps = 1e-4;
+  const a = sqrt(1 - eps ** 2);
+  const result = backend.hadamardGate({ re: a, im: 0 }, { re: eps, im: 0 });
+  // Alpha should become (a + eps) / sqrt(2); the tiny amplitude must survive
+  expect(result.alpha.re).toBeCloseTo((a + eps) / sqrt(2), 9);
+  expect(result.alpha.im).toBe(0);
+  // Beta should become (a - eps) / sqrt(2)
+  expect(result.beta.re).toBeCloseTo((a - eps) / sqrt(2), 9);
+  expect(result.beta.im).toBe(0);
+});
+
+test("applying hadamard twice returns the original state (involution)", () => {
+  // H * H = I. Any state, run through the gate twice, should return unchanged.
+  // Uses a fully complex state so both channels and both components are exercised.
+  const startAlpha = { re: 0.5, im: 0.5 };
+  const startBeta = { re: 0.5, im: -0.5 };
+  const once = backend.hadamardGate(startAlpha, startBeta);
+  const twice = backend.hadamardGate(once.alpha, once.beta);
+  // Alpha should return to 0.5 + 0.5i
+  expect(twice.alpha.re).toBeCloseTo(startAlpha.re, 9);
+  expect(twice.alpha.im).toBeCloseTo(startAlpha.im, 9);
+  // Beta should return to 0.5 - 0.5i
+  expect(twice.beta.re).toBeCloseTo(startBeta.re, 9);
+  expect(twice.beta.im).toBeCloseTo(startBeta.im, 9);
+});

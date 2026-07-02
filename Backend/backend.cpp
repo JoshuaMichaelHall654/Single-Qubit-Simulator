@@ -10,6 +10,7 @@
 #include <filesystem>
 #include <iostream>
 #include <limits>
+#include <numbers>
 #include <string>
 
 // A struct that makes sending
@@ -47,6 +48,16 @@ std::array<std::complex<double>, 2> matrixVectorMultiplication(
 
 AlphaAndBetaClass hadamardGate(complexReplacement alphaStruct,
                                complexReplacement betaStruct);
+AlphaAndBetaClass XGate(complexReplacement alphaStruct,
+                        complexReplacement betaStruct);
+AlphaAndBetaClass YGate(complexReplacement alphaStruct,
+                        complexReplacement betaStruct);
+AlphaAndBetaClass ZGate(complexReplacement alphaStruct,
+                        complexReplacement betaStruct);
+AlphaAndBetaClass TGate(complexReplacement alphaStruct,
+                        complexReplacement betaStruct);
+AlphaAndBetaClass SGate(complexReplacement alphaStruct,
+                        complexReplacement betaStruct);
 
 std::complex<double> rowColVectorMult(
     std::array<std::complex<double>, 2> rowVec,
@@ -108,8 +119,13 @@ EMSCRIPTEN_BINDINGS(my_module) {
   // Embind the functions last, because it depends on data above.
   // First comes the name of the function as js will see
   // it, and second comes the reference to the actual function in your c++ code.
-  emscripten::function("hadamardGate", &hadamardGate);
   emscripten::function("measurementProbability", &measurementProbability);
+  emscripten::function("hadamardGate", &hadamardGate);
+  emscripten::function("XGate", &XGate);
+  emscripten::function("YGate", &YGate);
+  emscripten::function("ZGate", &ZGate);
+  emscripten::function("SGate", &SGate);
+  emscripten::function("TGate", &TGate);
 }
 
 // The full function that exists for testing js integration
@@ -218,25 +234,13 @@ double measurementProbability(
   return probSquared.real();
 }
 
-// A function that takes in the alpha and beta magnitudes and computes
-// the resulting transformation of applying the hadamard gate to that
-// qubit. Returns alpha and beta to the caller in the form of an object
-// that holds the complex replacement structs (similar to normalize state).
-// Alpha and beta must be defined as complexReplacement to start,
-// or js can not pass them in properly (see norm function for why).
-AlphaAndBetaClass hadamardGate(complexReplacement alphaStruct,
-                               complexReplacement betaStruct) {
-  // Define the matrix for the hadamard gate
-  // (Every std::array needs an extra set of braces
-  // because std::array is a wrapper).
-  // First, convert the gates values into complex value of 1/sqrt
-  std::complex<double> hadValues(1 / std::sqrt(2), 0);
-  // Now create the matrix. Standard form is:
-  // (1/sqrt(2)) (1, 1)
-  //             (1, -1), but you can distribute the 1/sqrt(2) through
-  std::array<std::array<std::complex<double>, 2>, 2> hadMatrix = {
-      {{hadValues, hadValues}, {hadValues, -hadValues}}};
-
+// Applying gates has a lot of repeated work. This helper funciton generalizes
+// this work. Takes the complex replacement for alpha and beta, as well as the
+// particular gates matrix form, and returns our qubit with the gate applied to
+// it in the alphaAndBetaClass form.
+AlphaAndBetaClass gateApplyHelper(
+    complexReplacement alphaStruct, complexReplacement betaStruct,
+    std::array<std::array<std::complex<double>, 2>, 2> gateMatrix) {
   // Get the alpha and beta structs into std::complex as
   // complex multiplication is built into std::complex
   std::complex alpha(alphaStruct.re, alphaStruct.im);
@@ -251,15 +255,15 @@ AlphaAndBetaClass hadamardGate(complexReplacement alphaStruct,
       {std::complex<double>(0.0, 0.0), beta}};
 
   // Calculate the matrix-vector multiplication for each
-  std::array<std::complex<double>, 2> hadAppliedToZero =
-      matrixVectorMultiplication(hadMatrix, zeroVector);
-  std::array<std::complex<double>, 2> hadAppliedToOne =
-      matrixVectorMultiplication(hadMatrix, oneVector);
+  std::array<std::complex<double>, 2> gateAppliedToZero =
+      matrixVectorMultiplication(gateMatrix, zeroVector);
+  std::array<std::complex<double>, 2> gateAppliedToOne =
+      matrixVectorMultiplication(gateMatrix, oneVector);
 
   // Add the two resulting vectors together
   std::array<std::complex<double>, 2> resultVector = {
-      {hadAppliedToZero[0] + hadAppliedToOne[0],
-       hadAppliedToZero[1] + hadAppliedToOne[1]}};
+      {gateAppliedToZero[0] + gateAppliedToOne[0],
+       gateAppliedToZero[1] + gateAppliedToOne[1]}};
 
   // Make the two vectors into their corresponding alpha and beta.
   // The top row (row 0) is the magnitude of alpha, because it
@@ -274,5 +278,106 @@ AlphaAndBetaClass hadamardGate(complexReplacement alphaStruct,
   // Make our alpha and beta class that we will return
   AlphaAndBetaClass resultVals = AlphaAndBetaClass(alphaToReturn, betaToReturn);
 
+  // return this to the calling gate function
   return resultVals;
+}
+
+// A function that takes in the alpha and beta magnitudes and computes
+// the resulting transformation of applying the hadamard (H) gate to that
+// qubit. Returns alpha and beta to the caller in the form of an object
+// that holds the complex replacement structs (similar to normalize state).
+// Alpha and beta must be defined as complexReplacement to start,
+// or js can not pass them in properly (see norm function for why).
+AlphaAndBetaClass hadamardGate(complexReplacement alphaStruct,
+                               complexReplacement betaStruct) {
+  // Define the matrix for the hadamard gate
+  // (Every std::array needs an extra set of braces
+  // because std::array is a wrapper).
+  // First, convert the gates values into complex value of 1/sqrt
+  std::complex<double> hadValues(1.0 / std::sqrt(2.0), 0.0);
+  // Now create the matrix. Standard form is:
+  // (1/sqrt(2)) (1, 1)
+  //             (1, -1), but you can distribute the 1/sqrt(2) through
+  std::array<std::array<std::complex<double>, 2>, 2> hadMatrix = {
+      {{hadValues, hadValues}, {hadValues, -hadValues}}};
+
+  // Call gate apply helper and return the resulting AlphaAndBetaClass struct
+  return gateApplyHelper(alphaStruct, betaStruct, hadMatrix);
+}
+
+// A function that applies the X (pauli x) gate to our qubit.
+AlphaAndBetaClass XGate(complexReplacement alphaStruct,
+                        complexReplacement betaStruct) {
+  // Create the matrix. Standard form is:
+  // (0, 1)
+  // (1, 0)
+  std::array<std::array<std::complex<double>, 2>, 2> XMatrix = {
+      {{std::complex(0.0, 0.0), std::complex(1.0, 0.0)},
+       {std::complex(1.0, 0.0), std::complex(0.0, 0.0)}}};
+
+  // Call gate apply helper and return the resulting AlphaAndBetaClass struct
+  return gateApplyHelper(alphaStruct, betaStruct, XMatrix);
+}
+
+// Applies the Y (pauli y) gate to our qubit
+AlphaAndBetaClass YGate(complexReplacement alphaStruct,
+                        complexReplacement betaStruct) {
+  // Create the matrix. Standard form is:
+  // (0, -i)
+  // (i, 0)
+  // Complex is complex(real, imag)
+
+  // Add them to the matrix
+  std::array<std::array<std::complex<double>, 2>, 2> YMatrix = {
+      {{std::complex(0.0, 0.0), std::complex(0.0, -1.0)},
+       {std::complex(0.0, 1.0), std::complex(0.0, 0.0)}}};
+
+  // Call gate apply helper and return the resulting AlphaAndBetaClass struct
+  return gateApplyHelper(alphaStruct, betaStruct, YMatrix);
+}
+
+// Applies the z (pauli z) gate to our qubit
+AlphaAndBetaClass ZGate(complexReplacement alphaStruct,
+                        complexReplacement betaStruct) {
+  // Create the matrix. Standard form is:
+  // (1, 0)
+  // (0, -1)
+  std::array<std::array<std::complex<double>, 2>, 2> ZMatrix = {
+      {{std::complex(1.0, 0.0), std::complex(0.0, 0.0)},
+       {std::complex(0.0, 0.0), std::complex(-1.0, 0.0)}}};
+
+  // Call gate apply helper and return the resulting AlphaAndBetaClass struct
+  return gateApplyHelper(alphaStruct, betaStruct, ZMatrix);
+}
+
+// Applies the S phase gate to our qubit
+AlphaAndBetaClass SGate(complexReplacement alphaStruct,
+                        complexReplacement betaStruct) {
+  // Create the matrix. Standard form is:
+  // (1, 0)
+  // (0, i)
+  std::array<std::array<std::complex<double>, 2>, 2> SMatrix = {
+      {{std::complex(1.0, 0.0), std::complex(0.0, 0.0)},
+       {std::complex(0.0, 0.0), std::complex(0.0, 1.0)}}};
+
+  // Call gate apply helper and return the resulting AlphaAndBetaClass struct
+  return gateApplyHelper(alphaStruct, betaStruct, SMatrix);
+}
+
+// Applies the T phase gate to our qubit
+AlphaAndBetaClass TGate(complexReplacement alphaStruct,
+                        complexReplacement betaStruct) {
+  // Create the matrix. Standard form is:
+  // (1, 0)
+  // (0, e^(ipi/4))
+  // make the complex value for e^ipi/4 explicitly
+  std::complex<double> bottomRight =
+      std::exp(std::complex<double>(0.0, (std::numbers::pi) / 4.0));
+
+  std::array<std::array<std::complex<double>, 2>, 2> TMatrix = {
+      {{std::complex(1.0, 0.0), std::complex(0.0, 0.0)},
+       {std::complex(0.0, 0.0), bottomRight}}};
+
+  // Call gate apply helper and return the resulting AlphaAndBetaClass struct
+  return gateApplyHelper(alphaStruct, betaStruct, TMatrix);
 }
