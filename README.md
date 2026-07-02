@@ -35,8 +35,8 @@ These operators include Hadamard gate and the Pauli matrices (spin and rotation)
 
 - Identity Gate (I) - for mathematical consistency
 - Pauli Gates/Spin Matrices - σx, σy, σz
-- Rotation Gates/Pauli Rotation Matrices - Ri(θ)
 - Phase Gates - S (90 degrees rotation around Z) and T (45 degrees rotation around Z)
+- Rotation Gates/Pauli Rotation Matrices - Ri(θ)
 
 #### Visualization
 
