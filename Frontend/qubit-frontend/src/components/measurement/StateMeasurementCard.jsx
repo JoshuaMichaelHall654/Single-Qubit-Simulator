@@ -4,10 +4,11 @@ import backendModule from "../../compiledBackend/backend.out";
 import "katex/dist/katex.min.css";
 import { validateAmplitudeInput } from "../validateAmplitudeInput";
 import { checkNormalization } from "../checkNormalization";
+import { testNGates } from "./tests/testNGates";
 
 // library imports
 import { InlineMath } from "react-katex";
-import { complex } from "mathjs";
+import { complex, random } from "mathjs";
 import { useEffect, useState, useRef } from "react";
 import { Button, Container, Form, Row, Col, InputGroup } from "react-bootstrap";
 import { formatComplex } from "../state-input/formatComplex";
@@ -49,7 +50,6 @@ export function StateMeasurementCard({
   // Apply gate function
   function applyGate(currentGate) {
     if (currentGate === "Hadamard Gate") {
-      console.log(evalAlpha.current.re, evalBeta.current.re, "    affdsdfs");
       const result = backend.hadamardGate(
         // Make sure to pass it as a structure using
         // what we defined as our members in the c++ backend
@@ -112,6 +112,7 @@ export function StateMeasurementCard({
     );
   }
 
+  // exists for testing the frontend throughput.
   return (
     <>
       <Row className="">
@@ -269,6 +270,14 @@ export function StateMeasurementCard({
                       </Form.Group>
                     </Col>
                   </Row>
+                  {/* Test function used for checking the throughput. See testNGates.js for functionality.
+                  <Button
+                    onClick={() => {
+                      testNGates();
+                    }}
+                  >
+                    test gates
+                  </Button> */}
                 </Form>
               </Col>
             </Row>
