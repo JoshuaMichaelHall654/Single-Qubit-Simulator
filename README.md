@@ -16,11 +16,11 @@ These operators include Hadamard gate and the Pauli matrices (spin and rotation)
 
 ### In Progress:
 #### Current Phase: In development
+- Identity Gate (I) - for mathematical consistency
 - Rotation Gates/Pauli Rotation Matrices - Ri(θ)
 
 #### Current Phase: Being tested or refactored
 - Hadamard Gate
-- Identity Gate (I) - for mathematical consistency
 - Pauli Gates/Spin Matrices - σx, σy, σz
 - Phase Gates - S (90 degrees rotation around Z) and T (45 degrees rotation around Z)
 - Measurement - calculating probabilities that the state ends up in one state or another. X, Y, and Z bases for sure, maybe other relevant ones as time goes on.
