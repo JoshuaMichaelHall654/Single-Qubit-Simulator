@@ -18,6 +18,11 @@ These operators include Hadamard gate and the Pauli matrices (spin and rotation)
 #### Current Phase: In development
 - Hadamard Gate
 - Measurement - calculating probabilities that the state ends up in one state or another. X, Y, and Z bases for sure, maybe other relevant ones as time goes on.
+- Identity Gate (I) - for mathematical consistency
+- Pauli Gates/Spin Matrices - σx, σy, σz
+- Phase Gates - S (90 degrees rotation around Z) and T (45 degrees rotation around Z)
+- Rotation Gates/Pauli Rotation Matrices - Ri(θ)
+
 #### Current Phase: Being tested or refactored
 - "Normalize For Me" button - allow the user to let the simulator normalize for them. Don't want to auto normalize just in case the user made a typo
 - "Reset to Starting State" button - if the user applied too many gates, they can start over from the beginning
@@ -32,11 +37,6 @@ These operators include Hadamard gate and the Pauli matrices (spin and rotation)
 - Collapse Simulation - simulate the system collapsing into one of the two states using some random number generator
 
 #### Gates and Operators
-
-- Identity Gate (I) - for mathematical consistency
-- Pauli Gates/Spin Matrices - σx, σy, σz
-- Phase Gates - S (90 degrees rotation around Z) and T (45 degrees rotation around Z)
-- Rotation Gates/Pauli Rotation Matrices - Ri(θ)
 
 #### Visualization
 
