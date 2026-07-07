@@ -16,18 +16,20 @@ These operators include Hadamard gate and the Pauli matrices (spin and rotation)
 
 ### In Progress:
 #### Current Phase: In development
-- Hadamard Gate
-- Measurement - calculating probabilities that the state ends up in one state or another. X, Y, and Z bases for sure, maybe other relevant ones as time goes on.
-- Identity Gate (I) - for mathematical consistency
-- Pauli Gates/Spin Matrices - σx, σy, σz
-- Phase Gates - S (90 degrees rotation around Z) and T (45 degrees rotation around Z)
 - Rotation Gates/Pauli Rotation Matrices - Ri(θ)
 
 #### Current Phase: Being tested or refactored
+- Hadamard Gate
+- Identity Gate (I) - for mathematical consistency
+- Pauli Gates/Spin Matrices - σx, σy, σz
+- Phase Gates - S (90 degrees rotation around Z) and T (45 degrees rotation around Z)
+- Measurement - calculating probabilities that the state ends up in one state or another. X, Y, and Z bases for sure, maybe other relevant ones as time goes on.
+
+#### Final testing phase (essentially complete):
 - "Normalize For Me" button - allow the user to let the simulator normalize for them. Don't want to auto normalize just in case the user made a typo
 - "Reset to Starting State" button - if the user applied too many gates, they can start over from the beginning
 - "Undo Last Transformation" button - Undo the last transformation. May have some limits, but for now uses a stack to allow for many undo's.
-- "Redo Last Transformation" button - Redo the transformation you undid. Should allow for erasing of failures that are not saved. 
+- "Redo Last Transformation" button - Redo the transformation you undid. Should allow for erasing of failures that are not saved.
 
 ### Planned:
 
