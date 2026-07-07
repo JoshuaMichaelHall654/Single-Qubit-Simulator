@@ -23,7 +23,7 @@ These operators include Hadamard gate and the Pauli matrices (spin and rotation)
 - Hadamard Gate
 - Pauli Gates/Spin Matrices - σx, σy, σz
 - Phase Gates - S (90 degrees rotation around Z) and T (45 degrees rotation around Z)
-- Measurement - calculating probabilities that the state ends up in one state or another. X, Y, and Z bases for sure, maybe other relevant ones as time goes on.
+- Measurement - calculating probabilities that the state ends up in one state or another. Should be able to do measurement for all bases, just need to allow the user to provide the specific basis state (in column vector form) of that basis (or maybe just give them some options?)
 - "Undo Last Transformation" button - Undo the last transformation. May have some limits, but for now uses a stack to allow for many undo's.
 - "Redo Last Transformation" button - Redo the transformation you undid. Should allow for erasing of failures that are not saved.
 
