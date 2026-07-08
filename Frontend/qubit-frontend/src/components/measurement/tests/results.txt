@@ -1,0 +1,2944 @@
+
+ RUN  v4.0.18 C:/Users/foolf/Desktop/projects/Qubit project/Frontend/qubit-frontend/src/components/measurement/tests
+
+stdout | vsQiskit.test.js
+
+[Qiskit cross-check] compared 1130 states across 212 sequences; max deviation = 1.347e+0 (assertion threshold 1e-10).
+
+ ❯ vsQiskit.test.js (213 tests | 169 failed) 166ms
+   ✓ fixture loads and the alpha/beta convention is sane 2ms
+   ✓ sanity #0 sanity (H) matches Qiskit at every step 2ms
+   ✓ sanity #1 sanity (H) matches Qiskit at every step 0ms
+   × sanity #2 sanity (X) matches Qiskit at every step 9ms
+   ✓ sanity #3 sanity (X) matches Qiskit at every step 0ms
+   ✓ sanity #4 sanity (Y) matches Qiskit at every step 0ms
+   ✓ sanity #5 sanity (Y) matches Qiskit at every step 0ms
+   ✓ sanity #6 sanity (Z) matches Qiskit at every step 0ms
+   ✓ sanity #7 sanity (Z) matches Qiskit at every step 0ms
+   ✓ sanity #8 sanity (S) matches Qiskit at every step 0ms
+   ✓ sanity #9 sanity (S) matches Qiskit at every step 0ms
+   ✓ sanity #10 sanity (T) matches Qiskit at every step 0ms
+   ✓ sanity #11 sanity (T) matches Qiskit at every step 0ms
+   × random #12 random (30gates) matches Qiskit at every step 1ms
+   × random #13 random (SX) matches Qiskit at every step 1ms
+   × random #14 random (27gates) matches Qiskit at every step 1ms
+   × random #15 random (23gates) matches Qiskit at every step 1ms
+   × random #16 random (13gates) matches Qiskit at every step 1ms
+   × random #17 random (14gates) matches Qiskit at every step 0ms
+   × random #18 random (9gates) matches Qiskit at every step 0ms
+   × random #19 random (21gates) matches Qiskit at every step 0ms
+   ✓ random #20 random (SZZYHH) matches Qiskit at every step 0ms
+   ✓ random #21 random (SYHYTHH) matches Qiskit at every step 0ms
+   × random #22 random (26gates) matches Qiskit at every step 0ms
+   × random #23 random (20gates) matches Qiskit at every step 0ms
+   × random #24 random (TX) matches Qiskit at every step 1ms
+   × random #25 random (HX) matches Qiskit at every step 0ms
+   × random #26 random (18gates) matches Qiskit at every step 0ms
+   ✓ random #27 random (21gates) matches Qiskit at every step 3ms
+   × random #28 random (29gates) matches Qiskit at every step 1ms
+   × random #29 random (20gates) matches Qiskit at every step 0ms
+   × random #30 random (13gates) matches Qiskit at every step 0ms
+   ✓ random #31 random (H) matches Qiskit at every step 0ms
+   ✓ random #32 random (YZT) matches Qiskit at every step 0ms
+   × random #33 random (29gates) matches Qiskit at every step 0ms
+   × random #34 random (26gates) matches Qiskit at every step 0ms
+   × random #35 random (24gates) matches Qiskit at every step 0ms
+   × random #36 random (17gates) matches Qiskit at every step 0ms
+   × random #37 random (26gates) matches Qiskit at every step 0ms
+   × random #38 random (26gates) matches Qiskit at every step 0ms
+   × random #39 random (17gates) matches Qiskit at every step 0ms
+   × random #40 random (YXYYST) matches Qiskit at every step 0ms
+   × random #41 random (16gates) matches Qiskit at every step 0ms
+   × random #42 random (20gates) matches Qiskit at every step 0ms
+   × random #43 random (12gates) matches Qiskit at every step 0ms
+   × random #44 random (24gates) matches Qiskit at every step 0ms
+   × random #45 random (21gates) matches Qiskit at every step 0ms
+   × random #46 random (18gates) matches Qiskit at every step 0ms
+   × random #47 random (21gates) matches Qiskit at every step 0ms
+   × random #48 random (25gates) matches Qiskit at every step 0ms
+   × random #49 random (11gates) matches Qiskit at every step 0ms
+   ✓ random #50 random (TYSSYSTT) matches Qiskit at every step 0ms
+   × random #51 random (10gates) matches Qiskit at every step 0ms
+   × random #52 random (26gates) matches Qiskit at every step 0ms
+   × random #53 random (16gates) matches Qiskit at every step 0ms
+   ✓ random #54 random (TTHHZYS) matches Qiskit at every step 1ms
+   ✓ random #55 random (16gates) matches Qiskit at every step 0ms
+   × random #56 random (21gates) matches Qiskit at every step 0ms
+   × random #57 random (19gates) matches Qiskit at every step 0ms
+   × random #58 random (12gates) matches Qiskit at every step 0ms
+   × random #59 random (9gates) matches Qiskit at every step 0ms
+   × random #60 random (15gates) matches Qiskit at every step 0ms
+   ✓ random #61 random (HY) matches Qiskit at every step 0ms
+   × random #62 random (27gates) matches Qiskit at every step 0ms
+   × random #63 random (25gates) matches Qiskit at every step 0ms
+   × random #64 random (26gates) matches Qiskit at every step 0ms
+   × random #65 random (ZZXHZHT) matches Qiskit at every step 0ms
+   × random #66 random (10gates) matches Qiskit at every step 0ms
+   ✓ random #67 random (11gates) matches Qiskit at every step 0ms
+   × random #68 random (21gates) matches Qiskit at every step 0ms
+   × random #69 random (22gates) matches Qiskit at every step 0ms
+   × random #70 random (9gates) matches Qiskit at every step 0ms
+   × random #71 random (26gates) matches Qiskit at every step 0ms
+   × random #72 random (17gates) matches Qiskit at every step 0ms
+   ✓ random #73 random (SHTS) matches Qiskit at every step 0ms
+   ✓ random #74 random (12gates) matches Qiskit at every step 0ms
+   × random #75 random (26gates) matches Qiskit at every step 0ms
+   × random #76 random (10gates) matches Qiskit at every step 0ms
+   × random #77 random (19gates) matches Qiskit at every step 0ms
+   × random #78 random (30gates) matches Qiskit at every step 0ms
+   × random #79 random (23gates) matches Qiskit at every step 0ms
+   × random #80 random (14gates) matches Qiskit at every step 0ms
+   × random #81 random (SXSY) matches Qiskit at every step 0ms
+   × random #82 random (SZXY) matches Qiskit at every step 0ms
+   × random #83 random (22gates) matches Qiskit at every step 0ms
+   × random #84 random (13gates) matches Qiskit at every step 0ms
+   × random #85 random (19gates) matches Qiskit at every step 0ms
+   × random #86 random (20gates) matches Qiskit at every step 0ms
+   × random #87 random (19gates) matches Qiskit at every step 0ms
+   ✓ random #88 random (TSTZZ) matches Qiskit at every step 0ms
+   × random #89 random (27gates) matches Qiskit at every step 0ms
+   × random #90 random (XSHYZ) matches Qiskit at every step 0ms
+   × random #91 random (9gates) matches Qiskit at every step 0ms
+   × random #92 random (ZHZYTZX) matches Qiskit at every step 3ms
+   × random #93 random (SSSHTXX) matches Qiskit at every step 1ms
+   × random #94 random (23gates) matches Qiskit at every step 0ms
+   × random #95 random (23gates) matches Qiskit at every step 0ms
+   × random #96 random (30gates) matches Qiskit at every step 0ms
+   × random #97 random (STSHSHXH) matches Qiskit at every step 1ms
+   × random #98 random (17gates) matches Qiskit at every step 0ms
+   × random #99 random (SZSSTHX) matches Qiskit at every step 1ms
+   × random #100 random (STSXTHH) matches Qiskit at every step 1ms
+   × random #101 random (TXT) matches Qiskit at every step 0ms
+   × random #102 random (24gates) matches Qiskit at every step 1ms
+   × random #103 random (XZHZTY) matches Qiskit at every step 1ms
+   ✓ random #104 random (TZTTT) matches Qiskit at every step 2ms
+   × random #105 random (10gates) matches Qiskit at every step 21ms
+   × random #106 random (TZZHXZH) matches Qiskit at every step 2ms
+   × random #107 random (14gates) matches Qiskit at every step 1ms
+   × random #108 random (21gates) matches Qiskit at every step 1ms
+   × random #109 random (12gates) matches Qiskit at every step 1ms
+   × random #110 random (25gates) matches Qiskit at every step 1ms
+   ✓ random #111 random (YTSTSZH) matches Qiskit at every step 0ms
+   × random #112 random (XSZZXYT) matches Qiskit at every step 1ms
+   × random #113 random (27gates) matches Qiskit at every step 1ms
+   × random #114 random (25gates) matches Qiskit at every step 1ms
+   × random #115 random (22gates) matches Qiskit at every step 1ms
+   ✓ random #116 random (TSSTY) matches Qiskit at every step 0ms
+   × random #117 random (24gates) matches Qiskit at every step 0ms
+   × random #118 random (24gates) matches Qiskit at every step 1ms
+   ✓ random #119 random (HZZT) matches Qiskit at every step 0ms
+   × random #120 random (27gates) matches Qiskit at every step 0ms
+   × random #121 random (13gates) matches Qiskit at every step 1ms
+   × random #122 random (21gates) matches Qiskit at every step 1ms
+   × random #123 random (XYHYY) matches Qiskit at every step 1ms
+   × random #124 random (18gates) matches Qiskit at every step 1ms
+   × random #125 random (28gates) matches Qiskit at every step 4ms
+   × random #126 random (15gates) matches Qiskit at every step 0ms
+   × random #127 random (10gates) matches Qiskit at every step 1ms
+   × random #128 random (19gates) matches Qiskit at every step 0ms
+   × random #129 random (TTYSX) matches Qiskit at every step 0ms
+   × random #130 random (16gates) matches Qiskit at every step 0ms
+   × random #131 random (26gates) matches Qiskit at every step 0ms
+   × random #132 random (30gates) matches Qiskit at every step 0ms
+   ✓ random #133 random (SYSYZZT) matches Qiskit at every step 0ms
+   × random #134 random (21gates) matches Qiskit at every step 0ms
+   × random #135 random (13gates) matches Qiskit at every step 1ms
+   × random #136 random (HXHSXY) matches Qiskit at every step 0ms
+   × random #137 random (20gates) matches Qiskit at every step 0ms
+   ✓ random #138 random (HHZHHSZY) matches Qiskit at every step 0ms
+   × random #139 random (YZHHXTT) matches Qiskit at every step 3ms
+   ✓ random #140 random (SZTSZ) matches Qiskit at every step 0ms
+   × random #141 random (TTSHXZSY) matches Qiskit at every step 11ms
+   × random #142 random (17gates) matches Qiskit at every step 1ms
+   ✓ random #143 random (TYZSTZ) matches Qiskit at every step 0ms
+   × random #144 random (22gates) matches Qiskit at every step 0ms
+   ✓ random #145 random (17gates) matches Qiskit at every step 0ms
+   ✓ random #146 random (SZ) matches Qiskit at every step 0ms
+   × random #147 random (SXY) matches Qiskit at every step 0ms
+   × random #148 random (11gates) matches Qiskit at every step 0ms
+   ✓ random #149 random (SSTYHZ) matches Qiskit at every step 0ms
+   × random #150 random (13gates) matches Qiskit at every step 1ms
+   × random #151 random (11gates) matches Qiskit at every step 1ms
+   × random #152 random (29gates) matches Qiskit at every step 1ms
+   × random #153 random (10gates) matches Qiskit at every step 1ms
+   ✓ random #154 random (HH) matches Qiskit at every step 0ms
+   × random #155 random (20gates) matches Qiskit at every step 6ms
+   × random #156 random (17gates) matches Qiskit at every step 1ms
+   × random #157 random (30gates) matches Qiskit at every step 0ms
+   × random #158 random (30gates) matches Qiskit at every step 0ms
+   × random #159 random (30gates) matches Qiskit at every step 0ms
+   × random #160 random (YYSXSZ) matches Qiskit at every step 0ms
+   × random #161 random (XTHTXZHX) matches Qiskit at every step 0ms
+   × random #162 random (18gates) matches Qiskit at every step 0ms
+   × random #163 random (17gates) matches Qiskit at every step 0ms
+   ✓ random #164 random (17gates) matches Qiskit at every step 0ms
+   × random #165 random (22gates) matches Qiskit at every step 0ms
+   × random #166 random (25gates) matches Qiskit at every step 0ms
+   × random #167 random (10gates) matches Qiskit at every step 0ms
+   × random #168 random (20gates) matches Qiskit at every step 0ms
+   × random #169 random (29gates) matches Qiskit at every step 0ms
+   × random #170 random (23gates) matches Qiskit at every step 0ms
+   × random #171 random (24gates) matches Qiskit at every step 0ms
+   × random #172 random (15gates) matches Qiskit at every step 2ms
+   × random #173 random (30gates) matches Qiskit at every step 0ms
+   ✓ random #174 random (18gates) matches Qiskit at every step 0ms
+   ✓ random #175 random (Z) matches Qiskit at every step 0ms
+   × random #176 random (15gates) matches Qiskit at every step 0ms
+   ✓ random #177 random (16gates) matches Qiskit at every step 0ms
+   ✓ random #178 random (S) matches Qiskit at every step 1ms
+   × random #179 random (20gates) matches Qiskit at every step 1ms
+   × random #180 random (26gates) matches Qiskit at every step 0ms
+   × random #181 random (11gates) matches Qiskit at every step 0ms
+   × random #182 random (HYXH) matches Qiskit at every step 0ms
+   × random #183 random (24gates) matches Qiskit at every step 1ms
+   × random #184 random (21gates) matches Qiskit at every step 2ms
+   × random #185 random (23gates) matches Qiskit at every step 1ms
+   × random #186 random (26gates) matches Qiskit at every step 1ms
+   × random #187 random (27gates) matches Qiskit at every step 1ms
+   × random #188 random (ZHZTXYX) matches Qiskit at every step 2ms
+   × random #189 random (YXTY) matches Qiskit at every step 1ms
+   × random #190 random (TZHXZ) matches Qiskit at every step 1ms
+   × random #191 random (23gates) matches Qiskit at every step 0ms
+   × random #192 random (27gates) matches Qiskit at every step 0ms
+   × random #193 random (12gates) matches Qiskit at every step 0ms
+   × random #194 random (18gates) matches Qiskit at every step 0ms
+   × random #195 random (28gates) matches Qiskit at every step 0ms
+   × random #196 random (27gates) matches Qiskit at every step 0ms
+   × random #197 random (20gates) matches Qiskit at every step 1ms
+   × random #198 random (21gates) matches Qiskit at every step 1ms
+   × random #199 random (13gates) matches Qiskit at every step 1ms
+   × random #200 random (15gates) matches Qiskit at every step 1ms
+   × random #201 random (SZXHHYZZ) matches Qiskit at every step 1ms
+   ✓ random #202 random (H) matches Qiskit at every step 0ms
+   × random #203 random (21gates) matches Qiskit at every step 1ms
+   × random #204 random (14gates) matches Qiskit at every step 0ms
+   × random #205 random (11gates) matches Qiskit at every step 0ms
+   × random #206 random (28gates) matches Qiskit at every step 0ms
+   × random #207 random (30gates) matches Qiskit at every step 0ms
+   × random #208 random (22gates) matches Qiskit at every step 2ms
+   × random #209 random (10gates) matches Qiskit at every step 0ms
+   × random #210 random (ZTX) matches Qiskit at every step 0ms
+   ✓ random #211 random (TTHYSYY) matches Qiskit at every step 0ms
+ ✓ TGate.test.js (6 tests) 10ms
+ ✓ YGate.test.js (6 tests) 12ms
+ ✓ ZGate.test.js (6 tests) 24ms
+ ✓ GateRelationships.test.js (9 tests) 18ms
+ ✓ SGate.test.js (6 tests) 9ms
+ ✓ XGate.test.js (6 tests) 4ms
+stdout | HadamardGate.test.js
+time to await backend: 19.647ms
+
+ ✓ HadamardGate.test.js (43 tests) 43ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 169 ⎯⎯⎯⎯⎯⎯
+
+ FAIL  vsQiskit.test.js > sanity #2 sanity (X) matches Qiskit at every step
+Error: seq #2 diverged at step 0 (gate X) of [X]
+  deviation 1.000e+0 > tolerance 1e-10
+  got:      alpha=0.000000+0.000000i beta=0.000000+1.000000i
+  expected: alpha=0.000000+0.000000i beta=1.000000+0.000000i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:155:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/169]⎯
+
+ FAIL  vsQiskit.test.js > random #12 random (30gates) matches Qiskit at every step
+Error: seq #12 diverged at step 2 (gate X) of [T Y X T H X H X Z H S X S X S T T X Z Y X Z T T Z T Z S T Z]
+  deviation 8.259e-1 > tolerance 1e-10
+  got:      alpha=-0.773640+0.065833i beta=0.245421-0.580444i
+  expected: alpha=-0.773640+0.065833i beta=-0.580444+0.245421i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/169]⎯
+
+ FAIL  vsQiskit.test.js > random #13 random (SX) matches Qiskit at every step
+Error: seq #13 diverged at step 1 (gate X) of [S X]
+  deviation 9.748e-2 > tolerance 1e-10
+  got:      alpha=0.515178-0.799547i beta=-0.261536-0.164057i
+  expected: alpha=0.515178-0.799547i beta=-0.164057-0.261536i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/169]⎯
+
+ FAIL  vsQiskit.test.js > random #14 random (27gates) matches Qiskit at every step
+Error: seq #14 diverged at step 12 (gate X) of [S T Y H H S H S H Z Z H X T Y Y Y Z X H Z X Z T Y Y X]
+  deviation 1.106e+0 > tolerance 1e-10
+  got:      alpha=0.345036-0.118990i beta=0.910131-0.196094i
+  expected: alpha=0.345036-0.118990i beta=-0.196094+0.910131i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/169]⎯
+
+ FAIL  vsQiskit.test.js > random #15 random (23gates) matches Qiskit at every step
+Error: seq #15 diverged at step 6 (gate X) of [T S H S T Y X T T T H T Y Y S T X S T T T X T]
+  deviation 8.737e-1 > tolerance 1e-10
+  got:      alpha=-0.716704+0.241354i beta=0.589165-0.284549i
+  expected: alpha=-0.716704+0.241354i beta=-0.284549+0.589165i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/169]⎯
+
+ FAIL  vsQiskit.test.js > random #16 random (13gates) matches Qiskit at every step
+Error: seq #16 diverged at step 7 (gate X) of [S Y S Y H H S X T Z X S X]
+  deviation 2.302e-1 > tolerance 1e-10
+  got:      alpha=-0.932237-0.311544i beta=-0.054332+0.175850i
+  expected: alpha=-0.932237-0.311544i beta=0.175850-0.054332i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/169]⎯
+
+ FAIL  vsQiskit.test.js > random #17 random (14gates) matches Qiskit at every step
+Error: seq #17 diverged at step 0 (gate X) of [X S T Y S X Y H Y S S X T Z]
+  deviation 8.559e-1 > tolerance 1e-10
+  got:      alpha=0.490706-0.122609i beta=-0.862630-0.006688i
+  expected: alpha=0.490706-0.122609i beta=-0.006688-0.862630i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/169]⎯
+
+ FAIL  vsQiskit.test.js > random #18 random (9gates) matches Qiskit at every step
+Error: seq #18 diverged at step 5 (gate X) of [S Z S S T X H Y Z]
+  deviation 9.115e-1 > tolerance 1e-10
+  got:      alpha=-0.631058-0.324526i beta=0.657036-0.254466i
+  expected: alpha=-0.631058-0.324526i beta=-0.254466+0.657036i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/169]⎯
+
+ FAIL  vsQiskit.test.js > random #19 random (21gates) matches Qiskit at every step
+Error: seq #19 diverged at step 1 (gate X) of [S X H Y X Z Z T S H Z X Y X H Y S H T X S]
+  deviation 1.113e+0 > tolerance 1e-10
+  got:      alpha=0.552835-0.172073i beta=-0.706471+0.407018i
+  expected: alpha=0.552835-0.172073i beta=0.407018-0.706471i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/169]⎯
+
+ FAIL  vsQiskit.test.js > random #22 random (26gates) matches Qiskit at every step
+Error: seq #22 diverged at step 3 (gate X) of [H Y T X S X T T Z Y T H X H Y Y S T Z Y T S X T Y H]
+  deviation 7.562e-1 > tolerance 1e-10
+  got:      alpha=-0.261761-0.493670i beta=0.070181+0.826345i
+  expected: alpha=-0.261761-0.493670i beta=0.826345+0.070181i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/169]⎯
+
+ FAIL  vsQiskit.test.js > random #23 random (20gates) matches Qiskit at every step
+Error: seq #23 diverged at step 0 (gate X) of [X Z Z X Y X Y Y Y S X S X X Y Z S X S X]
+  deviation 1.347e+0 > tolerance 1e-10
+  got:      alpha=-0.235124+0.019389i beta=0.536838-0.810029i
+  expected: alpha=-0.235124+0.019389i beta=-0.810029+0.536838i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/169]⎯
+
+ FAIL  vsQiskit.test.js > random #24 random (TX) matches Qiskit at every step
+Error: seq #24 diverged at step 1 (gate X) of [T X]
+  deviation 1.046e+0 > tolerance 1e-10
+  got:      alpha=0.383887+0.552604i beta=-0.524037+0.522154i
+  expected: alpha=0.383887+0.552604i beta=0.522154-0.524037i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/169]⎯
+
+ FAIL  vsQiskit.test.js > random #25 random (HX) matches Qiskit at every step
+Error: seq #25 diverged at step 1 (gate X) of [H X]
+  deviation 4.085e-1 > tolerance 1e-10
+  got:      alpha=-0.296765+0.794851i beta=-0.517863-0.109365i
+  expected: alpha=-0.296765+0.794851i beta=-0.109365-0.517863i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/169]⎯
+
+ FAIL  vsQiskit.test.js > random #26 random (18gates) matches Qiskit at every step
+Error: seq #26 diverged at step 2 (gate X) of [S Y X S X H Y T T S Z X T S T H H Z]
+  deviation 3.402e-1 > tolerance 1e-10
+  got:      alpha=-0.824551-0.100098i beta=-0.525217-0.185052i
+  expected: alpha=-0.824551-0.100098i beta=-0.185052-0.525217i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/169]⎯
+
+ FAIL  vsQiskit.test.js > random #28 random (29gates) matches Qiskit at every step
+Error: seq #28 diverged at step 1 (gate X) of [S X H S T H Z H T T H T Z X Z Y X T H H Z X H T X Y Z Z Z]
+  deviation 1.283e-1 > tolerance 1e-10
+  got:      alpha=-0.146589-0.354279i beta=0.585758+0.714063i
+  expected: alpha=-0.146589-0.354279i beta=0.714063+0.585758i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/169]⎯
+
+ FAIL  vsQiskit.test.js > random #29 random (20gates) matches Qiskit at every step
+Error: seq #29 diverged at step 16 (gate X) of [T T S T Z S Y T H H T H Y H T H X Z T T]
+  deviation 1.307e-1 > tolerance 1e-10
+  got:      alpha=0.233707+0.537414i beta=0.634576+0.503866i
+  expected: alpha=0.233707+0.537414i beta=0.503866+0.634576i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/169]⎯
+
+ FAIL  vsQiskit.test.js > random #30 random (13gates) matches Qiskit at every step
+Error: seq #30 diverged at step 5 (gate X) of [H T S T S X H X T Y X X H]
+  deviation 1.053e+0 > tolerance 1e-10
+  got:      alpha=-0.539106+0.122897i beta=0.262437-0.790814i
+  expected: alpha=-0.539106+0.122897i beta=-0.790814+0.262437i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/169]⎯
+
+ FAIL  vsQiskit.test.js > random #33 random (29gates) matches Qiskit at every step
+Error: seq #33 diverged at step 15 (gate X) of [H Y S S Z T Z T H Y T H S T Z X T Z H H S T Y X X H T Z S]
+  deviation 6.426e-1 > tolerance 1e-10
+  got:      alpha=-0.589870-0.398146i beta=0.700154+0.057591i
+  expected: alpha=-0.589870-0.398146i beta=0.057591+0.700154i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/169]⎯
+
+ FAIL  vsQiskit.test.js > random #34 random (26gates) matches Qiskit at every step
+Error: seq #34 diverged at step 0 (gate X) of [X Z X Z H H Y X S X Z X S S T T X X T S T H S S H S]
+  deviation 3.365e-1 > tolerance 1e-10
+  got:      alpha=0.812513-0.478057i beta=0.333579-0.002927i
+  expected: alpha=0.812513-0.478057i beta=-0.002927+0.333579i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/169]⎯
+
+ FAIL  vsQiskit.test.js > random #35 random (24gates) matches Qiskit at every step
+Error: seq #35 diverged at step 15 (gate X) of [T H Z Z T S Y S H S S S T Z Z X Z H H T X Y Y S]
+  deviation 7.013e-2 > tolerance 1e-10
+  got:      alpha=-0.412701-0.889465i beta=0.099231+0.169361i
+  expected: alpha=-0.412701-0.889465i beta=0.169361+0.099231i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/169]⎯
+
+ FAIL  vsQiskit.test.js > random #36 random (17gates) matches Qiskit at every step
+Error: seq #36 diverged at step 0 (gate X) of [X T X X Y H S Y X Y Z Z S H Z H Y]
+  deviation 1.310e+0 > tolerance 1e-10
+  got:      alpha=0.221785+0.224826i beta=-0.799680+0.510663i
+  expected: alpha=0.221785+0.224826i beta=0.510663-0.799680i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/169]⎯
+
+ FAIL  vsQiskit.test.js > random #37 random (26gates) matches Qiskit at every step
+Error: seq #37 diverged at step 2 (gate X) of [S Y X H H T H H Y Y T T T Z X S Y Y X X H T Z Y Y Y]
+  deviation 4.497e-2 > tolerance 1e-10
+  got:      alpha=0.901636-0.155648i beta=0.306928+0.261959i
+  expected: alpha=0.901636-0.155648i beta=0.261959+0.306928i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/169]⎯
+
+ FAIL  vsQiskit.test.js > random #38 random (26gates) matches Qiskit at every step
+Error: seq #38 diverged at step 1 (gate X) of [Y X H Y Y S H X X Z Z H Z X S Y T H Y Y S S Z X T Y]
+  deviation 1.069e+0 > tolerance 1e-10
+  got:      alpha=-0.387523-0.522104i beta=-0.587682+0.481520i
+  expected: alpha=-0.387523-0.522104i beta=0.481520-0.587682i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/169]⎯
+
+ FAIL  vsQiskit.test.js > random #39 random (17gates) matches Qiskit at every step
+Error: seq #39 diverged at step 1 (gate X) of [Y X Y H Z Z T Y H T H S X Z H X H]
+  deviation 4.825e-4 > tolerance 1e-10
+  got:      alpha=0.200617+0.762870i beta=0.434374+0.434857i
+  expected: alpha=0.200617+0.762870i beta=0.434857+0.434374i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[24/169]⎯
+
+ FAIL  vsQiskit.test.js > random #40 random (YXYYST) matches Qiskit at every step
+Error: seq #40 diverged at step 1 (gate X) of [Y X Y Y S T]
+  deviation 7.290e-1 > tolerance 1e-10
+  got:      alpha=0.531477-0.661786i beta=-0.447772+0.281198i
+  expected: alpha=0.531477-0.661786i beta=0.281198-0.447772i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[25/169]⎯
+
+ FAIL  vsQiskit.test.js > random #41 random (16gates) matches Qiskit at every step
+Error: seq #41 diverged at step 14 (gate X) of [H S Y S Y H Y H H Y T Y Z T X X]
+  deviation 1.084e+0 > tolerance 1e-10
+  got:      alpha=0.205278-0.393814i beta=0.869896-0.214599i
+  expected: alpha=0.205278-0.393814i beta=-0.214599+0.869896i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[26/169]⎯
+
+ FAIL  vsQiskit.test.js > random #42 random (20gates) matches Qiskit at every step
+Error: seq #42 diverged at step 0 (gate X) of [X Z T T S H T T T Z Z Y Z Y T H X X T Z]
+  deviation 9.220e-1 > tolerance 1e-10
+  got:      alpha=-0.404974+0.164045i beta=0.022783-0.899203i
+  expected: alpha=-0.404974+0.164045i beta=-0.899203+0.022783i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[27/169]⎯
+
+ FAIL  vsQiskit.test.js > random #43 random (12gates) matches Qiskit at every step
+Error: seq #43 diverged at step 3 (gate X) of [H T T X Z Z Y X S Y H Y]
+  deviation 1.078e+0 > tolerance 1e-10
+  got:      alpha=-0.512140-0.022112i beta=0.260255-0.818224i
+  expected: alpha=-0.512140-0.022112i beta=-0.818224+0.260255i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[28/169]⎯
+
+ FAIL  vsQiskit.test.js > random #44 random (24gates) matches Qiskit at every step
+Error: seq #44 diverged at step 0 (gate X) of [X H H Y H X S X Z Z H Y X S Z Y T T T S X Z Y T]
+  deviation 4.864e-1 > tolerance 1e-10
+  got:      alpha=0.616180+0.200961i beta=-0.237206-0.723651i
+  expected: alpha=0.616180+0.200961i beta=-0.723651-0.237206i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[29/169]⎯
+
+ FAIL  vsQiskit.test.js > random #45 random (21gates) matches Qiskit at every step
+Error: seq #45 diverged at step 3 (gate X) of [T Y T X T H H Y Z X H Y X S Y H Z S X X Z]
+  deviation 1.242e+0 > tolerance 1e-10
+  got:      alpha=0.347905+0.119190i beta=-0.837244+0.404694i
+  expected: alpha=0.347905+0.119190i beta=0.404694-0.837244i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[30/169]⎯
+
+ FAIL  vsQiskit.test.js > random #46 random (18gates) matches Qiskit at every step
+Error: seq #46 diverged at step 6 (gate X) of [H Y S T S S X X T T Y Z Z Z X X Y Z]
+  deviation 3.494e-1 > tolerance 1e-10
+  got:      alpha=-0.718325+0.390113i beta=-0.542649-0.193270i
+  expected: alpha=-0.718325+0.390113i beta=-0.193270-0.542649i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[31/169]⎯
+
+ FAIL  vsQiskit.test.js > random #47 random (21gates) matches Qiskit at every step
+Error: seq #47 diverged at step 0 (gate X) of [X H X S Y T Z H X Y Y X H X Y S H H X S T]
+  deviation 6.869e-2 > tolerance 1e-10
+  got:      alpha=0.881496-0.253984i beta=-0.245030-0.313716i
+  expected: alpha=0.881496-0.253984i beta=-0.313716-0.245030i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[32/169]⎯
+
+ FAIL  vsQiskit.test.js > random #48 random (25gates) matches Qiskit at every step
+Error: seq #48 diverged at step 3 (gate X) of [T Y H X T Z X Z Z T X S Y T T X X X S T Z T T H Y]
+  deviation 3.762e-1 > tolerance 1e-10
+  got:      alpha=0.656984-0.396688i beta=0.600558+0.224369i
+  expected: alpha=0.656984-0.396688i beta=0.224369+0.600558i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[33/169]⎯
+
+ FAIL  vsQiskit.test.js > random #49 random (11gates) matches Qiskit at every step
+Error: seq #49 diverged at step 2 (gate X) of [H T X X Y Z X X H Z T]
+  deviation 6.573e-1 > tolerance 1e-10
+  got:      alpha=-0.074032-0.828839i beta=-0.542566+0.114747i
+  expected: alpha=-0.074032-0.828839i beta=0.114747-0.542566i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[34/169]⎯
+
+ FAIL  vsQiskit.test.js > random #51 random (10gates) matches Qiskit at every step
+Error: seq #51 diverged at step 4 (gate X) of [H T T Z X S X X Y S]
+  deviation 7.460e-1 > tolerance 1e-10
+  got:      alpha=0.369995-0.458697i beta=0.059737+0.805687i
+  expected: alpha=0.369995-0.458697i beta=0.805687+0.059737i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[35/169]⎯
+
+ FAIL  vsQiskit.test.js > random #52 random (26gates) matches Qiskit at every step
+Error: seq #52 diverged at step 12 (gate X) of [Y Z Y T H Z H H S T Y Z X H Y Y S S H H S S Y T H X]
+  deviation 7.014e-1 > tolerance 1e-10
+  got:      alpha=0.503054+0.640607i beta=0.137857-0.563519i
+  expected: alpha=0.503054+0.640607i beta=-0.563519+0.137857i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[36/169]⎯
+
+ FAIL  vsQiskit.test.js > random #53 random (16gates) matches Qiskit at every step
+Error: seq #53 diverged at step 5 (gate X) of [S T Z S Z X H Z S T Z S Y X H S]
+  deviation 1.645e-1 > tolerance 1e-10
+  got:      alpha=-0.316188+0.789501i beta=-0.280517-0.444998i
+  expected: alpha=-0.316188+0.789501i beta=-0.444998-0.280517i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[37/169]⎯
+
+ FAIL  vsQiskit.test.js > random #56 random (21gates) matches Qiskit at every step
+Error: seq #56 diverged at step 5 (gate X) of [T H Y S S X S S H T X T Z Y S T X T H X X]
+  deviation 4.977e-1 > tolerance 1e-10
+  got:      alpha=-0.560767-0.477336i beta=-0.159726-0.657403i
+  expected: alpha=-0.560767-0.477336i beta=-0.657403-0.159726i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[38/169]⎯
+
+ FAIL  vsQiskit.test.js > random #57 random (19gates) matches Qiskit at every step
+Error: seq #57 diverged at step 0 (gate X) of [X Z H X Z X Z Z Y H Y Y H Y Y H H H H]
+  deviation 3.227e-1 > tolerance 1e-10
+  got:      alpha=-0.524660-0.819900i beta=-0.146963+0.175778i
+  expected: alpha=-0.524660-0.819900i beta=0.175778-0.146963i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[39/169]⎯
+
+ FAIL  vsQiskit.test.js > random #58 random (12gates) matches Qiskit at every step
+Error: seq #58 diverged at step 5 (gate X) of [S H Z T S X Z Y H T S H]
+  deviation 6.028e-2 > tolerance 1e-10
+  got:      alpha=0.125523-0.987643i beta=-0.089248-0.028968i
+  expected: alpha=0.125523-0.987643i beta=-0.028968-0.089248i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[40/169]⎯
+
+ FAIL  vsQiskit.test.js > random #59 random (9gates) matches Qiskit at every step
+Error: seq #59 diverged at step 2 (gate X) of [Y H X Z S T S X T]
+  deviation 1.982e-1 > tolerance 1e-10
+  got:      alpha=-0.068639+0.961146i beta=-0.260100-0.061918i
+  expected: alpha=-0.068639+0.961146i beta=-0.061918-0.260100i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[41/169]⎯
+
+ FAIL  vsQiskit.test.js > random #60 random (15gates) matches Qiskit at every step
+Error: seq #60 diverged at step 3 (gate X) of [H Z H X H S Z H S S Z Z X X S]
+  deviation 1.315e-1 > tolerance 1e-10
+  got:      alpha=-0.449629-0.568715i beta=0.416804+0.548335i
+  expected: alpha=-0.449629-0.568715i beta=0.548335+0.416804i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[42/169]⎯
+
+ FAIL  vsQiskit.test.js > random #62 random (27gates) matches Qiskit at every step
+Error: seq #62 diverged at step 9 (gate X) of [S Y S Y Z Z Y S Y X H Y Z X S T H X S Z S Y T Y T H T]
+  deviation 3.017e-1 > tolerance 1e-10
+  got:      alpha=0.688797-0.676539i beta=-0.256549+0.045132i
+  expected: alpha=0.688797-0.676539i beta=0.045132-0.256549i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[43/169]⎯
+
+ FAIL  vsQiskit.test.js > random #63 random (25gates) matches Qiskit at every step
+Error: seq #63 diverged at step 8 (gate X) of [T Y S H T Y Z H X H S Z Y Z Z S H Z Y Z Z Z Z Y T]
+  deviation 8.116e-1 > tolerance 1e-10
+  got:      alpha=-0.480752-0.169450i beta=-0.859019-0.047438i
+  expected: alpha=-0.480752-0.169450i beta=-0.047438-0.859019i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[44/169]⎯
+
+ FAIL  vsQiskit.test.js > random #64 random (26gates) matches Qiskit at every step
+Error: seq #64 diverged at step 11 (gate X) of [H S H H H H Y S S Z S X Z T S Z S Z X H X Y T Z T S]
+  deviation 1.185e+0 > tolerance 1e-10
+  got:      alpha=-0.314422+0.399822i beta=-0.451563+0.733057i
+  expected: alpha=-0.314422+0.399822i beta=0.733057-0.451563i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[45/169]⎯
+
+ FAIL  vsQiskit.test.js > random #65 random (ZZXHZHT) matches Qiskit at every step
+Error: seq #65 diverged at step 2 (gate X) of [Z Z X H Z H T]
+  deviation 1.219e+0 > tolerance 1e-10
+  got:      alpha=-0.238426-0.128202i beta=0.912495-0.306707i
+  expected: alpha=-0.238426-0.128202i beta=-0.306707+0.912495i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[46/169]⎯
+
+ FAIL  vsQiskit.test.js > random #66 random (10gates) matches Qiskit at every step
+Error: seq #66 diverged at step 8 (gate X) of [H H Z Z H T S Z X Z]
+  deviation 5.823e-1 > tolerance 1e-10
+  got:      alpha=0.863199-0.277569i beta=-0.355518+0.226827i
+  expected: alpha=0.863199-0.277569i beta=0.226827-0.355518i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[47/169]⎯
+
+ FAIL  vsQiskit.test.js > random #68 random (21gates) matches Qiskit at every step
+Error: seq #68 diverged at step 12 (gate X) of [S Y T T S Y T Z T H S H X Y H Y T H Z Y T]
+  deviation 1.249e+0 > tolerance 1e-10
+  got:      alpha=-0.134805+0.339246i beta=0.832821-0.416111i
+  expected: alpha=-0.134805+0.339246i beta=-0.416111+0.832821i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[48/169]⎯
+
+ FAIL  vsQiskit.test.js > random #69 random (22gates) matches Qiskit at every step
+Error: seq #69 diverged at step 1 (gate X) of [S X X Z H X H H S Z H X X T Z H Z Y Y X T X]
+  deviation 6.765e-1 > tolerance 1e-10
+  got:      alpha=0.574715+0.021047i beta=0.131041+0.807519i
+  expected: alpha=0.574715+0.021047i beta=0.807519+0.131041i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[49/169]⎯
+
+ FAIL  vsQiskit.test.js > random #70 random (9gates) matches Qiskit at every step
+Error: seq #70 diverged at step 2 (gate X) of [Z Z X H H Y S Y H]
+  deviation 2.959e-1 > tolerance 1e-10
+  got:      alpha=-0.960547+0.106791i beta=0.253226-0.042674i
+  expected: alpha=-0.960547+0.106791i beta=-0.042674+0.253226i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[50/169]⎯
+
+ FAIL  vsQiskit.test.js > random #71 random (26gates) matches Qiskit at every step
+Error: seq #71 diverged at step 3 (gate X) of [S Y S X Z X Z Z T X Y X Y Z Z T X T T T Z T Z T X T]
+  deviation 1.074e+0 > tolerance 1e-10
+  got:      alpha=-0.394692+0.181436i beta=0.194432-0.879486i
+  expected: alpha=-0.394692+0.181436i beta=-0.879486+0.194432i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[51/169]⎯
+
+ FAIL  vsQiskit.test.js > random #72 random (17gates) matches Qiskit at every step
+Error: seq #72 diverged at step 2 (gate X) of [Z Z X Z Y X H Y X H T T T H S Z S]
+  deviation 8.525e-1 > tolerance 1e-10
+  got:      alpha=-0.650969+0.282532i beta=0.684148-0.168393i
+  expected: alpha=-0.650969+0.282532i beta=-0.168393+0.684148i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[52/169]⎯
+
+ FAIL  vsQiskit.test.js > random #75 random (26gates) matches Qiskit at every step
+Error: seq #75 diverged at step 5 (gate X) of [Z Y Y T Z X S T T Y X Z S X Y Y X H Y H Y Z Z X Z S]
+  deviation 5.021e-1 > tolerance 1e-10
+  got:      alpha=-0.753981+0.465141i beta=-0.039985+0.462124i
+  expected: alpha=-0.753981+0.465141i beta=0.462124-0.039985i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[53/169]⎯
+
+ FAIL  vsQiskit.test.js > random #76 random (10gates) matches Qiskit at every step
+Error: seq #76 diverged at step 0 (gate X) of [X T S S X X Z H Z X]
+  deviation 7.909e-1 > tolerance 1e-10
+  got:      alpha=0.208363-0.264650i beta=0.931078+0.140137i
+  expected: alpha=0.208363-0.264650i beta=0.140137+0.931078i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[54/169]⎯
+
+ FAIL  vsQiskit.test.js > random #77 random (19gates) matches Qiskit at every step
+Error: seq #77 diverged at step 7 (gate X) of [Z T T T T S Z X T T T T Z Z H Y X Y Z]
+  deviation 6.765e-2 > tolerance 1e-10
+  got:      alpha=-0.219034+0.042236i beta=0.722286+0.654632i
+  expected: alpha=-0.219034+0.042236i beta=0.654632+0.722286i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[55/169]⎯
+
+ FAIL  vsQiskit.test.js > random #78 random (30gates) matches Qiskit at every step
+Error: seq #78 diverged at step 3 (gate X) of [Y H Z X H Z H Z S Z T H Z Y T H H X Y H H Y Y T X T Y H H S]
+  deviation 4.099e-1 > tolerance 1e-10
+  got:      alpha=-0.647512-0.069946i beta=0.290914+0.700860i
+  expected: alpha=-0.647512-0.069946i beta=0.700860+0.290914i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[56/169]⎯
+
+ FAIL  vsQiskit.test.js > random #79 random (23gates) matches Qiskit at every step
+Error: seq #79 diverged at step 1 (gate X) of [T X H T Z T X T Z S Y T T T X Y Z H S Z H H S]
+  deviation 7.099e-1 > tolerance 1e-10
+  got:      alpha=-0.818559+0.132797i beta=-0.528656+0.181244i
+  expected: alpha=-0.818559+0.132797i beta=0.181244-0.528656i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[57/169]⎯
+
+ FAIL  vsQiskit.test.js > random #80 random (14gates) matches Qiskit at every step
+Error: seq #80 diverged at step 6 (gate X) of [Z Y Z H T H X Y Y S H Z T H]
+  deviation 7.187e-1 > tolerance 1e-10
+  got:      alpha=0.213452-0.670989i beta=-0.710026+0.008687i
+  expected: alpha=0.213452-0.670989i beta=0.008687-0.710026i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[58/169]⎯
+
+ FAIL  vsQiskit.test.js > random #81 random (SXSY) matches Qiskit at every step
+Error: seq #81 diverged at step 1 (gate X) of [S X S Y]
+  deviation 7.069e-1 > tolerance 1e-10
+  got:      alpha=0.238515+0.804553i beta=-0.505049+0.201817i
+  expected: alpha=0.238515+0.804553i beta=0.201817-0.505049i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[59/169]⎯
+
+ FAIL  vsQiskit.test.js > random #82 random (SZXY) matches Qiskit at every step
+Error: seq #82 diverged at step 2 (gate X) of [S Z X Y]
+  deviation 6.645e-1 > tolerance 1e-10
+  got:      alpha=-0.005823+0.488635i beta=0.187596+0.852062i
+  expected: alpha=-0.005823+0.488635i beta=0.852062+0.187596i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[60/169]⎯
+
+ FAIL  vsQiskit.test.js > random #83 random (22gates) matches Qiskit at every step
+Error: seq #83 diverged at step 3 (gate X) of [S H Y X S H X Y T S X H S Y H S X H S H T H]
+  deviation 2.214e-1 > tolerance 1e-10
+  got:      alpha=-0.014227+0.793045i beta=0.526843+0.305472i
+  expected: alpha=-0.014227+0.793045i beta=0.305472+0.526843i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[61/169]⎯
+
+ FAIL  vsQiskit.test.js > random #84 random (13gates) matches Qiskit at every step
+Error: seq #84 diverged at step 1 (gate X) of [H X Y S X X S Z S T H Z Z]
+  deviation 4.288e-1 > tolerance 1e-10
+  got:      alpha=0.126574-0.449113i beta=0.373136+0.801902i
+  expected: alpha=0.126574-0.449113i beta=0.801902+0.373136i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[62/169]⎯
+
+ FAIL  vsQiskit.test.js > random #85 random (19gates) matches Qiskit at every step
+Error: seq #85 diverged at step 3 (gate X) of [T H Y X Y Z Z Y Y Y Z X H T Z T X S Y]
+  deviation 1.077e+0 > tolerance 1e-10
+  got:      alpha=-0.092421+0.447390i beta=-0.863430+0.213985i
+  expected: alpha=-0.092421+0.447390i beta=0.213985-0.863430i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[63/169]⎯
+
+ FAIL  vsQiskit.test.js > random #86 random (20gates) matches Qiskit at every step
+Error: seq #86 diverged at step 1 (gate X) of [T X Y T T S T S X Z H T X T Z T T S H H]
+  deviation 5.154e-1 > tolerance 1e-10
+  got:      alpha=-0.528160-0.356203i beta=0.737975+0.222619i
+  expected: alpha=-0.528160-0.356203i beta=0.222619+0.737975i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[64/169]⎯
+
+ FAIL  vsQiskit.test.js > random #87 random (19gates) matches Qiskit at every step
+Error: seq #87 diverged at step 11 (gate X) of [Z S T T Y Z H Y Y Z Z X T Y Z Y Y X Y]
+  deviation 6.678e-1 > tolerance 1e-10
+  got:      alpha=0.380219+0.404965i beta=0.817865+0.150114i
+  expected: alpha=0.380219+0.404965i beta=0.150114+0.817865i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[65/169]⎯
+
+ FAIL  vsQiskit.test.js > random #89 random (27gates) matches Qiskit at every step
+Error: seq #89 diverged at step 0 (gate X) of [X T S S Z H S X Z Y X Y X X T Y T S Z S Y T T X X Y Y]
+  deviation 1.329e+0 > tolerance 1e-10
+  got:      alpha=-0.314736+0.044249i beta=0.576581-0.752687i
+  expected: alpha=-0.314736+0.044249i beta=-0.752687+0.576581i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[66/169]⎯
+
+ FAIL  vsQiskit.test.js > random #90 random (XSHYZ) matches Qiskit at every step
+Error: seq #90 diverged at step 0 (gate X) of [X S H Y Z]
+  deviation 7.259e-3 > tolerance 1e-10
+  got:      alpha=-0.716675+0.349693i beta=0.423024+0.430282i
+  expected: alpha=-0.716675+0.349693i beta=0.430282+0.423024i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[67/169]⎯
+
+ FAIL  vsQiskit.test.js > random #91 random (9gates) matches Qiskit at every step
+Error: seq #91 diverged at step 3 (gate X) of [S T H X S H Z Y X]
+  deviation 7.919e-1 > tolerance 1e-10
+  got:      alpha=0.744014-0.218739i beta=-0.602178+0.189681i
+  expected: alpha=0.744014-0.218739i beta=0.189681-0.602178i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[68/169]⎯
+
+ FAIL  vsQiskit.test.js > random #92 random (ZHZYTZX) matches Qiskit at every step
+Error: seq #92 diverged at step 6 (gate X) of [Z H Z Y T Z X]
+  deviation 4.263e-1 > tolerance 1e-10
+  got:      alpha=-0.498527-0.812743i beta=-0.217470+0.208870i
+  expected: alpha=-0.498527-0.812743i beta=0.208870-0.217470i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[69/169]⎯
+
+ FAIL  vsQiskit.test.js > random #93 random (SSSHTXX) matches Qiskit at every step
+Error: seq #93 diverged at step 5 (gate X) of [S S S H T X X]
+  deviation 7.941e-1 > tolerance 1e-10
+  got:      alpha=-0.381340+0.658812i beta=-0.167627+0.626457i
+  expected: alpha=-0.381340+0.658812i beta=0.626457-0.167627i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[70/169]⎯
+
+ FAIL  vsQiskit.test.js > random #94 random (23gates) matches Qiskit at every step
+Error: seq #94 diverged at step 8 (gate X) of [Z S S S Y T H Z X H Y Y Y Y T Z T Z T T T S T]
+  deviation 1.193e+0 > tolerance 1e-10
+  got:      alpha=-0.457658-0.224908i beta=-0.714694+0.478726i
+  expected: alpha=-0.457658-0.224908i beta=0.478726-0.714694i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[71/169]⎯
+
+ FAIL  vsQiskit.test.js > random #95 random (23gates) matches Qiskit at every step
+Error: seq #95 diverged at step 3 (gate X) of [T Y S X T H Z Z X S Z Z Z H S S Z H Y Z Y H Y]
+  deviation 7.611e-1 > tolerance 1e-10
+  got:      alpha=0.831369-0.132300i beta=0.409484-0.351632i
+  expected: alpha=0.831369-0.132300i beta=-0.351632+0.409484i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[72/169]⎯
+
+ FAIL  vsQiskit.test.js > random #96 random (30gates) matches Qiskit at every step
+Error: seq #96 diverged at step 2 (gate X) of [Z S X H T X S H X X T H T H Z Z Z X Y H H H T X H S Z Z Y X]
+  deviation 4.430e-1 > tolerance 1e-10
+  got:      alpha=0.273459+0.459272i beta=0.776544+0.333569i
+  expected: alpha=0.273459+0.459272i beta=0.333569+0.776544i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[73/169]⎯
+
+ FAIL  vsQiskit.test.js > random #97 random (STSHSHXH) matches Qiskit at every step
+Error: seq #97 diverged at step 6 (gate X) of [S T S H S H X H]
+  deviation 1.173e+0 > tolerance 1e-10
+  got:      alpha=0.499114-0.198433i beta=0.479439-0.694009i
+  expected: alpha=0.499114-0.198433i beta=-0.694009+0.479439i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[74/169]⎯
+
+ FAIL  vsQiskit.test.js > random #98 random (17gates) matches Qiskit at every step
+Error: seq #98 diverged at step 0 (gate X) of [X Z S T X Z T X H Z H H H S X H Z]
+  deviation 3.699e-1 > tolerance 1e-10
+  got:      alpha=0.761855+0.365295i beta=0.145029+0.514881i
+  expected: alpha=0.761855+0.365295i beta=0.514881+0.145029i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[75/169]⎯
+
+ FAIL  vsQiskit.test.js > random #99 random (SZSSTHX) matches Qiskit at every step
+Error: seq #99 diverged at step 6 (gate X) of [S Z S S T H X]
+  deviation 3.231e-1 > tolerance 1e-10
+  got:      alpha=0.209049+0.064962i beta=0.509209+0.832337i
+  expected: alpha=0.209049+0.064962i beta=0.832337+0.509209i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[76/169]⎯
+
+ FAIL  vsQiskit.test.js > random #100 random (STSXTHH) matches Qiskit at every step
+Error: seq #100 diverged at step 3 (gate X) of [S T S X T H H]
+  deviation 8.363e-1 > tolerance 1e-10
+  got:      alpha=-0.246460-0.676235i beta=-0.160959+0.675319i
+  expected: alpha=-0.246460-0.676235i beta=0.675319-0.160959i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[77/169]⎯
+
+ FAIL  vsQiskit.test.js > random #101 random (TXT) matches Qiskit at every step
+Error: seq #101 diverged at step 1 (gate X) of [T X T]
+  deviation 2.567e-1 > tolerance 1e-10
+  got:      alpha=-0.953157+0.240969i beta=0.113113-0.143636i
+  expected: alpha=-0.953157+0.240969i beta=-0.143636+0.113113i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[78/169]⎯
+
+ FAIL  vsQiskit.test.js > random #102 random (24gates) matches Qiskit at every step
+Error: seq #102 diverged at step 3 (gate X) of [Z T Z X X H Z S Z Z S X Y Z Z Y Y T Z T X X H T]
+  deviation 1.342e+0 > tolerance 1e-10
+  got:      alpha=0.189724-0.242635i beta=0.722053-0.619494i
+  expected: alpha=0.189724-0.242635i beta=-0.619494+0.722053i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[79/169]⎯
+
+ FAIL  vsQiskit.test.js > random #103 random (XZHZTY) matches Qiskit at every step
+Error: seq #103 diverged at step 0 (gate X) of [X Z H Z T Y]
+  deviation 9.410e-1 > tolerance 1e-10
+  got:      alpha=-0.015394+0.734061i beta=0.565737-0.375312i
+  expected: alpha=-0.015394+0.734061i beta=-0.375312+0.565737i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[80/169]⎯
+
+ FAIL  vsQiskit.test.js > random #105 random (10gates) matches Qiskit at every step
+Error: seq #105 diverged at step 2 (gate X) of [Z T X S T S Y Y S X]
+  deviation 4.253e-1 > tolerance 1e-10
+  got:      alpha=-0.819089+0.367099i beta=0.440567+0.015227i
+  expected: alpha=-0.819089+0.367099i beta=0.015227+0.440567i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[81/169]⎯
+
+ FAIL  vsQiskit.test.js > random #106 random (TZZHXZH) matches Qiskit at every step
+Error: seq #106 diverged at step 4 (gate X) of [T Z Z H X Z H]
+  deviation 4.406e-1 > tolerance 1e-10
+  got:      alpha=-0.630567-0.545858i beta=0.101712+0.542290i
+  expected: alpha=-0.630567-0.545858i beta=0.542290+0.101712i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[82/169]⎯
+
+ FAIL  vsQiskit.test.js > random #107 random (14gates) matches Qiskit at every step
+Error: seq #107 diverged at step 8 (gate X) of [T S Z T T T H T X Y Z T Z Y]
+  deviation 6.209e-1 > tolerance 1e-10
+  got:      alpha=-0.858887+0.239484i beta=0.388563-0.232335i
+  expected: alpha=-0.858887+0.239484i beta=-0.232335+0.388563i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[83/169]⎯
+
+ FAIL  vsQiskit.test.js > random #108 random (21gates) matches Qiskit at every step
+Error: seq #108 diverged at step 1 (gate X) of [H X Y T S H H H X X Y T H S H T Z S Z Y X]
+  deviation 4.355e-2 > tolerance 1e-10
+  got:      alpha=0.246389+0.317323i beta=0.625392+0.668942i
+  expected: alpha=0.246389+0.317323i beta=0.668942+0.625392i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[84/169]⎯
+
+ FAIL  vsQiskit.test.js > random #109 random (12gates) matches Qiskit at every step
+Error: seq #109 diverged at step 10 (gate X) of [Y Y T H T Z H H Y T X Z]
+  deviation 1.029e+0 > tolerance 1e-10
+  got:      alpha=-0.210785-0.448870i beta=-0.849694+0.179181i
+  expected: alpha=-0.210785-0.448870i beta=0.179181-0.849694i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[85/169]⎯
+
+ FAIL  vsQiskit.test.js > random #110 random (25gates) matches Qiskit at every step
+Error: seq #110 diverged at step 4 (gate X) of [Y Z S Y X S X T S Z X Y S H T X Z Z X X Y X Z Y H]
+  deviation 3.778e-1 > tolerance 1e-10
+  got:      alpha=0.935149+0.169379i beta=0.301673-0.076157i
+  expected: alpha=0.935149+0.169379i beta=-0.076157+0.301673i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[86/169]⎯
+
+ FAIL  vsQiskit.test.js > random #112 random (XSZZXYT) matches Qiskit at every step
+Error: seq #112 diverged at step 0 (gate X) of [X S Z Z X Y T]
+  deviation 7.399e-1 > tolerance 1e-10
+  got:      alpha=0.006654+0.048347i beta=0.971573+0.231655i
+  expected: alpha=0.006654+0.048347i beta=0.231655+0.971573i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[87/169]⎯
+
+ FAIL  vsQiskit.test.js > random #113 random (27gates) matches Qiskit at every step
+Error: seq #113 diverged at step 21 (gate X) of [H Y S Y S T T H S Y H Z H S S H S T Z Y H X X Z Z X S]
+  deviation 2.802e-1 > tolerance 1e-10
+  got:      alpha=0.299049-0.779016i beta=-0.503717-0.223546i
+  expected: alpha=0.299049-0.779016i beta=-0.223546-0.503717i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[88/169]⎯
+
+ FAIL  vsQiskit.test.js > random #114 random (25gates) matches Qiskit at every step
+Error: seq #114 diverged at step 14 (gate X) of [Z Z H T T S H H T S Z T T T X Z H Z H Z S Z T Y X]
+  deviation 2.249e-1 > tolerance 1e-10
+  got:      alpha=0.806770-0.223551i beta=0.482487+0.257590i
+  expected: alpha=0.806770-0.223551i beta=0.257590+0.482487i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[89/169]⎯
+
+ FAIL  vsQiskit.test.js > random #115 random (22gates) matches Qiskit at every step
+Error: seq #115 diverged at step 2 (gate X) of [S Y X S X T X S S S Z Z Z X S Z H Z X S T Z]
+  deviation 9.972e-1 > tolerance 1e-10
+  got:      alpha=0.131665-0.293430i beta=0.051772-0.945454i
+  expected: alpha=0.131665-0.293430i beta=-0.945454+0.051772i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[90/169]⎯
+
+ FAIL  vsQiskit.test.js > random #117 random (24gates) matches Qiskit at every step
+Error: seq #117 diverged at step 19 (gate X) of [S Z T S Y Y T H T T Z H S S S T Y S S X T H S Z]
+  deviation 9.086e-1 > tolerance 1e-10
+  got:      alpha=-0.025336-0.764166i beta=-0.490722+0.417852i
+  expected: alpha=-0.025336-0.764166i beta=0.417852-0.490722i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[91/169]⎯
+
+ FAIL  vsQiskit.test.js > random #118 random (24gates) matches Qiskit at every step
+Error: seq #118 diverged at step 8 (gate X) of [S Y Y H Y Y T T X Z Y Y T H S S S Z H T Z Y H Y]
+  deviation 4.434e-1 > tolerance 1e-10
+  got:      alpha=0.752325+0.437641i beta=-0.046784-0.490194i
+  expected: alpha=0.752325+0.437641i beta=-0.490194-0.046784i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[92/169]⎯
+
+ FAIL  vsQiskit.test.js > random #120 random (27gates) matches Qiskit at every step
+Error: seq #120 diverged at step 5 (gate X) of [Y H Y H T X S T X X X Y H T X Y Y Y T T S X Y X X S T]
+  deviation 1.104e+0 > tolerance 1e-10
+  got:      alpha=0.009764-0.229757i beta=0.140746-0.962968i
+  expected: alpha=0.009764-0.229757i beta=-0.962968+0.140746i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[93/169]⎯
+
+ FAIL  vsQiskit.test.js > random #121 random (13gates) matches Qiskit at every step
+Error: seq #121 diverged at step 7 (gate X) of [Z T T Y S Y Y X H X T Z Z]
+  deviation 1.190e+0 > tolerance 1e-10
+  got:      alpha=-0.499360-0.104442i beta=0.468063-0.721559i
+  expected: alpha=-0.499360-0.104442i beta=-0.721559+0.468063i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[94/169]⎯
+
+ FAIL  vsQiskit.test.js > random #122 random (21gates) matches Qiskit at every step
+Error: seq #122 diverged at step 2 (gate X) of [S T X Y T H T T Z Z Z Y X Y T T H X Y Y T]
+  deviation 3.178e-1 > tolerance 1e-10
+  got:      alpha=0.213614+0.592381i beta=0.366915+0.684710i
+  expected: alpha=0.213614+0.592381i beta=0.684710+0.366915i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[95/169]⎯
+
+ FAIL  vsQiskit.test.js > random #123 random (XYHYY) matches Qiskit at every step
+Error: seq #123 diverged at step 0 (gate X) of [X Y H Y Y]
+  deviation 6.214e-1 > tolerance 1e-10
+  got:      alpha=-0.236080-0.775684i beta=-0.584113+0.037312i
+  expected: alpha=-0.236080-0.775684i beta=0.037312-0.584113i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[96/169]⎯
+
+ FAIL  vsQiskit.test.js > random #124 random (18gates) matches Qiskit at every step
+Error: seq #124 diverged at step 4 (gate X) of [T Y S Z X S X Y S X H T Z Z S T Y Z]
+  deviation 1.201e-1 > tolerance 1e-10
+  got:      alpha=-0.224400-0.621425i beta=-0.467350-0.587418i
+  expected: alpha=-0.224400-0.621425i beta=-0.587418-0.467350i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[97/169]⎯
+
+ FAIL  vsQiskit.test.js > random #125 random (28gates) matches Qiskit at every step
+Error: seq #125 diverged at step 7 (gate X) of [H T Y H Z T T X S H S X Z S H Z Z T S H Z H Y H H T Z Y]
+  deviation 1.064e+0 > tolerance 1e-10
+  got:      alpha=-0.292534+0.568530i beta=-0.420431+0.643767i
+  expected: alpha=-0.292534+0.568530i beta=0.643767-0.420431i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[98/169]⎯
+
+ FAIL  vsQiskit.test.js > random #126 random (15gates) matches Qiskit at every step
+Error: seq #126 diverged at step 1 (gate X) of [S X H T Y Z Y Z Z S S H T S T]
+  deviation 7.830e-1 > tolerance 1e-10
+  got:      alpha=-0.057394-0.503579i beta=-0.075703-0.858710i
+  expected: alpha=-0.057394-0.503579i beta=-0.858710-0.075703i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[99/169]⎯
+
+ FAIL  vsQiskit.test.js > random #127 random (10gates) matches Qiskit at every step
+Error: seq #127 diverged at step 3 (gate X) of [Z S H X S Y T H Y X]
+  deviation 8.875e-1 > tolerance 1e-10
+  got:      alpha=0.545448-0.554555i beta=0.419529-0.467922i
+  expected: alpha=0.545448-0.554555i beta=-0.467922+0.419529i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[100/169]⎯
+
+ FAIL  vsQiskit.test.js > random #128 random (19gates) matches Qiskit at every step
+Error: seq #128 diverged at step 8 (gate X) of [H Y S Z Z Z Z H X H X X H Y Z S Z H Z]
+  deviation 6.843e-1 > tolerance 1e-10
+  got:      alpha=0.008292+0.738254i beta=-0.009914+0.674399i
+  expected: alpha=0.008292+0.738254i beta=0.674399-0.009914i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[101/169]⎯
+
+ FAIL  vsQiskit.test.js > random #129 random (TTYSX) matches Qiskit at every step
+Error: seq #129 diverged at step 4 (gate X) of [T T Y S X]
+  deviation 1.195e+0 > tolerance 1e-10
+  got:      alpha=0.147790-0.445357i beta=-0.779065+0.415781i
+  expected: alpha=0.147790-0.445357i beta=0.415781-0.779065i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[102/169]⎯
+
+ FAIL  vsQiskit.test.js > random #130 random (16gates) matches Qiskit at every step
+Error: seq #130 diverged at step 4 (gate X) of [S Y H Y X X T Z Z S S Y Y X T Z]
+  deviation 4.083e-1 > tolerance 1e-10
+  got:      alpha=0.720805+0.223365i beta=-0.212502-0.620798i
+  expected: alpha=0.720805+0.223365i beta=-0.620798-0.212502i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[103/169]⎯
+
+ FAIL  vsQiskit.test.js > random #131 random (26gates) matches Qiskit at every step
+Error: seq #131 diverged at step 0 (gate X) of [X H X X X T Z Z Y Y Y H H Z X Z H H Y X Z Y Y S T S]
+  deviation 3.507e-1 > tolerance 1e-10
+  got:      alpha=-0.362335-0.428117i beta=0.733906+0.383160i
+  expected: alpha=-0.362335-0.428117i beta=0.383160+0.733906i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[104/169]⎯
+
+ FAIL  vsQiskit.test.js > random #132 random (30gates) matches Qiskit at every step
+Error: seq #132 diverged at step 7 (gate X) of [T H Y Z Y Y Z X Z Y Z Z X H X Z S X S H X X S Y Z X S H Y Z]
+  deviation 7.399e-3 > tolerance 1e-10
+  got:      alpha=0.977929-0.131122i beta=-0.118664-0.111265i
+  expected: alpha=0.977929-0.131122i beta=-0.111265-0.118664i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[105/169]⎯
+
+ FAIL  vsQiskit.test.js > random #134 random (21gates) matches Qiskit at every step
+Error: seq #134 diverged at step 8 (gate X) of [S Z S S Y T H T X Z Z T T X T H Z T X Y X]
+  deviation 5.673e-1 > tolerance 1e-10
+  got:      alpha=-0.328686-0.285872i beta=0.853433+0.286173i
+  expected: alpha=-0.328686-0.285872i beta=0.286173+0.853433i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[106/169]⎯
+
+ FAIL  vsQiskit.test.js > random #135 random (13gates) matches Qiskit at every step
+Error: seq #135 diverged at step 0 (gate X) of [X H T Z H X Y Z Y X T Z T]
+  deviation 3.961e-1 > tolerance 1e-10
+  got:      alpha=0.611728-0.423361i beta=-0.627076-0.230932i
+  expected: alpha=0.611728-0.423361i beta=-0.230932-0.627076i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[107/169]⎯
+
+ FAIL  vsQiskit.test.js > random #136 random (HXHSXY) matches Qiskit at every step
+Error: seq #136 diverged at step 1 (gate X) of [H X H S X Y]
+  deviation 5.486e-2 > tolerance 1e-10
+  got:      alpha=0.111713-0.444297i beta=0.655371+0.600507i
+  expected: alpha=0.111713-0.444297i beta=0.600507+0.655371i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[108/169]⎯
+
+ FAIL  vsQiskit.test.js > random #137 random (20gates) matches Qiskit at every step
+Error: seq #137 diverged at step 11 (gate X) of [H Z H T H Z Y S S Z Y X T S S T Z Z X H]
+  deviation 8.920e-1 > tolerance 1e-10
+  got:      alpha=-0.632456-0.352102i beta=0.643713-0.248310i
+  expected: alpha=-0.632456-0.352102i beta=-0.248310+0.643713i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[109/169]⎯
+
+ FAIL  vsQiskit.test.js > random #139 random (YZHHXTT) matches Qiskit at every step
+Error: seq #139 diverged at step 4 (gate X) of [Y Z H H X T T]
+  deviation 5.491e-1 > tolerance 1e-10
+  got:      alpha=0.204692-0.816619i beta=0.539578-0.009493i
+  expected: alpha=0.204692-0.816619i beta=-0.009493+0.539578i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[110/169]⎯
+
+ FAIL  vsQiskit.test.js > random #141 random (TTSHXZSY) matches Qiskit at every step
+Error: seq #141 diverged at step 4 (gate X) of [T T S H X Z S Y]
+  deviation 6.127e-1 > tolerance 1e-10
+  got:      alpha=0.656436+0.612542i beta=0.362039-0.250621i
+  expected: alpha=0.656436+0.612542i beta=-0.250621+0.362039i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[111/169]⎯
+
+ FAIL  vsQiskit.test.js > random #142 random (17gates) matches Qiskit at every step
+Error: seq #142 diverged at step 7 (gate X) of [S Z S Z Y T H X Y S Z H S Z Y X S]
+  deviation 4.141e-1 > tolerance 1e-10
+  got:      alpha=-0.037324+0.842170i beta=0.526134+0.111984i
+  expected: alpha=-0.037324+0.842170i beta=0.111984+0.526134i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[112/169]⎯
+
+ FAIL  vsQiskit.test.js > random #144 random (22gates) matches Qiskit at every step
+Error: seq #144 diverged at step 3 (gate X) of [S T Z X Y T X X Y T Z T T S T T Y H H Z Y Y]
+  deviation 3.073e-1 > tolerance 1e-10
+  got:      alpha=-0.003131+0.920155i beta=-0.076668-0.383963i
+  expected: alpha=-0.003131+0.920155i beta=-0.383963-0.076668i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[113/169]⎯
+
+ FAIL  vsQiskit.test.js > random #147 random (SXY) matches Qiskit at every step
+Error: seq #147 diverged at step 1 (gate X) of [S X Y]
+  deviation 2.991e-1 > tolerance 1e-10
+  got:      alpha=-0.932422+0.291689i beta=0.169106-0.130037i
+  expected: alpha=-0.932422+0.291689i beta=-0.130037+0.169106i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[114/169]⎯
+
+ FAIL  vsQiskit.test.js > random #148 random (11gates) matches Qiskit at every step
+Error: seq #148 diverged at step 2 (gate X) of [Y T X Y S H Y H X Z S]
+  deviation 6.715e-1 > tolerance 1e-10
+  got:      alpha=0.554830-0.653757i beta=-0.195553+0.475945i
+  expected: alpha=0.554830-0.653757i beta=0.475945-0.195553i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[115/169]⎯
+
+ FAIL  vsQiskit.test.js > random #150 random (13gates) matches Qiskit at every step
+Error: seq #150 diverged at step 3 (gate X) of [T Z S X Z X H Z X Y H H S]
+  deviation 6.934e-1 > tolerance 1e-10
+  got:      alpha=0.486731+0.321487i beta=-0.804598-0.111181i
+  expected: alpha=0.486731+0.321487i beta=-0.111181-0.804598i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[116/169]⎯
+
+ FAIL  vsQiskit.test.js > random #151 random (11gates) matches Qiskit at every step
+Error: seq #151 diverged at step 3 (gate X) of [Z Z T X T H T H T H X]
+  deviation 2.712e-1 > tolerance 1e-10
+  got:      alpha=-0.583950-0.769064i beta=-0.011599+0.259631i
+  expected: alpha=-0.583950-0.769064i beta=0.259631-0.011599i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[117/169]⎯
+
+ FAIL  vsQiskit.test.js > random #152 random (29gates) matches Qiskit at every step
+Error: seq #152 diverged at step 0 (gate X) of [X Y S Y H Y S T Z T S T S S T H S X X Y T Y Z X H T Y Y T]
+  deviation 9.615e-3 > tolerance 1e-10
+  got:      alpha=0.617164-0.716874i beta=0.224490+0.234104i
+  expected: alpha=0.617164-0.716874i beta=0.234104+0.224490i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[118/169]⎯
+
+ FAIL  vsQiskit.test.js > random #153 random (10gates) matches Qiskit at every step
+Error: seq #153 diverged at step 2 (gate X) of [Z T X X T S Z S Y T]
+  deviation 7.593e-1 > tolerance 1e-10
+  got:      alpha=0.316058-0.627217i beta=0.049122-0.710136i
+  expected: alpha=0.316058-0.627217i beta=-0.710136+0.049122i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[119/169]⎯
+
+ FAIL  vsQiskit.test.js > random #155 random (20gates) matches Qiskit at every step
+Error: seq #155 diverged at step 8 (gate X) of [S H Y T H Y Z H X H Y S Z T X S H Z X Y]
+  deviation 1.385e-1 > tolerance 1e-10
+  got:      alpha=0.135201-0.978778i beta=-0.153285-0.014762i
+  expected: alpha=0.135201-0.978778i beta=-0.014762-0.153285i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[120/169]⎯
+
+ FAIL  vsQiskit.test.js > random #156 random (17gates) matches Qiskit at every step
+Error: seq #156 diverged at step 5 (gate X) of [Z Z S H T X H T Z Y T Z S S Y H H]
+  deviation 4.077e-1 > tolerance 1e-10
+  got:      alpha=-0.211295+0.925104i beta=-0.113232+0.294474i
+  expected: alpha=-0.211295+0.925104i beta=0.294474-0.113232i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[121/169]⎯
+
+ FAIL  vsQiskit.test.js > random #157 random (30gates) matches Qiskit at every step
+Error: seq #157 diverged at step 0 (gate X) of [X S X X Z X X Y S T H X Y Z T S S S Y Y S X X Y H X Y S X H]
+  deviation 2.518e-1 > tolerance 1e-10
+  got:      alpha=0.455814+0.835956i beta=0.049786+0.301548i
+  expected: alpha=0.455814+0.835956i beta=0.301548+0.049786i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[122/169]⎯
+
+ FAIL  vsQiskit.test.js > random #158 random (30gates) matches Qiskit at every step
+Error: seq #158 diverged at step 5 (gate X) of [Y H H S T X S Y T H T X Y T Z X Y Y T Z Z S T Z H Y H H T Z]
+  deviation 8.092e-2 > tolerance 1e-10
+  got:      alpha=0.817672+0.162591i beta=0.428854+0.347939i
+  expected: alpha=0.817672+0.162591i beta=0.347939+0.428854i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[123/169]⎯
+
+ FAIL  vsQiskit.test.js > random #159 random (30gates) matches Qiskit at every step
+Error: seq #159 diverged at step 3 (gate X) of [Y H S X X X T T T Z Y Y S X Z Y Y H S X X H X X H X Y Z S X]
+  deviation 7.872e-1 > tolerance 1e-10
+  got:      alpha=-0.479746+0.645077i beta=0.541700-0.245520i
+  expected: alpha=-0.479746+0.645077i beta=-0.245520+0.541700i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[124/169]⎯
+
+ FAIL  vsQiskit.test.js > random #160 random (YYSXSZ) matches Qiskit at every step
+Error: seq #160 diverged at step 3 (gate X) of [Y Y S X S Z]
+  deviation 4.534e-1 > tolerance 1e-10
+  got:      alpha=0.915602+0.051939i beta=-0.059042+0.394322i
+  expected: alpha=0.915602+0.051939i beta=0.394322-0.059042i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[125/169]⎯
+
+ FAIL  vsQiskit.test.js > random #161 random (XTHTXZHX) matches Qiskit at every step
+Error: seq #161 diverged at step 0 (gate X) of [X T H T X Z H X]
+  deviation 3.841e-1 > tolerance 1e-10
+  got:      alpha=-0.402039+0.861335i beta=0.298574-0.085558i
+  expected: alpha=-0.402039+0.861335i beta=-0.085558+0.298574i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[126/169]⎯
+
+ FAIL  vsQiskit.test.js > random #162 random (18gates) matches Qiskit at every step
+Error: seq #162 diverged at step 3 (gate X) of [S T T X S T Z Z Z H X S Y X T T S Z]
+  deviation 4.661e-1 > tolerance 1e-10
+  got:      alpha=-0.687123+0.077640i beta=0.687591+0.221479i
+  expected: alpha=-0.687123+0.077640i beta=0.221479+0.687591i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[127/169]⎯
+
+ FAIL  vsQiskit.test.js > random #163 random (17gates) matches Qiskit at every step
+Error: seq #163 diverged at step 11 (gate X) of [H T H Y Z H Y T S Z Z X H Y S S T]
+  deviation 1.124e+0 > tolerance 1e-10
+  got:      alpha=0.466540-0.294271i beta=-0.741038+0.382894i
+  expected: alpha=0.466540-0.294271i beta=0.382894-0.741038i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[128/169]⎯
+
+ FAIL  vsQiskit.test.js > random #165 random (22gates) matches Qiskit at every step
+Error: seq #165 diverged at step 3 (gate X) of [Z T T X Z Z Y Y S H Z X S Y Y Z Z Z Z S T H]
+  deviation 1.259e-2 > tolerance 1e-10
+  got:      alpha=0.453562+0.890697i beta=0.014456+0.027043i
+  expected: alpha=0.453562+0.890697i beta=0.027043+0.014456i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[129/169]⎯
+
+ FAIL  vsQiskit.test.js > random #166 random (25gates) matches Qiskit at every step
+Error: seq #166 diverged at step 1 (gate X) of [Z X X T Y S H Z H H T Y S S T Y Y S S X S Y H S Z]
+  deviation 6.037e-1 > tolerance 1e-10
+  got:      alpha=-0.426186-0.633897i beta=0.040475+0.644129i
+  expected: alpha=-0.426186-0.633897i beta=0.644129+0.040475i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[130/169]⎯
+
+ FAIL  vsQiskit.test.js > random #167 random (10gates) matches Qiskit at every step
+Error: seq #167 diverged at step 6 (gate X) of [T Z Y Y H S X H S S]
+  deviation 1.506e-2 > tolerance 1e-10
+  got:      alpha=-0.260281-0.018880i beta=0.690094+0.675032i
+  expected: alpha=-0.260281-0.018880i beta=0.675032+0.690094i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[131/169]⎯
+
+ FAIL  vsQiskit.test.js > random #168 random (20gates) matches Qiskit at every step
+Error: seq #168 diverged at step 0 (gate X) of [X S Y X X Z Y S Y S Y Y S T Z Z X X H Y]
+  deviation 7.156e-1 > tolerance 1e-10
+  got:      alpha=0.834206-0.061981i beta=-0.209072+0.506505i
+  expected: alpha=0.834206-0.061981i beta=0.506505-0.209072i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[132/169]⎯
+
+ FAIL  vsQiskit.test.js > random #169 random (29gates) matches Qiskit at every step
+Error: seq #169 diverged at step 1 (gate X) of [S X S S S Z Y S Y H Z X S X X X Z Y H Y Y H H Y Y H S H Z]
+  deviation 1.310e+0 > tolerance 1e-10
+  got:      alpha=-0.346404-0.037521i beta=0.553939-0.756140i
+  expected: alpha=-0.346404-0.037521i beta=-0.756140+0.553939i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[133/169]⎯
+
+ FAIL  vsQiskit.test.js > random #170 random (23gates) matches Qiskit at every step
+Error: seq #170 diverged at step 5 (gate X) of [Z Y S Y Z X Z X H H X X Y T H T H T X T X H Y]
+  deviation 7.429e-1 > tolerance 1e-10
+  got:      alpha=-0.611224+0.481121i beta=0.615347-0.127579i
+  expected: alpha=-0.611224+0.481121i beta=-0.127579+0.615347i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[134/169]⎯
+
+ FAIL  vsQiskit.test.js > random #171 random (24gates) matches Qiskit at every step
+Error: seq #171 diverged at step 5 (gate X) of [Y Z S T T X S H S Z T T X Y X H T X H T Y T T S]
+  deviation 1.478e-1 > tolerance 1e-10
+  got:      alpha=-0.385370-0.507492i beta=0.466004+0.613825i
+  expected: alpha=-0.385370-0.507492i beta=0.613825+0.466004i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[135/169]⎯
+
+ FAIL  vsQiskit.test.js > random #172 random (15gates) matches Qiskit at every step
+Error: seq #172 diverged at step 0 (gate X) of [X H T Z T T H X T Z H S Z H Y]
+  deviation 8.481e-1 > tolerance 1e-10
+  got:      alpha=-0.602020+0.044326i beta=-0.795511+0.052615i
+  expected: alpha=-0.602020+0.044326i beta=0.052615-0.795511i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[136/169]⎯
+
+ FAIL  vsQiskit.test.js > random #173 random (30gates) matches Qiskit at every step
+Error: seq #173 diverged at step 7 (gate X) of [T T Z Z Y Y H X T Y T X H Z Y Y Y Y T Z H X T S S Z H Z S Y]
+  deviation 1.075e+0 > tolerance 1e-10
+  got:      alpha=0.155723+0.611359i beta=-0.647277+0.427812i
+  expected: alpha=0.155723+0.611359i beta=0.427812-0.647277i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[137/169]⎯
+
+ FAIL  vsQiskit.test.js > random #176 random (15gates) matches Qiskit at every step
+Error: seq #176 diverged at step 10 (gate X) of [Y S Z Z H S S T Z Z X T S X S]
+  deviation 1.567e-1 > tolerance 1e-10
+  got:      alpha=0.297402-0.241149i beta=0.570160+0.726854i
+  expected: alpha=0.297402-0.241149i beta=0.726854+0.570160i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[138/169]⎯
+
+ FAIL  vsQiskit.test.js > random #179 random (20gates) matches Qiskit at every step
+Error: seq #179 diverged at step 0 (gate X) of [X X H T S Y T S Y X S H Z S X T Z H S T]
+  deviation 1.302e+0 > tolerance 1e-10
+  got:      alpha=0.196743-0.020713i beta=-0.413443+0.888779i
+  expected: alpha=0.196743-0.020713i beta=0.888779-0.413443i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[139/169]⎯
+
+ FAIL  vsQiskit.test.js > random #180 random (26gates) matches Qiskit at every step
+Error: seq #180 diverged at step 22 (gate X) of [S T Y T S S H Z Y T H H H Y Y S Z Y S S S Z X T H Y]
+  deviation 3.468e-1 > tolerance 1e-10
+  got:      alpha=-0.792723-0.543706i beta=-0.084369+0.262403i
+  expected: alpha=-0.792723-0.543706i beta=0.262403-0.084369i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[140/169]⎯
+
+ FAIL  vsQiskit.test.js > random #181 random (11gates) matches Qiskit at every step
+Error: seq #181 diverged at step 7 (gate X) of [Y H S H H H Y X X T H]
+  deviation 6.585e-1 > tolerance 1e-10
+  got:      alpha=0.157621-0.864541i beta=0.255482-0.403055i
+  expected: alpha=0.157621-0.864541i beta=-0.403055+0.255482i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[141/169]⎯
+
+ FAIL  vsQiskit.test.js > random #182 random (HYXH) matches Qiskit at every step
+Error: seq #182 diverged at step 2 (gate X) of [H Y X H]
+  deviation 8.878e-1 > tolerance 1e-10
+  got:      alpha=-0.055185+0.482124i beta=0.013526-0.874258i
+  expected: alpha=-0.055185+0.482124i beta=-0.874258+0.013526i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[142/169]⎯
+
+ FAIL  vsQiskit.test.js > random #183 random (24gates) matches Qiskit at every step
+Error: seq #183 diverged at step 4 (gate X) of [Z Z H S X H H Z Y S T S Z X S Z T Z X T H Y Y T]
+  deviation 7.934e-1 > tolerance 1e-10
+  got:      alpha=0.773682-0.280162i beta=0.460679-0.332717i
+  expected: alpha=0.773682-0.280162i beta=-0.332717+0.460679i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[143/169]⎯
+
+ FAIL  vsQiskit.test.js > random #184 random (21gates) matches Qiskit at every step
+Error: seq #184 diverged at step 1 (gate X) of [S X Y X T S H T X Y H Y Z H Z T T Y S T H]
+  deviation 8.418e-1 > tolerance 1e-10
+  got:      alpha=-0.527159+0.443641i beta=0.713282-0.128509i
+  expected: alpha=-0.527159+0.443641i beta=-0.128509+0.713282i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[144/169]⎯
+
+ FAIL  vsQiskit.test.js > random #185 random (23gates) matches Qiskit at every step
+Error: seq #185 diverged at step 1 (gate X) of [Z X H Z H T S S S X H H T S Y T X H S X Z Z T]
+  deviation 4.980e-1 > tolerance 1e-10
+  got:      alpha=0.787766-0.073464i beta=-0.602573-0.104559i
+  expected: alpha=0.787766-0.073464i beta=-0.104559-0.602573i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[145/169]⎯
+
+ FAIL  vsQiskit.test.js > random #186 random (26gates) matches Qiskit at every step
+Error: seq #186 diverged at step 8 (gate X) of [Z Z Y S T T H S X H X Y T T T Z H Y Z T T H Y S S H]
+  deviation 6.466e-1 > tolerance 1e-10
+  got:      alpha=0.866561-0.189908i beta=-0.367859+0.278722i
+  expected: alpha=0.866561-0.189908i beta=0.278722-0.367859i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[146/169]⎯
+
+ FAIL  vsQiskit.test.js > random #187 random (27gates) matches Qiskit at every step
+Error: seq #187 diverged at step 2 (gate X) of [Y T X H H H T H X T Z S H H Z T Z S X Y H S H S Z X H]
+  deviation 7.167e-1 > tolerance 1e-10
+  got:      alpha=-0.145962-0.803853i beta=0.163836-0.552877i
+  expected: alpha=-0.145962-0.803853i beta=-0.552877+0.163836i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[147/169]⎯
+
+ FAIL  vsQiskit.test.js > random #188 random (ZHZTXYX) matches Qiskit at every step
+Error: seq #188 diverged at step 4 (gate X) of [Z H Z T X Y X]
+  deviation 4.134e-1 > tolerance 1e-10
+  got:      alpha=-0.108518+0.680821i beta=0.261970+0.675335i
+  expected: alpha=-0.108518+0.680821i beta=0.675335+0.261970i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[148/169]⎯
+
+ FAIL  vsQiskit.test.js > random #189 random (YXTY) matches Qiskit at every step
+Error: seq #189 diverged at step 1 (gate X) of [Y X T Y]
+  deviation 1.307e+0 > tolerance 1e-10
+  got:      alpha=0.301393-0.122981i beta=-0.794932+0.511978i
+  expected: alpha=0.301393-0.122981i beta=0.511978-0.794932i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[149/169]⎯
+
+ FAIL  vsQiskit.test.js > random #190 random (TZHXZ) matches Qiskit at every step
+Error: seq #190 diverged at step 3 (gate X) of [T Z H X Z]
+  deviation 1.007e+0 > tolerance 1e-10
+  got:      alpha=-0.585523-0.129047i beta=-0.244762+0.761972i
+  expected: alpha=-0.585523-0.129047i beta=0.761972-0.244762i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[150/169]⎯
+
+ FAIL  vsQiskit.test.js > random #191 random (23gates) matches Qiskit at every step
+Error: seq #191 diverged at step 2 (gate X) of [T S X T Y Z T H Y X H Z H Z H Z T Y T T X S Z]
+  deviation 1.895e-1 > tolerance 1e-10
+  got:      alpha=0.389076+0.910884i beta=-0.072783+0.116675i
+  expected: alpha=0.389076+0.910884i beta=0.116675-0.072783i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[151/169]⎯
+
+ FAIL  vsQiskit.test.js > random #192 random (27gates) matches Qiskit at every step
+Error: seq #192 diverged at step 4 (gate X) of [Z Y Y Z X T X S H Z S S S X Z S T Z Z T Y Y T Z T H X]
+  deviation 6.485e-1 > tolerance 1e-10
+  got:      alpha=-0.295296+0.646538i beta=-0.052963-0.701416i
+  expected: alpha=-0.295296+0.646538i beta=-0.701416-0.052963i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[152/169]⎯
+
+ FAIL  vsQiskit.test.js > random #193 random (12gates) matches Qiskit at every step
+Error: seq #193 diverged at step 1 (gate X) of [Y X H Y Y S Z S X T X T]
+  deviation 4.247e-1 > tolerance 1e-10
+  got:      alpha=0.678854-0.073975i beta=-0.683251-0.258560i
+  expected: alpha=0.678854-0.073975i beta=-0.258560-0.683251i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[153/169]⎯
+
+ FAIL  vsQiskit.test.js > random #194 random (18gates) matches Qiskit at every step
+Error: seq #194 diverged at step 0 (gate X) of [X T T Y X T S Y Z X T Y S T H T S T]
+  deviation 1.166e-1 > tolerance 1e-10
+  got:      alpha=0.983110-0.095306i beta=-0.152151-0.035519i
+  expected: alpha=0.983110-0.095306i beta=-0.035519-0.152151i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[154/169]⎯
+
+ FAIL  vsQiskit.test.js > random #195 random (28gates) matches Qiskit at every step
+Error: seq #195 diverged at step 0 (gate X) of [X X X H H T T S Z Z Z H Z X X Z X X Y H X S Y S X X X S]
+  deviation 3.209e-1 > tolerance 1e-10
+  got:      alpha=0.306789+0.846927i beta=0.422286+0.101345i
+  expected: alpha=0.306789+0.846927i beta=0.101345+0.422286i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[155/169]⎯
+
+ FAIL  vsQiskit.test.js > random #196 random (27gates) matches Qiskit at every step
+Error: seq #196 diverged at step 7 (gate X) of [H T Y H T H T X H Y X T S Y S S Z H Y X Y H Z S Y X X]
+  deviation 4.843e-1 > tolerance 1e-10
+  got:      alpha=0.185195-0.650492i beta=0.218978+0.703286i
+  expected: alpha=0.185195-0.650492i beta=0.703286+0.218978i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[156/169]⎯
+
+ FAIL  vsQiskit.test.js > random #197 random (20gates) matches Qiskit at every step
+Error: seq #197 diverged at step 3 (gate X) of [Z S S X T H H S S S X Z T T T Y H X Y H]
+  deviation 1.927e-1 > tolerance 1e-10
+  got:      alpha=-0.870662+0.359141i beta=0.120899+0.313606i
+  expected: alpha=-0.870662+0.359141i beta=0.313606+0.120899i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[157/169]⎯
+
+ FAIL  vsQiskit.test.js > random #198 random (21gates) matches Qiskit at every step
+Error: seq #198 diverged at step 1 (gate X) of [S X H Z Z X Y Z S Z Z T Z Z Z S Y Z Z T Y]
+  deviation 1.244e+0 > tolerance 1e-10
+  got:      alpha=-0.218760-0.289737i beta=0.403916-0.839672i
+  expected: alpha=-0.218760-0.289737i beta=-0.839672+0.403916i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[158/169]⎯
+
+ FAIL  vsQiskit.test.js > random #199 random (13gates) matches Qiskit at every step
+Error: seq #199 diverged at step 0 (gate X) of [X T T H Z Y Z S Z Z H X S]
+  deviation 7.016e-1 > tolerance 1e-10
+  got:      alpha=-0.275786+0.819488i beta=-0.294702+0.406857i
+  expected: alpha=-0.275786+0.819488i beta=0.406857-0.294702i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[159/169]⎯
+
+ FAIL  vsQiskit.test.js > random #200 random (15gates) matches Qiskit at every step
+Error: seq #200 diverged at step 7 (gate X) of [H Z S Z Z H T X H S X Z Y Z X]
+  deviation 5.109e-1 > tolerance 1e-10
+  got:      alpha=0.869625+0.320690i beta=0.327515-0.183420i
+  expected: alpha=0.869625+0.320690i beta=-0.183420+0.327515i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[160/169]⎯
+
+ FAIL  vsQiskit.test.js > random #201 random (SZXHHYZZ) matches Qiskit at every step
+Error: seq #201 diverged at step 2 (gate X) of [S Z X H H Y Z Z]
+  deviation 8.990e-1 > tolerance 1e-10
+  got:      alpha=-0.649708-0.189411i beta=0.712093-0.186886i
+  expected: alpha=-0.649708-0.189411i beta=-0.186886+0.712093i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[161/169]⎯
+
+ FAIL  vsQiskit.test.js > random #203 random (21gates) matches Qiskit at every step
+Error: seq #203 diverged at step 13 (gate X) of [Z S S S Y T T Z H Z T S Z X H H X S X T Y]
+  deviation 3.400e-1 > tolerance 1e-10
+  got:      alpha=-0.834089+0.484339i beta=0.247179-0.092812i
+  expected: alpha=-0.834089+0.484339i beta=-0.092812+0.247179i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[162/169]⎯
+
+ FAIL  vsQiskit.test.js > random #204 random (14gates) matches Qiskit at every step
+Error: seq #204 diverged at step 2 (gate X) of [T S X T Y T T H T Y Z H T Z]
+  deviation 5.871e-1 > tolerance 1e-10
+  got:      alpha=-0.171203-0.654325i beta=-0.136666-0.723789i
+  expected: alpha=-0.171203-0.654325i beta=-0.723789-0.136666i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[163/169]⎯
+
+ FAIL  vsQiskit.test.js > random #205 random (11gates) matches Qiskit at every step
+Error: seq #205 diverged at step 0 (gate X) of [X Z Z Y T Z H Y Y Y S]
+  deviation 5.496e-1 > tolerance 1e-10
+  got:      alpha=-0.258508-0.024362i beta=-0.350303-0.899927i
+  expected: alpha=-0.258508-0.024362i beta=-0.899927-0.350303i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[164/169]⎯
+
+ FAIL  vsQiskit.test.js > random #206 random (28gates) matches Qiskit at every step
+Error: seq #206 diverged at step 1 (gate X) of [T X T X T H Z Z S T S H X S S X T Z Z T H S H Y Z X H Z]
+  deviation 8.027e-1 > tolerance 1e-10
+  got:      alpha=-0.762490-0.064218i beta=0.616204-0.186487i
+  expected: alpha=-0.762490-0.064218i beta=-0.186487+0.616204i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[165/169]⎯
+
+ FAIL  vsQiskit.test.js > random #207 random (30gates) matches Qiskit at every step
+Error: seq #207 diverged at step 18 (gate X) of [H S Y T T S T T S T Z H Z S Z H T S X S Y Z T Z T H H X H X]
+  deviation 6.124e-1 > tolerance 1e-10
+  got:      alpha=0.477324-0.742797i beta=0.177879-0.434480i
+  expected: alpha=0.477324-0.742797i beta=-0.434480+0.177879i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[166/169]⎯
+
+ FAIL  vsQiskit.test.js > random #208 random (22gates) matches Qiskit at every step
+Error: seq #208 diverged at step 11 (gate X) of [Z H Z Y S H S H Y T H X Y H S Y Y X Y T H X]
+  deviation 1.082e+0 > tolerance 1e-10
+  got:      alpha=0.490034+0.208858i beta=0.284557-0.797040i
+  expected: alpha=0.490034+0.208858i beta=-0.797040+0.284557i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[167/169]⎯
+
+ FAIL  vsQiskit.test.js > random #209 random (10gates) matches Qiskit at every step
+Error: seq #209 diverged at step 0 (gate X) of [X X S Z Y H S H Z Z]
+  deviation 4.209e-1 > tolerance 1e-10
+  got:      alpha=0.123766-0.894572i beta=-0.429360-0.008508i
+  expected: alpha=0.123766-0.894572i beta=-0.008508-0.429360i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[168/169]⎯
+
+ FAIL  vsQiskit.test.js > random #210 random (ZTX) matches Qiskit at every step
+Error: seq #210 diverged at step 2 (gate X) of [Z T X]
+  deviation 2.283e-1 > tolerance 1e-10
+  got:      alpha=0.505390-0.599519i beta=-0.537865-0.309612i
+  expected: alpha=0.505390-0.599519i beta=-0.309612-0.537865i
+ ❯ assertReplay vsQiskit.test.js:106:11
+    104|   const r = replay(seq);
+    105|   if (!r.ok) {
+    106|     throw new Error(
+       |           ^
+    107|       `seq #${seq.id} diverged at step ${r.step.index} (gate ${r.step.…
+    108|         `of [${seq.gates.join(" ")}]\n` +
+ ❯ vsQiskit.test.js:168:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[169/169]⎯
+
+
+ Test Files  1 failed | 7 passed (8)
+      Tests  169 failed | 126 passed (295)
+   Start at  15:00:04
+   Duration  4.23s (transform 1.07s, setup 0ms, import 20.29s, tests 286ms, environment 2ms)
+
