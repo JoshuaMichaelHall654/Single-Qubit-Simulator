@@ -1,5 +1,6 @@
 import { afterAll, expect, test } from "vitest";
 import { readFileSync } from "node:fs";
+import { maxComponentDiff } from "./stateCompare";
 import backendModule from "../../../compiledBackend/backend.out";
 let backend = await backendModule();
 
@@ -61,12 +62,7 @@ let maxDeviation = 0;
 let comparisons = 0;
 
 function deviation(got, expected) {
-  const d = Math.max(
-    Math.abs(got.alpha.re - expected.alpha.re),
-    Math.abs(got.alpha.im - expected.alpha.im),
-    Math.abs(got.beta.re - expected.beta.re),
-    Math.abs(got.beta.im - expected.beta.im),
-  );
+  const d = maxComponentDiff(got, expected); // was the inline Math.max(...)
   comparisons++;
   if (d > maxDeviation) maxDeviation = d;
   return d;
@@ -178,3 +174,24 @@ afterAll(() => {
       `(assertion threshold ${TOLERANCE}).`,
   );
 });
+
+// Pure comparison metric shared by the Qiskit cross-check (QiskitReference_test.js)
+// and its unit test (stateCompare.test.js). Deliberately side-effect-free so it
+// can be exercised in isolation; the running-max tracking the cross-check needs
+// lives in that test file, wrapped around this.
+//
+// A state is { alpha: { re, im }, beta: { re, im } }.
+
+// Largest absolute difference across the four real components of two states.
+// Component-wise (not fidelity), so it is phase-SENSITIVE: two states that are
+// equal up to a global phase register as different. That is intended for the six
+// standard gates (no phase-convention offset vs Qiskit); revisit this metric if
+// phase-carrying gates like RZ are ever added.
+export function maxComponentDiff(a, b) {
+  return Math.max(
+    Math.abs(a.alpha.re - b.alpha.re),
+    Math.abs(a.alpha.im - b.alpha.im),
+    Math.abs(a.beta.re - b.beta.re),
+    Math.abs(a.beta.im - b.beta.im),
+  );
+}

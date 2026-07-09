@@ -22,3 +22,7 @@ Where the first one is a JIT warm up. The median within each batch, then the mea
 Why only 50,000 gates? Longer runs (~1M gates, ~5s of sustained compute) showed slowdown from CPU thermal throttling; shorter runs finish before the cpu gets hot, giving stable timings. Additionally, the UI only allows a few manual gate applications per second (since the users have to click manually), so throughput is nowhere near a user constraint at current scale. What the measurement shows: near-identical dev and production timings indicate per-call cost is dominated by the JS/WASM boundary rather than the arithmetic, and the figure establishes a baseline for batch execution features (premade circuits, validation harnesses) and for multi-qubit support, where per-gate cost grows with state size.
 
 Why test on the frontend? I cared more about what the user actually experiences, now, or later with heavier multi-gate features, than how fast the C++ could theoretically run if I timed it internally behind a single call. If the matrix math was fast but slow to cross the JS/WASM boundary, the user experience could take that hit without me knowing, and I wanted to find that out ahead of time.
+
+Golden-fixture test suite (Vitest) validating simulator output against a reference implementation (Qiskit) across 212 randomized gate sequences, matching to ~1e-15 (machine precision for float64)
+
+Golden fixture means that the qiskit data was pregenerated in a file, and then I checked my output against every one of its outputs. Is the way its framed redundant? Maybe, figure it out later
